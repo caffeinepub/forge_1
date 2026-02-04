@@ -14,8 +14,8 @@ export default function RoadmapPage() {
                 
                 <RoadmapTimeline />
 
-                {/* Feedback Section */}
-                <div className="mt-20 pt-12 border-t border-white/10">
+                {/* Feedback Section with anchor */}
+                <div id="feedback" className="mt-20 pt-12 border-t border-white/10">
                     <div className="mb-8">
                         <h2 className="text-3xl font-bold text-foreground mb-4">
                             Shape the Roadmap

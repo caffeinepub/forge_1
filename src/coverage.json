@@ -1,7 +1,7 @@
 {
   "kind": "coverage_report",
   "version": "1.0",
-  "generatedAt": "2026-02-04T12:04:14.614Z",
+  "generatedAt": "2026-02-04T14:01:52.429Z",
   "sources": {
     "buildRequest": true,
     "implementationPlan": true
@@ -12,49 +12,43 @@
     "items": [
       {
         "id": "REQ-6",
-        "summary": "Remove the Forge icon mark from all user-visible UI surfaces and enforce a permanent text-only brand presentation that displays exactly “Forge AI” everywhere branding appears (header, homepage hero branding, any other brand lockups, and any loading/empty states that currently show a logo).",
+        "summary": "Implement sitewide smooth scrolling for normal page scrolling (mousewheel/trackpad) using a global CSS approach, with strict prefers-reduced-motion compliance so reduced-motion users get default (non-smooth) scrolling.",
         "status": "implemented",
         "plannedFiles": [
-          "frontend/src/components/ForgeBrandMark.tsx",
-          "frontend/src/components/GlobalHeader.tsx",
-          "frontend/src/components/HeroSection.tsx",
-          "frontend/src/pages/ForgeHomePage.tsx"
+          "frontend/src/index.css"
         ],
         "matchedFiles": [
-          "frontend/src/components/ForgeBrandMark.tsx",
-          "frontend/src/components/GlobalHeader.tsx",
-          "frontend/src/components/HeroSection.tsx",
-          "frontend/src/pages/ForgeHomePage.tsx"
+          "frontend/src/index.css"
         ]
       },
       {
         "id": "REQ-7",
-        "summary": "Update the reusable branding component(s) so that the default and only supported brand rendering is text-only (no <img> icon usage), and update existing callers to stop requesting or relying on icon-based variants (e.g., remove usage patterns like variant=\"icon-text\").",
+        "summary": "Make scroll-to-top and section-jump transitions feel smoother across the entire site by tuning the scroll-to-top easing/duration (frontend/src/hooks/useScrollBehavior.ts) and standardizing section-jump behavior so it is consistent with prefers-reduced-motion support.",
         "status": "implemented",
         "plannedFiles": [
-          "frontend/src/components/ForgeBrandMark.tsx",
-          "frontend/src/components/GlobalHeader.tsx",
-          "frontend/src/components/HeroSection.tsx",
-          "frontend/src/pages/ForgeHomePage.tsx"
+          "frontend/src/hooks/useScrollBehavior.ts",
+          "frontend/src/layouts/RootLayout.tsx",
+          "frontend/src/pages/ForgeHomePage.tsx",
+          "frontend/src/components/HomeSectionIndexFooter.tsx"
         ],
         "matchedFiles": [
-          "frontend/src/components/ForgeBrandMark.tsx",
-          "frontend/src/components/GlobalHeader.tsx",
-          "frontend/src/components/HeroSection.tsx",
-          "frontend/src/pages/ForgeHomePage.tsx"
+          "frontend/src/hooks/useScrollBehavior.ts",
+          "frontend/src/layouts/RootLayout.tsx",
+          "frontend/src/pages/ForgeHomePage.tsx",
+          "frontend/src/components/HomeSectionIndexFooter.tsx"
         ]
       },
       {
         "id": "REQ-8",
-        "summary": "Remove the Forge icon mark from the site chrome metadata where it is currently used as a favicon, so the app no longer references the Forge icon asset for the browser tab icon.",
+        "summary": "Apply a light-touch homepage polish pass (frontend/src/pages/ForgeHomePage.tsx + existing global Tailwind utilities) focused on micro-motion, spacing, and small visual refinements (glow softness, gradient subtlety, hierarchy tightening) without changing the homepage information architecture or adding new sections/features.",
         "status": "implemented",
         "plannedFiles": [
-          "frontend/index.html",
-          "frontend/public/assets/generated/forge-icon-v2.dim_256x256.png"
+          "frontend/src/pages/ForgeHomePage.tsx",
+          "frontend/src/index.css"
         ],
         "matchedFiles": [
-          "frontend/index.html",
-          "frontend/public/assets/generated/forge-icon-v2.dim_256x256.png"
+          "frontend/src/pages/ForgeHomePage.tsx",
+          "frontend/src/index.css"
         ]
       }
     ]
@@ -64,11 +58,10 @@
     "feature_evidence.json",
     "frontend-file-summaries.txt",
     "frontend-implementation-plan.json",
-    "frontend/index.html",
-    "frontend/public/assets/generated/forge-icon-v2.dim_256x256.png",
-    "frontend/src/components/ForgeBrandMark.tsx",
-    "frontend/src/components/GlobalHeader.tsx",
-    "frontend/src/components/HeroSection.tsx",
+    "frontend/src/components/HomeSectionIndexFooter.tsx",
+    "frontend/src/hooks/useScrollBehavior.ts",
+    "frontend/src/index.css",
+    "frontend/src/layouts/RootLayout.tsx",
     "frontend/src/pages/ForgeHomePage.tsx",
     "project_state.json",
     "scratch/component-selection.json",

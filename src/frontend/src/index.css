@@ -31,11 +31,20 @@
         --chart-4: 0.40 0.10 285;
         --chart-5: 0.80 0.22 285;
         
-        /* Forge-specific tokens - intensified for visible gradients */
+        /* Forge-specific tokens - softened for refined polish */
         --forge-purple-start: 0.60 0.20 285;
         --forge-purple-end: 0.80 0.22 285;
         --forge-glow: 0.70 0.18 285;
         --forge-near-black: 0.05 0 0;
+
+        /* Motion timing tokens for consistent micro-interactions */
+        --motion-duration-instant: 0.1s;
+        --motion-duration-fast: 0.2s;
+        --motion-duration-normal: 0.3s;
+        --motion-duration-slow: 0.5s;
+        --motion-easing-standard: cubic-bezier(0.4, 0.0, 0.2, 1);
+        --motion-easing-decelerate: cubic-bezier(0.0, 0.0, 0.2, 1);
+        --motion-easing-accelerate: cubic-bezier(0.4, 0.0, 1, 1);
     }
 
     .dark {
@@ -65,7 +74,7 @@
         --chart-4: 0.40 0.10 285;
         --chart-5: 0.80 0.22 285;
         
-        /* Forge-specific tokens - intensified for visible gradients */
+        /* Forge-specific tokens - softened for refined polish */
         --forge-purple-start: 0.60 0.20 285;
         --forge-purple-end: 0.80 0.22 285;
         --forge-glow: 0.70 0.18 285;
@@ -76,11 +85,38 @@
         @apply border-border;
     }
     
+    /* Global smooth scrolling - only when motion is allowed */
+    @media (prefers-reduced-motion: no-preference) {
+        html {
+            scroll-behavior: smooth;
+        }
+    }
+
+    /* Ensure instant scroll when reduced motion is preferred */
+    @media (prefers-reduced-motion: reduce) {
+        html {
+            scroll-behavior: auto;
+        }
+    }
+    
     body {
         @apply bg-background text-foreground;
         background-color: #0B0B0F;
         color: oklch(0.98 0 0);
         font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', sans-serif;
+    }
+
+    /* Typography hierarchy improvements */
+    h1 {
+        @apply text-5xl md:text-6xl lg:text-7xl font-bold tracking-tight leading-[1.1];
+    }
+
+    h2 {
+        @apply text-4xl md:text-5xl font-bold leading-tight;
+    }
+
+    h3 {
+        @apply text-2xl md:text-3xl font-semibold leading-snug;
     }
 
     /* Screen reader only utility */
@@ -102,17 +138,21 @@
         background: linear-gradient(135deg, oklch(var(--forge-purple-start)) 0%, oklch(var(--forge-purple-end)) 100%);
     }
     
+    /* Softened glow utilities for refined polish */
     .forge-glow {
-        box-shadow: 0 0 30px oklch(var(--forge-glow) / 0.4), 0 0 60px oklch(var(--forge-glow) / 0.2);
+        box-shadow: 0 0 24px oklch(var(--forge-glow) / 0.3), 0 0 48px oklch(var(--forge-glow) / 0.15);
+        transition: box-shadow var(--motion-duration-normal) var(--motion-easing-standard);
     }
     
     .forge-glow-sm {
-        box-shadow: 0 0 15px oklch(var(--forge-glow) / 0.3);
+        box-shadow: 0 0 12px oklch(var(--forge-glow) / 0.25);
+        transition: box-shadow var(--motion-duration-normal) var(--motion-easing-standard);
     }
     
     .forge-border-glow {
-        border: 1px solid oklch(var(--forge-glow) / 0.5);
-        box-shadow: 0 0 20px oklch(var(--forge-glow) / 0.2), inset 0 0 20px oklch(var(--forge-glow) / 0.1);
+        border: 1px solid oklch(var(--forge-glow) / 0.4);
+        box-shadow: 0 0 16px oklch(var(--forge-glow) / 0.15), inset 0 0 16px oklch(var(--forge-glow) / 0.08);
+        transition: all var(--motion-duration-normal) var(--motion-easing-standard);
     }
     
     .forge-text-gradient {
@@ -122,13 +162,15 @@
         background-clip: text;
     }
     
-    /* Active state glow intensification */
+    /* Active state glow intensification - softened */
     .forge-active-glow {
-        box-shadow: 0 0 35px oklch(var(--forge-glow) / 0.35), 0 0 70px oklch(var(--forge-glow) / 0.15);
+        box-shadow: 0 0 28px oklch(var(--forge-glow) / 0.28), 0 0 56px oklch(var(--forge-glow) / 0.12);
+        transition: box-shadow var(--motion-duration-normal) var(--motion-easing-standard);
     }
     
     .forge-active-glow-subtle {
-        box-shadow: 0 0 20px oklch(var(--forge-glow) / 0.2);
+        box-shadow: 0 0 16px oklch(var(--forge-glow) / 0.18);
+        transition: box-shadow var(--motion-duration-normal) var(--motion-easing-standard);
     }
     
     /* Ultra-slow ambient background gradient drift */
@@ -139,12 +181,12 @@
         z-index: 0;
         background: radial-gradient(
             ellipse at 20% 30%,
-            oklch(var(--forge-purple-start) / 0.08) 0%,
+            oklch(var(--forge-purple-start) / 0.06) 0%,
             transparent 50%
         ),
         radial-gradient(
             ellipse at 80% 70%,
-            oklch(var(--forge-purple-end) / 0.06) 0%,
+            oklch(var(--forge-purple-end) / 0.04) 0%,
             transparent 50%
         );
     }
@@ -152,15 +194,15 @@
     @keyframes ambient-drift {
         0%, 100% {
             transform: translate(0, 0) scale(1);
-            opacity: 0.6;
+            opacity: 0.5;
         }
         33% {
             transform: translate(4%, -3%) scale(1.08);
-            opacity: 0.7;
+            opacity: 0.6;
         }
         66% {
             transform: translate(-3%, 4%) scale(0.95);
-            opacity: 0.65;
+            opacity: 0.55;
         }
     }
 
@@ -181,19 +223,480 @@
     *:focus-visible {
         outline: 2px solid oklch(var(--ring));
         outline-offset: 2px;
+        transition: outline-offset var(--motion-duration-fast) var(--motion-easing-standard);
     }
 
-    /* Hover vs focus-visible differentiation for interactive surfaces */
+    /* Global interactive micro-motion patterns - refined */
+    .forge-interactive {
+        transition: all var(--motion-duration-normal) var(--motion-easing-standard);
+    }
+
+    .forge-interactive:hover {
+        transform: translateY(-0.5px);
+        box-shadow: 0 3px 10px oklch(var(--forge-glow) / 0.12);
+    }
+
+    .forge-interactive:active {
+        transform: translateY(0);
+    }
+
+    /* Card hover micro-interactions - refined */
     .forge-interactive-card {
-        transition: all 0.3s ease;
+        transition: all var(--motion-duration-normal) var(--motion-easing-standard);
+        position: relative;
+    }
+
+    .forge-interactive-card::before {
+        content: '';
+        position: absolute;
+        inset: 0;
+        border-radius: inherit;
+        opacity: 0;
+        background: linear-gradient(135deg, oklch(var(--primary) / 0.08), oklch(var(--accent) / 0.04));
+        transition: opacity var(--motion-duration-normal) var(--motion-easing-standard);
+        pointer-events: none;
+    }
+
+    .forge-interactive-card:hover::before {
+        opacity: 1;
     }
 
     .forge-interactive-card:hover {
-        box-shadow: 0 0 15px oklch(var(--forge-glow) / 0.25);
+        box-shadow: 0 0 16px oklch(var(--forge-glow) / 0.2);
+        border-color: oklch(var(--primary) / 0.45);
     }
 
     .forge-interactive-card:focus-visible {
-        box-shadow: 0 0 20px oklch(var(--forge-glow) / 0.35), 0 0 0 2px oklch(var(--ring));
+        box-shadow: 0 0 20px oklch(var(--forge-glow) / 0.28), 0 0 0 2px oklch(var(--ring));
+    }
+
+    /* Button micro-interactions - refined */
+    .forge-button-primary {
+        position: relative;
+        overflow: hidden;
+        transition: all var(--motion-duration-normal) var(--motion-easing-standard);
+    }
+
+    .forge-button-primary::after {
+        content: '';
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(135deg, transparent, oklch(var(--primary-foreground) / 0.08), transparent);
+        transform: translateX(-100%);
+        transition: transform var(--motion-duration-slow) var(--motion-easing-standard);
+    }
+
+    .forge-button-primary:hover::after {
+        transform: translateX(100%);
+    }
+
+    .forge-button-primary:hover {
+        transform: scale(1.015);
+        box-shadow: 0 0 24px oklch(var(--forge-glow) / 0.32);
+    }
+
+    .forge-button-primary:active {
+        transform: scale(0.985);
+    }
+
+    /* Input focus micro-interactions */
+    input:focus-visible,
+    textarea:focus-visible {
+        box-shadow: 0 0 0 2px oklch(var(--ring)), 0 0 16px oklch(var(--forge-glow) / 0.18);
+        border-color: oklch(var(--primary));
+        transition: all var(--motion-duration-fast) var(--motion-easing-decelerate);
+    }
+
+    /* Toggle/switch micro-interactions */
+    [role="switch"]:focus-visible {
+        box-shadow: 0 0 0 2px oklch(var(--ring)), 0 0 12px oklch(var(--forge-glow) / 0.25);
+    }
+
+    /* ========================================
+       ORCHESTRATION MOTION SYSTEM
+       ======================================== */
+
+    /* Computational panel treatment */
+    .forge-panel {
+        position: relative;
+        background: oklch(var(--card) / 0.5);
+        backdrop-filter: blur(8px);
+        border: 1px solid oklch(var(--border) / 0.5);
+        border-radius: 0.75rem;
+        overflow: hidden;
+        transition: all var(--motion-duration-normal) var(--motion-easing-standard);
+    }
+
+    .forge-panel::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 1px;
+        background: linear-gradient(90deg, transparent, oklch(var(--primary) / 0.25), transparent);
+    }
+
+    /* Circuit divider - horizontal rule with computational feel */
+    .forge-circuit-divider {
+        position: relative;
+        height: 1px;
+        background: linear-gradient(90deg, transparent, oklch(var(--border)), transparent);
+        margin: 2rem 0;
+    }
+
+    .forge-circuit-divider::before,
+    .forge-circuit-divider::after {
+        content: '';
+        position: absolute;
+        top: 50%;
+        width: 4px;
+        height: 4px;
+        background: oklch(var(--primary));
+        border-radius: 50%;
+        transform: translateY(-50%);
+        animation: pulse 2s ease-in-out infinite;
+    }
+
+    .forge-circuit-divider::before {
+        left: 20%;
+    }
+
+    .forge-circuit-divider::after {
+        right: 20%;
+        animation-delay: 1s;
+    }
+
+    @keyframes pulse {
+        0%, 100% { opacity: 0.3; }
+        50% { opacity: 1; }
+    }
+
+    /* Flow path link treatment - animated underline suggesting connection */
+    .forge-flow-link {
+        position: relative;
+        display: inline-block;
+        transition: color var(--motion-duration-normal) var(--motion-easing-standard);
+    }
+
+    .forge-flow-link::after {
+        content: '';
+        position: absolute;
+        bottom: -2px;
+        left: 0;
+        width: 0;
+        height: 2px;
+        background: linear-gradient(90deg, oklch(var(--primary)), oklch(var(--accent)));
+        transition: width var(--motion-duration-slow) var(--motion-easing-decelerate);
+    }
+
+    .forge-flow-link:hover::after,
+    .forge-flow-link:focus-visible::after {
+        width: 100%;
+    }
+
+    /* Traveling pulse animation - suggests data/signal flow */
+    @keyframes pulse-travel {
+        0% {
+            transform: translateX(-100%);
+            opacity: 0;
+        }
+        50% {
+            opacity: 1;
+        }
+        100% {
+            transform: translateX(300%);
+            opacity: 0;
+        }
+    }
+
+    .forge-pulse-container {
+        position: relative;
+        overflow: hidden;
+    }
+
+    .forge-pulse-container::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 30%;
+        height: 100%;
+        background: linear-gradient(90deg, transparent, oklch(var(--primary) / 0.35), transparent);
+        animation: pulse-travel 3s ease-in-out infinite;
+    }
+
+    /* Dependency path highlight - shows connection on hover */
+    .forge-dependency-path {
+        position: relative;
+        transition: all var(--motion-duration-normal) var(--motion-easing-standard);
+    }
+
+    .forge-dependency-path::before {
+        content: '';
+        position: absolute;
+        left: -1rem;
+        top: 50%;
+        width: 0.5rem;
+        height: 2px;
+        background: oklch(var(--primary));
+        opacity: 0;
+        transition: opacity var(--motion-duration-normal) var(--motion-easing-standard), 
+                    width var(--motion-duration-normal) var(--motion-easing-decelerate);
+    }
+
+    .forge-dependency-path:hover::before,
+    .forge-dependency-path:focus-visible::before {
+        opacity: 1;
+        width: 1rem;
+    }
+
+    /* Parallel lane pulses - multiple coordinated flows */
+    @keyframes lane-pulse-1 {
+        0%, 100% { opacity: 0.3; }
+        50% { opacity: 0.8; }
+    }
+
+    @keyframes lane-pulse-2 {
+        0%, 100% { opacity: 0.4; }
+        50% { opacity: 0.9; }
+    }
+
+    @keyframes lane-pulse-3 {
+        0%, 100% { opacity: 0.2; }
+        50% { opacity: 0.7; }
+    }
+
+    .forge-parallel-lanes {
+        position: relative;
+        display: flex;
+        gap: 0.25rem;
+    }
+
+    .forge-parallel-lanes .lane {
+        width: 2px;
+        height: 100%;
+        background: oklch(var(--primary) / 0.3);
+    }
+
+    .forge-parallel-lanes .lane:nth-child(1) {
+        animation: lane-pulse-1 2s ease-in-out infinite;
+    }
+
+    .forge-parallel-lanes .lane:nth-child(2) {
+        animation: lane-pulse-2 2.3s ease-in-out infinite 0.2s;
+    }
+
+    .forge-parallel-lanes .lane:nth-child(3) {
+        animation: lane-pulse-3 2.6s ease-in-out infinite 0.4s;
+    }
+
+    /* Handoff highlight - emphasizes transfer/coordination moment */
+    @keyframes handoff-glow {
+        0%, 100% {
+            box-shadow: 0 0 8px oklch(var(--primary) / 0.18);
+        }
+        50% {
+            box-shadow: 0 0 20px oklch(var(--primary) / 0.4), 0 0 32px oklch(var(--accent) / 0.25);
+        }
+    }
+
+    .forge-handoff {
+        position: relative;
+        transition: all var(--motion-duration-normal) var(--motion-easing-standard);
+    }
+
+    .forge-handoff:hover,
+    .forge-handoff:focus-visible {
+        animation: handoff-glow 1.8s ease-in-out infinite;
+    }
+
+    /* Section entry reveal - staged appearance */
+    @keyframes section-reveal {
+        from {
+            opacity: 0;
+            transform: translateY(30px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    .forge-section-reveal {
+        opacity: 0;
+    }
+
+    .forge-section-reveal.entered {
+        animation: section-reveal 0.9s var(--motion-easing-decelerate) forwards;
+    }
+
+    /* Staged entrance for multiple items */
+    .forge-staged-entrance > * {
+        opacity: 0;
+    }
+
+    .forge-staged-entrance.entered > *:nth-child(1) {
+        animation: section-reveal 0.7s var(--motion-easing-decelerate) 0.1s forwards;
+    }
+
+    .forge-staged-entrance.entered > *:nth-child(2) {
+        animation: section-reveal 0.7s var(--motion-easing-decelerate) 0.2s forwards;
+    }
+
+    .forge-staged-entrance.entered > *:nth-child(3) {
+        animation: section-reveal 0.7s var(--motion-easing-decelerate) 0.3s forwards;
+    }
+
+    .forge-staged-entrance.entered > *:nth-child(4) {
+        animation: section-reveal 0.7s var(--motion-easing-decelerate) 0.4s forwards;
+    }
+
+    .forge-staged-entrance.entered > *:nth-child(5) {
+        animation: section-reveal 0.7s var(--motion-easing-decelerate) 0.5s forwards;
+    }
+
+    .forge-staged-entrance.entered > *:nth-child(n+6) {
+        animation: section-reveal 0.7s var(--motion-easing-decelerate) 0.6s forwards;
+    }
+
+    /* Hero orchestration effect - parallel lanes with traveling pulses */
+    .forge-hero-orchestration {
+        position: absolute;
+        inset: 0;
+        pointer-events: none;
+        overflow: hidden;
+        opacity: 0.5;
+    }
+
+    .forge-hero-orchestration::before,
+    .forge-hero-orchestration::after {
+        content: '';
+        position: absolute;
+        width: 100%;
+        height: 2px;
+        background: linear-gradient(90deg, transparent, oklch(var(--primary) / 0.35), transparent);
+    }
+
+    .forge-hero-orchestration::before {
+        top: 30%;
+        animation: pulse-travel 4.5s ease-in-out infinite;
+    }
+
+    .forge-hero-orchestration::after {
+        top: 70%;
+        animation: pulse-travel 5.5s ease-in-out infinite 1.2s;
+    }
+
+    /* Intensity tiers for orchestration motion */
+    .forge-motion-hero {
+        --motion-intensity: 1;
+    }
+
+    .forge-motion-early {
+        --motion-intensity: 0.7;
+    }
+
+    .forge-motion-subtle {
+        --motion-intensity: 0.4;
+    }
+
+    /* Apply intensity scaling */
+    .forge-motion-hero .forge-pulse-container::before {
+        opacity: calc(var(--motion-intensity) * 0.35);
+    }
+
+    .forge-motion-early .forge-pulse-container::before {
+        opacity: calc(var(--motion-intensity) * 0.35);
+    }
+
+    .forge-motion-subtle .forge-pulse-container::before {
+        opacity: calc(var(--motion-intensity) * 0.35);
+    }
+
+    /* Nav overlay staged transition */
+    @keyframes nav-link-enter {
+        from {
+            opacity: 0;
+            transform: translateX(-20px);
+        }
+        to {
+            opacity: 1;
+            transform: translateX(0);
+        }
+    }
+
+    .forge-nav-staged > *:nth-child(1) {
+        animation: nav-link-enter 0.5s var(--motion-easing-decelerate) 0.1s forwards;
+        opacity: 0;
+    }
+
+    .forge-nav-staged > *:nth-child(2) {
+        animation: nav-link-enter 0.5s var(--motion-easing-decelerate) 0.18s forwards;
+        opacity: 0;
+    }
+
+    .forge-nav-staged > *:nth-child(3) {
+        animation: nav-link-enter 0.5s var(--motion-easing-decelerate) 0.26s forwards;
+        opacity: 0;
+    }
+
+    .forge-nav-staged > *:nth-child(4) {
+        animation: nav-link-enter 0.5s var(--motion-easing-decelerate) 0.34s forwards;
+        opacity: 0;
+    }
+
+    .forge-nav-staged > *:nth-child(5) {
+        animation: nav-link-enter 0.5s var(--motion-easing-decelerate) 0.42s forwards;
+        opacity: 0;
+    }
+
+    .forge-nav-staged > *:nth-child(6) {
+        animation: nav-link-enter 0.5s var(--motion-easing-decelerate) 0.5s forwards;
+        opacity: 0;
+    }
+
+    .forge-nav-staged > *:nth-child(n+7) {
+        animation: nav-link-enter 0.5s var(--motion-easing-decelerate) 0.58s forwards;
+        opacity: 0;
+    }
+
+    /* Execution panel phase transitions - smoother, more deliberate */
+    .forge-execution-phase-transition {
+        transition: all 0.6s var(--motion-easing-decelerate);
+    }
+
+    /* Activity feed item reveal - refined pacing */
+    @keyframes feed-item-reveal {
+        from {
+            opacity: 0;
+            transform: translateX(-12px);
+        }
+        to {
+            opacity: 1;
+            transform: translateX(0);
+        }
+    }
+
+    .forge-feed-item {
+        animation: feed-item-reveal 0.5s var(--motion-easing-decelerate) forwards;
+    }
+
+    /* Result reveal - coordinated with execution completion */
+    @keyframes result-reveal {
+        from {
+            opacity: 0;
+            transform: translateY(20px) scale(0.98);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0) scale(1);
+        }
+    }
+
+    .forge-result-reveal {
+        animation: result-reveal 0.7s var(--motion-easing-decelerate) 0.3s forwards;
+        opacity: 0;
     }
 
     /* Reduce motion for animations */
@@ -224,7 +727,40 @@
         }
         
         /* Disable scale transforms for reduced motion */
-        .hover\:scale-105:hover {
+        .hover\:scale-105:hover,
+        .forge-button-primary:hover {
+            transform: none !important;
+        }
+
+        /* Disable all orchestration animations */
+        .forge-pulse-container::before,
+        .forge-hero-orchestration::before,
+        .forge-hero-orchestration::after,
+        .forge-parallel-lanes .lane {
+            animation: none !important;
+        }
+
+        .forge-handoff:hover,
+        .forge-handoff:focus-visible {
+            animation: none !important;
+        }
+
+        /* Instant reveal for reduced motion */
+        .forge-section-reveal,
+        .forge-section-reveal.entered,
+        .forge-staged-entrance > *,
+        .forge-staged-entrance.entered > *,
+        .forge-nav-staged > *,
+        .forge-feed-item,
+        .forge-result-reveal {
+            opacity: 1 !important;
+            transform: none !important;
+            animation: none !important;
+        }
+
+        /* Disable interactive micro-motion */
+        .forge-interactive:hover,
+        .forge-interactive-card:hover {
             transform: none !important;
         }
     }

@@ -1,16 +1,16 @@
 import { useState } from 'react';
 import { Button } from './ui/button';
-import { useNavigate } from '@tanstack/react-router';
 import { categoryTemplates, featuredTemplates, type PromptTemplate } from '../lib/demo/promptTemplates';
 import { useAgentFirstMode } from '../hooks/useAgentFirstMode';
 import ProgressiveDisclosure from './ProgressiveDisclosure';
+import { useCtaNavigation } from '../hooks/useCtaNavigation';
 
 export default function MarketplaceDiscoverySection() {
-    const navigate = useNavigate();
+    const { ctaNavigate } = useCtaNavigation();
     const { isAgentMode, toggleMode } = useAgentFirstMode();
 
     const handleSelectJob = (template: PromptTemplate) => {
-        navigate({ to: '/demo-lab', search: { prompt: template.prompt } });
+        ctaNavigate('/demo-lab', { prompt: template.prompt });
     };
 
     return (

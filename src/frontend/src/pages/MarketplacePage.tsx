@@ -1,9 +1,9 @@
 import { Button } from '../components/ui/button';
 import { ArrowRight, TrendingUp, Network, Zap, Users } from 'lucide-react';
-import { useNavigate } from '@tanstack/react-router';
+import { useCtaNavigation } from '../hooks/useCtaNavigation';
 
 export default function MarketplacePage() {
-    const navigate = useNavigate();
+    const { ctaNavigate } = useCtaNavigation();
 
     return (
         <main className="pt-16">
@@ -139,7 +139,7 @@ export default function MarketplacePage() {
                         </p>
                         <div className="flex flex-col sm:flex-row gap-4 justify-center">
                             <Button
-                                onClick={() => navigate({ to: '/explore' })}
+                                onClick={() => ctaNavigate('/explore')}
                                 size="lg"
                                 className="forge-gradient text-lg px-10 py-6 h-auto font-semibold hover:forge-glow"
                             >
@@ -147,7 +147,7 @@ export default function MarketplacePage() {
                                 <ArrowRight className="ml-2 h-5 w-5" />
                             </Button>
                             <Button
-                                onClick={() => navigate({ to: '/build' })}
+                                onClick={() => ctaNavigate('/build')}
                                 size="lg"
                                 variant="outline"
                                 className="border-primary/40 hover:bg-primary/10"

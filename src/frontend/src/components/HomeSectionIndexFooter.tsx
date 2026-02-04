@@ -1,4 +1,4 @@
-import { usePrefersReducedMotion } from '../hooks/usePrefersReducedMotion';
+import { useSmoothScrollToElement } from '../hooks/useScrollBehavior';
 
 interface SectionLink {
   id: string;
@@ -15,23 +15,12 @@ const SECTIONS: SectionLink[] = [
 ];
 
 export default function HomeSectionIndexFooter() {
-  const prefersReducedMotion = usePrefersReducedMotion();
-
-  const handleScrollToSection = (sectionId: string) => {
-    const element = document.getElementById(sectionId);
-    if (!element) return;
-
-    const scrollOptions: ScrollIntoViewOptions = prefersReducedMotion
-      ? { block: 'start' }
-      : { behavior: 'smooth', block: 'start' };
-
-    element.scrollIntoView(scrollOptions);
-  };
+  const scrollToElement = useSmoothScrollToElement();
 
   const handleKeyDown = (e: React.KeyboardEvent, sectionId: string) => {
     if (e.key === 'Enter' || e.key === ' ') {
       e.preventDefault();
-      handleScrollToSection(sectionId);
+      scrollToElement(sectionId);
     }
   };
 
@@ -45,7 +34,7 @@ export default function HomeSectionIndexFooter() {
           {SECTIONS.map((section) => (
             <button
               key={section.id}
-              onClick={() => handleScrollToSection(section.id)}
+              onClick={() => scrollToElement(section.id)}
               onKeyDown={(e) => handleKeyDown(e, section.id)}
               className="px-3 py-1.5 text-xs font-medium text-muted-foreground hover:text-foreground hover:bg-primary/10 rounded-md transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-background"
               aria-label={`Jump to ${section.label} section`}

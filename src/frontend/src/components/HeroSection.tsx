@@ -5,7 +5,7 @@ import { Button } from './ui/button';
 import { useInternetIdentity } from '../hooks/useInternetIdentity';
 import { useGetLastForgedTask } from '../hooks/useQueries';
 import { ArrowRight, Sparkles, BookOpen, Zap } from 'lucide-react';
-import { useNavigate } from '@tanstack/react-router';
+import { useCtaNavigation } from '../hooks/useCtaNavigation';
 
 interface HeroSectionProps {
     onExploreJobs: () => void;
@@ -15,24 +15,23 @@ export default function HeroSection({ onExploreJobs }: HeroSectionProps) {
     const [inputValue, setInputValue] = useState('');
     const { identity } = useInternetIdentity();
     const { data: lastTask, isLoading: lastTaskLoading } = useGetLastForgedTask();
-    const navigate = useNavigate();
+    const { ctaNavigate } = useCtaNavigation();
 
     const handleSubmit = () => {
         if (inputValue.trim()) {
-            navigate({ to: '/demo-lab', search: { prompt: inputValue } });
+            ctaNavigate('/demo-lab', { prompt: inputValue });
         }
     };
 
     const handleResume = () => {
         if (lastTask) {
-            navigate({ to: '/demo-lab', search: { prompt: lastTask.taskDescription } });
+            ctaNavigate('/demo-lab', { prompt: lastTask.taskDescription });
         }
     };
 
     const handleBuildAgent = () => {
-        navigate({ 
-            to: '/demo-lab', 
-            search: { prompt: 'Build a custom agent to monitor my specific workflow and generate automated insights' }
+        ctaNavigate('/demo-lab', { 
+            prompt: 'Build a custom agent to monitor my specific workflow and generate automated insights' 
         });
     };
 
@@ -84,7 +83,7 @@ export default function HeroSection({ onExploreJobs }: HeroSectionProps) {
                 {/* Secondary CTAs - Demo Lab + Playbooks */}
                 <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
                     <Button
-                        onClick={() => navigate({ to: '/demo-lab' })}
+                        onClick={() => ctaNavigate('/demo-lab')}
                         variant="ghost"
                         size="sm"
                         className="text-sm text-muted-foreground hover:text-foreground transition-colors group"
@@ -93,7 +92,7 @@ export default function HeroSection({ onExploreJobs }: HeroSectionProps) {
                         Demo Lab (Live Executions)
                     </Button>
                     <Button
-                        onClick={() => navigate({ to: '/playbooks' })}
+                        onClick={() => ctaNavigate('/playbooks')}
                         variant="ghost"
                         size="sm"
                         className="text-sm text-muted-foreground hover:text-foreground transition-colors group"

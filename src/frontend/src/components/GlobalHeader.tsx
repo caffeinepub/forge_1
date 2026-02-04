@@ -49,27 +49,27 @@ export default function GlobalHeader() {
                 }`}
             >
                 <div className="container mx-auto px-4 sm:px-6 py-3 sm:py-4 flex items-center justify-between gap-4">
-                    {/* Logo - text-only branding */}
+                    {/* Logo - text-only branding with flow effect */}
                     <Link
                         to="/"
-                        className="focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary rounded-sm hover:forge-glow-sm transition-all duration-300 flex-shrink-0"
+                        className="forge-flow-link focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary rounded-sm transition-all duration-300 flex-shrink-0 forge-handoff"
                         aria-label="Forge AI Home"
                     >
                         <ForgeBrandMark size="sm" />
                     </Link>
 
-                    {/* Hamburger button with improved touch target */}
+                    {/* Hamburger button with orchestration micro-interaction */}
                     <button
                         ref={hamburgerRef}
                         onClick={handleMenuToggle}
-                        className="p-2.5 rounded-md hover:bg-white/5 hover:forge-glow-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary transition-all duration-300 flex-shrink-0"
+                        className="p-2.5 rounded-md hover:bg-white/5 forge-dependency-path focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary transition-all duration-300 flex-shrink-0 relative overflow-hidden forge-pulse-container"
                         aria-label={isMenuOpen ? 'Close menu' : 'Open menu'}
                         aria-expanded={isMenuOpen}
                     >
                         {isMenuOpen ? (
-                            <X className="w-6 h-6 text-foreground" />
+                            <X className="w-6 h-6 text-foreground relative z-10" />
                         ) : (
-                            <Menu className="w-6 h-6 text-foreground" />
+                            <Menu className="w-6 h-6 text-foreground relative z-10" />
                         )}
                     </button>
                 </div>

@@ -1,73 +1,79 @@
 {
   "kind": "build_request",
-  "title": "Permanently switch to text-only “Forge AI” branding and remove icon mark everywhere",
+  "title": "Sitewide smoother scrolling + light-touch homepage polish",
   "priority": "normal",
   "requirements": [
     {
       "id": "REQ-6",
-      "text": "Remove the Forge icon mark from all user-visible UI surfaces and enforce a permanent text-only brand presentation that displays exactly “Forge AI” everywhere branding appears (header, homepage hero branding, any other brand lockups, and any loading/empty states that currently show a logo).",
+      "text": "Implement sitewide smooth scrolling for normal page scrolling (mousewheel/trackpad) using a global CSS approach, with strict prefers-reduced-motion compliance so reduced-motion users get default (non-smooth) scrolling.",
       "target": "frontend",
       "source": {
         "messageIds": [
+          "msg-4",
           "msg-5"
         ],
         "quotes": [
-          "1. Yes everywhere",
-          "2. Text only is correct Forge AI",
-          "3. Permanent brand direction"
+          "Smoother scroll entire site but focused on homepage and light touch polish",
+          "1. Both \n2. Both"
         ]
       },
       "acceptanceCriteria": [
-        "No pages render the icon mark image in any header/footer/hero branding area; branding is represented as text-only “Forge AI”.",
-        "All visible brand text uses exactly the string “Forge AI” (including casing and spacing).",
-        "No UI surface regresses to icon+text lockups when navigating between routes."
+        "On all pages, normal scrolling animates smoothly without requiring any per-component changes to scroll handlers.",
+        "When the OS/browser setting prefers-reduced-motion is enabled, normal scrolling is not smoothed (reverts to default/instant behavior).",
+        "No regression to existing animated sections and no new console errors."
       ]
     },
     {
       "id": "REQ-7",
-      "text": "Update the reusable branding component(s) so that the default and only supported brand rendering is text-only (no <img> icon usage), and update existing callers to stop requesting or relying on icon-based variants (e.g., remove usage patterns like variant=\"icon-text\").",
+      "text": "Make scroll-to-top and section-jump transitions feel smoother across the entire site by tuning the scroll-to-top easing/duration (frontend/src/hooks/useScrollBehavior.ts) and standardizing section-jump behavior so it is consistent with prefers-reduced-motion support.",
       "target": "frontend",
       "source": {
         "messageIds": [
+          "msg-4",
           "msg-5"
         ],
         "quotes": [
-          "Text only is correct Forge AI"
+          "Smoother scroll entire site but focused on homepage and light touch polish",
+          "1. Both \n2. Both"
         ]
       },
       "acceptanceCriteria": [
-        "The component currently defined in frontend/src/components/ForgeBrandMark.tsx does not render an <img> tag for the brand icon.",
-        "Global header branding (frontend/src/components/GlobalHeader.tsx) renders text-only branding while preserving existing link behavior and focus/keyboard accessibility.",
-        "Homepage hero branding areas that currently import/use ForgeBrandMark (e.g., frontend/src/pages/ForgeHomePage.tsx and frontend/src/components/HeroSection.tsx) render text-only branding without layout breakage."
+        "Internal route navigations (handled in frontend/src/layouts/RootLayout.tsx) use the updated smoother scroll-to-top behavior.",
+        "Homepage section jumps (e.g., ForgeHomePage scrollToSection + HomeSectionIndexFooter buttons) remain smooth when reduced-motion is off and are instant/non-animated when reduced-motion is on.",
+        "Scroll-to-top animation cancels cleanly if another scroll-to-top is triggered mid-animation (no jitter)."
       ]
     },
     {
       "id": "REQ-8",
-      "text": "Remove the Forge icon mark from the site chrome metadata where it is currently used as a favicon, so the app no longer references the Forge icon asset for the browser tab icon.",
+      "text": "Apply a light-touch homepage polish pass (frontend/src/pages/ForgeHomePage.tsx + existing global Tailwind utilities) focused on micro-motion, spacing, and small visual refinements (glow softness, gradient subtlety, hierarchy tightening) without changing the homepage information architecture or adding new sections/features.",
       "target": "frontend",
       "source": {
         "messageIds": [
+          "msg-4",
           "msg-5"
         ],
         "quotes": [
-          "get rid of the logo all together",
-          "Yes everywhere"
+          "Smoother scroll entire site but focused on homepage and light touch polish",
+          "1. Both \n2. Both"
         ]
       },
       "acceptanceCriteria": [
-        "frontend/index.html no longer references /assets/generated/forge-icon-v2.dim_256x256.png as the favicon.",
-        "After change, the app builds without broken asset references to the removed favicon path."
+        "Hero section: improved spacing and typographic rhythm (headline/subheadline/CTAs) for faster scanability while keeping the same message and CTAs.",
+        "Panels/cards (e.g., 'Agents vs. Traditional AI', capabilities, personas, ecosystem): slightly refined borders/glow/gradient treatments to feel cleaner and less harsh while preserving the Ghost Purple/black theme.",
+        "Micro-interactions (hover/focus states) feel consistent and slightly more refined on the homepage (no new motion that violates prefers-reduced-motion behavior already defined in CSS).",
+        "No changes to routing, data flow, or backend calls."
       ]
     }
   ],
   "constraints": [
-    "Do not edit files under frontend/src/components/ui or any frontend.immutablePaths listed in SYSTEM_CONTEXT.",
-    "Keep the backend as single-actor architecture; no backend changes are required for this branding-only request."
+    "Do not edit any files under frontend/src/components/ui (shadcn UI sources are immutable).",
+    "Do not modify frontend/src/hooks/useInternetIdentity.ts, frontend/src/hooks/useInternetIdentity.tsx, frontend/src/hooks/useActor.ts, or frontend/src/main.tsx (immutable paths).",
+    "Keep backend as-is; this request is frontend-only."
   ],
   "nonGoals": [
-    "Do not introduce a new icon/logo mark or replacement graphic.",
-    "Do not change authentication behavior, routing, or marketplace/demo functionality beyond what is necessary to remove icon branding.",
-    "Do not redesign the overall theme; this request is limited to removing the icon mark and enforcing text-only “Forge AI” branding."
+    "No new homepage sections, routes, or product features.",
+    "No changes to authentication, canister APIs, or persistence logic.",
+    "No introduction of third-party analytics or external services as part of this change."
   ],
   "imageRequirements": {
     "required": [],

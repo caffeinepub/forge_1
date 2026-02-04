@@ -89,13 +89,13 @@ export default function FullScreenNavOverlay({ isOpen, onClose }: FullScreenNavO
             aria-label="Navigation menu"
         >
             <nav className="h-full flex flex-col items-center justify-center">
-                <ul className="space-y-8 text-center">
+                <ul className="space-y-8 text-center forge-nav-staged">
                     <li>
                         <Link
                             ref={firstFocusableRef}
                             to="/explore"
                             onClick={() => handleNavigation('/explore')}
-                            className="text-3xl md:text-4xl font-light text-foreground hover:text-primary transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary rounded-sm px-4 py-2 inline-block"
+                            className="text-3xl md:text-4xl font-light text-foreground hover:text-primary transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary rounded-sm px-4 py-2 inline-block forge-flow-link forge-handoff"
                         >
                             Explore Agents
                         </Link>
@@ -104,7 +104,7 @@ export default function FullScreenNavOverlay({ isOpen, onClose }: FullScreenNavO
                         <Link
                             to="/build"
                             onClick={() => handleNavigation('/build')}
-                            className="text-3xl md:text-4xl font-light text-foreground hover:text-primary transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary rounded-sm px-4 py-2 inline-block"
+                            className="text-3xl md:text-4xl font-light text-foreground hover:text-primary transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary rounded-sm px-4 py-2 inline-block forge-flow-link forge-handoff"
                         >
                             Build
                         </Link>
@@ -113,7 +113,7 @@ export default function FullScreenNavOverlay({ isOpen, onClose }: FullScreenNavO
                         <Link
                             to="/marketplace"
                             onClick={() => handleNavigation('/marketplace')}
-                            className="text-3xl md:text-4xl font-light text-foreground hover:text-primary transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary rounded-sm px-4 py-2 inline-block"
+                            className="text-3xl md:text-4xl font-light text-foreground hover:text-primary transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary rounded-sm px-4 py-2 inline-block forge-flow-link forge-handoff"
                         >
                             Marketplace
                         </Link>
@@ -122,7 +122,7 @@ export default function FullScreenNavOverlay({ isOpen, onClose }: FullScreenNavO
                         <Link
                             to="/vision"
                             onClick={() => handleNavigation('/vision')}
-                            className="text-3xl md:text-4xl font-light text-foreground hover:text-primary transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary rounded-sm px-4 py-2 inline-block"
+                            className="text-3xl md:text-4xl font-light text-foreground hover:text-primary transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary rounded-sm px-4 py-2 inline-block forge-flow-link forge-handoff"
                         >
                             Vision
                         </Link>
@@ -131,7 +131,7 @@ export default function FullScreenNavOverlay({ isOpen, onClose }: FullScreenNavO
                         <Link
                             to="/docs"
                             onClick={() => handleNavigation('/docs')}
-                            className="text-3xl md:text-4xl font-light text-foreground hover:text-primary transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary rounded-sm px-4 py-2 inline-block"
+                            className="text-3xl md:text-4xl font-light text-foreground hover:text-primary transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary rounded-sm px-4 py-2 inline-block forge-flow-link forge-handoff"
                         >
                             Docs
                         </Link>
@@ -140,7 +140,7 @@ export default function FullScreenNavOverlay({ isOpen, onClose }: FullScreenNavO
                         <Link
                             to="/login"
                             onClick={() => handleNavigation('/login')}
-                            className="text-3xl md:text-4xl font-light text-foreground hover:text-primary transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary rounded-sm px-4 py-2 inline-block"
+                            className="text-3xl md:text-4xl font-light text-foreground hover:text-primary transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary rounded-sm px-4 py-2 inline-block forge-flow-link forge-handoff"
                         >
                             Login
                         </Link>
