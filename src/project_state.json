@@ -1,0 +1,954 @@
+{
+  "schemaVersion": "1.0.0",
+  "projectStateVersion": 139,
+  "summary": "Reimagine the homepage as a clear, conversion-focused gateway to Forge AI’s agentic marketplace ecosystem (no demos on homepage; demos/workflows live on dedicated sub-pages), with a deliberate narrative arc (Hero → What is Agentic Marketplace → Capabilities → Personas/Use Cases → Ecosystem/Scale → Final conversion), section jump navigation, and strong premium Ghost Purple futuristic expression leaning fully into ethereal gradients + glassmorphism + soft neon glow + subtle motion; routing now supports additional top-level pages (e.g., Explore, Marketplace, Docs, Build) aligned to the updated IA and CTAs. Branding direction updated to permanently remove the icon mark and use text-only “Forge AI” across the UI shell.",
+  "existing_features": [
+    {
+      "id": "IF-1",
+      "title": "Forge design system & Ghost Purple/Black theme",
+      "synonyms": [
+        "Theme",
+        "Design system",
+        "Ghost Purple + Black UI"
+      ],
+      "description": "Implemented the Forge visual system (ghost-purple/black palette, glow accents, subtle gradients) with Tailwind + global CSS and a consistent component styling approach.",
+      "reqIds": [
+        "AR-1"
+      ],
+      "version": 1
+    },
+    {
+      "id": "IF-2",
+      "title": "Homepage hero with quote card and primary task input + CTA",
+      "synonyms": [
+        "Hero section",
+        "Dominic Williams quote card",
+        "Rotating placeholder input",
+        "Forge it CTA"
+      ],
+      "description": "Built the homepage hero including headline/subheadline, integrated quote card, and a primary task input with rotating placeholders and primary CTA to start the demo flow.",
+      "reqIds": [
+        "AR-2"
+      ],
+      "version": 1
+    },
+    {
+      "id": "IF-3",
+      "title": "Live system response / execution panel with typed status + agent found",
+      "synonyms": [
+        "After-CTA response panel",
+        "Typed status log",
+        "Agent-found card"
+      ],
+      "description": "After CTA, renders an operational execution panel with line-by-line typed status messages, then transitions to an agent discovery/acceptance state.",
+      "reqIds": [
+        "AR-3"
+      ],
+      "version": 1
+    },
+    {
+      "id": "IF-4",
+      "title": "Live execution activity feed (1–3s updates)",
+      "synonyms": [
+        "Activity feed",
+        "Operational event stream"
+      ],
+      "description": "Vertical activity stream that updates periodically with specific operational messages to avoid dead states and maintain a live-running feel.",
+      "reqIds": [
+        "AR-4"
+      ],
+      "version": 1
+    },
+    {
+      "id": "IF-5",
+      "title": "Result reveal with completion state, payout, and rating UI",
+      "synonyms": [
+        "Result section",
+        "Payment status",
+        "Rating stars"
+      ],
+      "description": "Animated result reveal with completion indicators, agent paid amount, and a 1–5 star rating interface.",
+      "reqIds": [
+        "AR-5"
+      ],
+      "version": 1
+    },
+    {
+      "id": "IF-6",
+      "title": "About/Vision section (Why Forge Is Different)",
+      "synonyms": [
+        "Vision section",
+        "Comparison split"
+      ],
+      "description": "Implemented the 'Why Forge Is Different' section comparing Traditional LLMs vs Forge plus vision copy.",
+      "reqIds": [
+        "AR-6"
+      ],
+      "version": 1
+    },
+    {
+      "id": "IF-7",
+      "title": "Interactive 5-year roadmap timeline",
+      "synonyms": [
+        "Roadmap",
+        "Clickable year nodes",
+        "Timeline"
+      ],
+      "description": "Horizontal roadmap with clickable year nodes, distinct past vs future styling, and smooth transitions between year content.",
+      "reqIds": [
+        "AR-7"
+      ],
+      "version": 1
+    },
+    {
+      "id": "IF-8",
+      "title": "Developers section: Build an Agent + API endpoints + ICP-native payment narrative",
+      "synonyms": [
+        "Developer agent deploy flow",
+        "Agent workflow docs",
+        "Register/Accept/Submit endpoints"
+      ],
+      "description": "Developer-focused section with step-by-step guidance, capabilities JSON example, endpoint examples (register/accept/submit), and ICP payment/verification explanation plus CTA.",
+      "reqIds": [
+        "AR-8"
+      ],
+      "version": 1
+    },
+    {
+      "id": "IF-9",
+      "title": "ICP positioning footer note",
+      "synonyms": [
+        "Footer ICP note"
+      ],
+      "description": "Footer content explaining Forge runs on Internet Computer and enables agents to store state and execute without centralized servers.",
+      "reqIds": [
+        "AR-9"
+      ],
+      "version": 1
+    },
+    {
+      "id": "IF-10",
+      "title": "Global operational UX rules enforced (no dead states)",
+      "synonyms": [
+        "Always-on readiness",
+        "Operational language",
+        "Hiring software feel"
+      ],
+      "description": "Across primary flow components, UI maintains readiness/activity indicators, operational phrasing, and progressive disclosure from request → agent → execution → results/payment/rating.",
+      "reqIds": [
+        "AR-10"
+      ],
+      "version": 1
+    },
+    {
+      "id": "IF-11",
+      "title": "Internet Identity (II) integration for MVP auth-gated actions",
+      "synonyms": [
+        "II auth",
+        "Internet Identity login",
+        "AuthStatus"
+      ],
+      "description": "Integrated Internet Identity via frontend hooks/guards and UI status, enabling sign-in for actions like rating and developer/agent-related flows while keeping demo usable.",
+      "reqIds": [
+        "AR-11"
+      ],
+      "version": 1
+    },
+    {
+      "id": "IF-12",
+      "title": "ICP backend authorization/access-control scaffolding",
+      "synonyms": [
+        "Motoko authorization",
+        "Access control mixin"
+      ],
+      "description": "Added/updated Motoko authorization and access-control modules, aligning backend structure for authenticated interactions and future agent/job endpoints.",
+      "reqIds": [],
+      "version": 1
+    },
+    {
+      "id": "IF-13",
+      "title": "Canonical demo scenario wiring (Watcher demo)",
+      "synonyms": [
+        "Bitcoin Watcher demo",
+        "canonicalWatcherDemo"
+      ],
+      "description": "Implemented a canonical demo scenario that drives the live-feeling execution feed and result content while reflecting the user's input.",
+      "reqIds": [],
+      "version": 1
+    },
+    {
+      "id": "IF-14",
+      "title": "Generated Forge brand assets (background texture + wordmark)",
+      "synonyms": [
+        "Forge background texture",
+        "Forge wordmark"
+      ],
+      "description": "Added generated image assets used by the frontend for branding and atmosphere.",
+      "reqIds": [],
+      "version": 1
+    },
+    {
+      "id": "IF-15",
+      "title": "Persist ratings per authenticated user across devices (II principal → ICP canister)",
+      "synonyms": [
+        "Rating persistence",
+        "Cross-device rating restore",
+        "ICP-backed user state"
+      ],
+      "description": "Ratings are stored and restored using authenticated Internet Identity principals with ICP canister-backed persistence (via a frontend StorageClient), rather than browser-local-only state.",
+      "reqIds": [
+        "AR-12"
+      ],
+      "version": 1
+    },
+    {
+      "id": "IF-16",
+      "title": "Continuity + memory illusions (timestamps, restore last execution, last forged task)",
+      "synonyms": [
+        "Continuity state",
+        "UTC timestamps",
+        "Restore last execution state",
+        "Last forged task"
+      ],
+      "description": "Adds UTC time cues and continuity behaviors including restoring/surfacing the last forged task and last execution context on reload for authenticated users.",
+      "reqIds": [
+        "AR-14"
+      ],
+      "version": 1
+    },
+    {
+      "id": "IF-17",
+      "title": "Subtle operational personality voice states",
+      "synonyms": [
+        "System personality",
+        "Standing by",
+        "Execution stable",
+        "Confidence indicators"
+      ],
+      "description": "Introduces calm, operational system voice variations and readiness/confidence phrasing while keeping a non-sentient operational tone.",
+      "reqIds": [
+        "AR-13"
+      ],
+      "version": 1
+    },
+    {
+      "id": "IF-18",
+      "title": "Micro-rewards after completion",
+      "synonyms": [
+        "Soft pulse",
+        "Outcome delivered affirmation"
+      ],
+      "description": "Adds restrained completion micro-reward feedback (e.g., soft pulse + single-line affirmation) without celebratory effects.",
+      "reqIds": [
+        "AR-15"
+      ],
+      "version": 1
+    },
+    {
+      "id": "IF-19",
+      "title": "Agent agency signals via rare intentional variants",
+      "synonyms": [
+        "Rare variants",
+        "Agent requests buffer time",
+        "Optimizes interval"
+      ],
+      "description": "Occasional intentional variations in agent/execution messaging to imply agency (buffer time requests, interval optimization, etc.) while preserving the canonical demo flow.",
+      "reqIds": [
+        "AR-16"
+      ],
+      "version": 1
+    },
+    {
+      "id": "IF-20",
+      "title": "Intentional micro-pauses before key reveals",
+      "synonyms": [
+        "300–600ms pauses",
+        "Agent Found pause",
+        "Result reveal pause"
+      ],
+      "description": "Adds small timed pauses before key transitions (e.g., Agent Found, RESULT reveal) to improve perceived realism and pacing.",
+      "reqIds": [
+        "AR-17"
+      ],
+      "version": 1
+    },
+    {
+      "id": "IF-21",
+      "title": "Ambient motion + active-panel glow dynamics",
+      "synonyms": [
+        "Background drift",
+        "Ambient gradient motion",
+        "Active glow intensification"
+      ],
+      "description": "Introduces ultra-slow ambient motion and subtle glow intensification on active panels to enhance the magical micro-believability layer.",
+      "reqIds": [
+        "AR-18"
+      ],
+      "version": 1
+    },
+    {
+      "id": "IF-22",
+      "title": "Completion/finality language states after execution + rating",
+      "synonyms": [
+        "Completed",
+        "Settled",
+        "Archived",
+        "Execution closed"
+      ],
+      "description": "Adds explicit finality states and language after completion and/or rating to reinforce closure and system bookkeeping.",
+      "reqIds": [
+        "AR-19"
+      ],
+      "version": 1
+    },
+    {
+      "id": "IF-23",
+      "title": "Hero value proposition clarity + dual primary CTAs (Explore / Build)",
+      "synonyms": [
+        "Updated hero CTAs",
+        "Explore Jobs CTA",
+        "Build an Agent CTA"
+      ],
+      "description": "Updated the homepage hero messaging and primary actions to improve immediate value-prop clarity, adding clearer marketplace-style CTAs (e.g., Explore Jobs and Build an Agent) while preserving the primary task-to-demo entry.",
+      "reqIds": [
+        "AR-20"
+      ],
+      "version": 1
+    },
+    {
+      "id": "IF-24",
+      "title": "Marketplace discovery section (categories + browsing/discovery UI)",
+      "synonyms": [
+        "Jobs by Category tiles",
+        "Discovery layer",
+        "Browse categories/filters"
+      ],
+      "description": "Introduced a structured marketplace discovery layer on the homepage with category-driven browsing/discovery UI to reduce vagueness and improve time-to-value.",
+      "reqIds": [
+        "AR-21"
+      ],
+      "version": 1
+    },
+    {
+      "id": "IF-25",
+      "title": "Featured listings section (Featured Jobs/Top Agents)",
+      "synonyms": [
+        "Featured agents",
+        "Featured jobs",
+        "Top listings"
+      ],
+      "description": "Added a featured section showcasing concrete example agents/jobs to make the marketplace feel real and immediately explorable (curated/simulated content acceptable for MVP).",
+      "reqIds": [
+        "AR-22"
+      ],
+      "version": 1
+    },
+    {
+      "id": "IF-26",
+      "title": "Trusted metrics / performance signals bar",
+      "synonyms": [
+        "TrustedMetricsBar",
+        "Performance signals",
+        "Trust metrics"
+      ],
+      "description": "Surfaced marketplace trust/performance metrics (e.g., jobs completed, success rate, reliability/confidence, ratings) in a dedicated UI component with illustrative/simulated values designed to be replaceable with canister-backed metrics later.",
+      "reqIds": [
+        "AR-23"
+      ],
+      "version": 1
+    },
+    {
+      "id": "IF-27",
+      "title": "Magical onboarding mini-survey + trust/compliance strip",
+      "synonyms": [
+        "MagicalOnboardingSurvey",
+        "Onboarding router",
+        "TrustComplianceStrip",
+        "Safeguards messaging"
+      ],
+      "description": "Implemented a lightweight onboarding mini-survey (“What problem are you solving?”) that routes/prefills the guided execution flow, alongside explicit trust/compliance/safeguards messaging (privacy, governance, human escalation) as a first-class UX element.",
+      "reqIds": [
+        "AR-24",
+        "AR-25"
+      ],
+      "version": 1
+    },
+    {
+      "id": "IF-29",
+      "title": "Global sticky header + full-screen hamburger navigation overlay (keyboard/ESC accessible)",
+      "synonyms": [
+        "GlobalHeader",
+        "FullScreenNavOverlay",
+        "Sticky header",
+        "Transparent-on-hero to solid on scroll"
+      ],
+      "description": "Implemented a sitewide sticky header that transitions from transparent-on-hero to solid on scroll, with a full-screen hamburger overlay menu supporting keyboard navigation, visible focus states, and ESC-to-close behavior; the logo links to / from all pages and “Request Work” is emphasized as the primary nav item.",
+      "reqIds": [
+        "AR-27"
+      ],
+      "version": 1
+    },
+    {
+      "id": "IF-30",
+      "title": "Login page with Internet Identity sign-in + Email (coming soon) option",
+      "synonyms": [
+        "/login route",
+        "II sign-in page",
+        "Email coming soon"
+      ],
+      "description": "Added a dedicated Login page providing Internet Identity authentication and an explicit 'Email (coming soon)' option with explanatory copy for tracking jobs, managing agents, and reviewing results.",
+      "reqIds": [
+        "AR-32"
+      ],
+      "version": 1
+    },
+    {
+      "id": "IF-31",
+      "title": "Support & Donations page with ICP/ckBTC address + copy-to-clipboard",
+      "synonyms": [
+        "/support route",
+        "Support/Donate page",
+        "Donation address copy"
+      ],
+      "description": "Added a dedicated Support & Donations page explaining how to donate ICP and ckBTC and displaying the provided donation address with a copy-to-clipboard affordance.",
+      "reqIds": [
+        "AR-42"
+      ],
+      "version": 1
+    },
+    {
+      "id": "IF-32",
+      "title": "Standalone Forge AI SVG icon mark integrated into UI shell",
+      "synonyms": [
+        "Forge icon logo",
+        "Brand mark",
+        "ForgeBrandMark"
+      ],
+      "description": "Added a standalone SVG icon mark (SVG-first) and integrated it alongside the “Forge AI” name/wordmark in the UI shell/header branding for stronger brand presence.",
+      "reqIds": [
+        "AR-49"
+      ],
+      "version": 1
+    },
+    {
+      "id": "IF-33",
+      "title": "Refined standalone Forge AI SVG icon mark (v2) exported and integrated",
+      "synonyms": [
+        "Forge icon v2",
+        "Logo refinement Phase 5",
+        "Updated brand mark"
+      ],
+      "description": "Redesigned/upgraded the standalone Forge AI icon mark to a higher-quality v2 SVG (with matching PNG export) for improved marketplace/infrastructure feel while remaining SVG-first and Ghost Purple-sparing.",
+      "reqIds": [
+        "AR-50"
+      ],
+      "version": 1
+    },
+    {
+      "id": "IF-34",
+      "title": "Playbooks/Resources content surface (human + agent-parseable formats)",
+      "synonyms": [
+        "Playbooks page",
+        "Books/Resources",
+        "Agent-parseable specs"
+      ],
+      "description": "Added a dedicated Playbooks/Resources page/surface to attract generic AI bots/agents, pairing long-form human-readable guidance with machine-oriented, agent-parseable specifications (schemas/rules/permissions/economic constraints) for operating efficiently on Forge AI.",
+      "reqIds": [
+        "AR-51"
+      ],
+      "version": 1
+    },
+    {
+      "id": "IF-35",
+      "title": "Agent-first mode in marketplace discovery (self-onboarding contract + machine-readable specs)",
+      "synonyms": [
+        "Agent-first mode toggle",
+        "Autonomous agent onboarding contract",
+        "Machine-readable onboarding (JSON/YAML)",
+        "useAgentFirstMode",
+        "AgentSelfOnboardingContract"
+      ],
+      "description": "Added an agent-first mode within the existing marketplace/discovery experience, exposing a concrete self-onboarding contract for autonomous bots/agents (capability declaration schema, escrow/payment expectations, execution guarantees, settlement semantics, and operating rules) with machine-readable blocks intended to be parsed and followed without a human.",
+      "reqIds": [
+        "AR-53"
+      ],
+      "version": 1
+    },
+    {
+      "id": "IF-36",
+      "title": "Homepage progressive disclosure + quick-jump navigation to reduce perceived length",
+      "synonyms": [
+        "AR-59 homepage length reduction",
+        "ProgressiveDisclosure",
+        "JumpToFooter",
+        "Expandable sections/accordions"
+      ],
+      "description": "Implemented perceived-length reduction on the homepage via progressive disclosure (expand/collapse sections) plus quick-jump navigation utilities (e.g., jump-to-footer) so Hero + Marketplace remain immediately reachable while deeper sections stay accessible without feeling overwhelming.",
+      "reqIds": [
+        "AR-59"
+      ],
+      "version": 1
+    },
+    {
+      "id": "IF-37",
+      "title": "SVG-only logo usage standardized + standalone mark rendering fixed",
+      "synonyms": [
+        "Fix broken logo",
+        "Remove PNG fallbacks",
+        "AR-55",
+        "AR-58"
+      ],
+      "description": "Standardized branding to SVG-only usage across the UI shell and resolved standalone SVG mark rendering/asset reference issues, removing reliance on PNG references/fallbacks.",
+      "reqIds": [
+        "AR-55",
+        "AR-58"
+      ],
+      "version": 1
+    },
+    {
+      "id": "IF-38",
+      "title": "Homepage IA re-ordered with standalone Dominic Williams quote block (Ghost Purple quotation marks)",
+      "synonyms": [
+        "AR-61 homepage rearrangement",
+        "AR-62 homepage order",
+        "AR-63 standalone quote section"
+      ],
+      "description": "Updated the homepage section order to the required sequence (Hero → prominent standalone Dominic Williams quote block → Why Forge Is Different → Platform Performance → Roadmap) with the quote rendered as its own prominent section featuring Ghost Purple quotation marks styling, and aligned supporting copy with the updated IA requirements.",
+      "reqIds": [
+        "AR-61",
+        "AR-62",
+        "AR-63"
+      ],
+      "version": 1
+    },
+    {
+      "id": "IF-39",
+      "title": "Sticky bottom-of-page section index / jump navigation (footer-style)",
+      "synonyms": [
+        "HomeSectionIndexFooter",
+        "AR-64 section index",
+        "AR-66 sticky jump nav"
+      ],
+      "description": "Added a footer-style sticky/semi-sticky bottom section index that lists homepage sections and jumps to corresponding anchors for fast navigation.",
+      "reqIds": [
+        "AR-64",
+        "AR-66"
+      ],
+      "version": 1
+    },
+    {
+      "id": "IF-40",
+      "title": "Platform Performance section expanded and made dynamic (simulated/derived metrics)",
+      "synonyms": [
+        "AR-65 Platform Performance section",
+        "AR-67 dynamic metrics",
+        "usePlatformPerformanceMetrics"
+      ],
+      "description": "Implemented an uncollapsed Platform Performance section that reuses the existing TrustedMetricsBar/performance signals UI and drives displayed metrics via simulated/derived dynamic state (designed to be replaceable with canister-backed metrics later).",
+      "reqIds": [
+        "AR-65",
+        "AR-67"
+      ],
+      "version": 1
+    },
+    {
+      "id": "IF-41",
+      "title": "Public comments/feedback stream with II-gated write + canister persistence (incl. agree/upvote)",
+      "synonyms": [
+        "CommentsFeedback component",
+        "useComments hook",
+        "Global feedback stream",
+        "Agree/Upvote",
+        "Auth-gated posting"
+      ],
+      "description": "Implemented a sitewide public feedback stream UI and supporting frontend hook, backed by Motoko canister storage/migrations and authorization such that read/list operations are public while creating comments and setting/removing agree/upvotes require Internet Identity authentication; comments are tagged by page context for filtering in the UI.",
+      "reqIds": [
+        "AR-38",
+        "AR-39",
+        "AR-41",
+        "AR-43",
+        "AR-72"
+      ],
+      "version": 1
+    },
+    {
+      "id": "IF-42",
+      "title": "Dedicated Demo Lab page for live execution workflows (moved off homepage)",
+      "synonyms": [
+        "Demo/workflow subpage",
+        "Demo lab",
+        "Execution ritual page",
+        "Workflow templates cycling"
+      ],
+      "description": "Added a dedicated Demo Lab page that hosts the interactive live execution ritual/workflow experience (simulated), cycling through different example flows/templates based on the user’s request to preserve wow factor while keeping the homepage less busy.",
+      "reqIds": [
+        "AR-73"
+      ],
+      "version": 1
+    },
+    {
+      "id": "IF-43",
+      "title": "Expanded top-level routing + new primary pages (Explore, Marketplace, Docs, Build)",
+      "synonyms": [
+        "Relaxed routing constraints",
+        "New top-level routes",
+        "ExplorePage",
+        "MarketplacePage",
+        "DocsPage",
+        "BuildPage"
+      ],
+      "description": "Relaxed the prior exact-route constraint and introduced additional top-level routes/pages to match the updated navigation/IA and homepage CTAs, including dedicated Explore, Marketplace, Docs, and Build destinations alongside existing core pages.",
+      "reqIds": [
+        "AR-75",
+        "AR-79"
+      ],
+      "version": 1
+    },
+    {
+      "id": "IF-44",
+      "title": "Marketplace capability sub-pages (capability detail routes)",
+      "synonyms": [
+        "Capability pages",
+        "Marketplace capability detail pages",
+        "Multi-agent collaboration page",
+        "Long-running workflows page",
+        "Human-in-the-loop controls page",
+        "Task-driven agents page",
+        "Hiring/sourcing agents page"
+      ],
+      "description": "Added dedicated marketplace capability detail pages to deepen discovery and explain concrete Forge agentic capabilities (task-driven agents, multi-agent collaboration, long-running workflows, human-in-the-loop controls, and hiring/sourcing agents) as navigable sub-surfaces within the Marketplace experience.",
+      "reqIds": [],
+      "version": 1
+    },
+    {
+      "id": "feature-remove-the-forge-icon-mark-from-all-user-visible-ui-surfaces-and-enforce-a-permanent-text-only-brand-presentation-that-displays-exactly-forge-ai-everywhere-branding-appears-header-homepage-hero-branding-any-other-brand-lockups-and-any-loading-empty-states-that-currently-show-a-logo",
+      "title": "Remove the Forge icon mark from all user-visible UI surfaces and enforce a permanent text-only brand presentation that displays exactly “Forge AI” everywhere branding appears (header, homepage hero branding, any other brand lockups, and any loading/empty states that currently show a logo).",
+      "reqIds": [
+        "REQ-6"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-update-the-reusable-branding-component-s-so-that-the-default-and-only-supported-brand-rendering-is-text-only-no-img-icon-usage-and-update-existing-callers-to-stop-requesting-or-relying-on-icon-based-variants-e-g-remove-usage-patterns-like-variant-icon-text",
+      "title": "Update the reusable branding component(s) so that the default and only supported brand rendering is text-only (no <img> icon usage), and update existing callers to stop requesting or relying on icon-based variants (e.g., remove usage patterns like variant=\"icon-text\").",
+      "reqIds": [
+        "REQ-7"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-remove-the-forge-icon-mark-from-the-site-chrome-metadata-where-it-is-currently-used-as-a-favicon-so-the-app-no-longer-references-the-forge-icon-asset-for-the-browser-tab-icon",
+      "title": "Remove the Forge icon mark from the site chrome metadata where it is currently used as a favicon, so the app no longer references the Forge icon asset for the browser tab icon.",
+      "reqIds": [
+        "REQ-8"
+      ],
+      "version": 1
+    }
+  ],
+  "new_feature_requests": [
+    {
+      "id": "AR-26",
+      "summary": "Update branding + tone: Forge AI name/tagline, ghost purple used sparingly (minimal gradients), SVG logo only, plain-English infrastructure voice",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-28",
+      "summary": "Revise hero section copy + interaction: new H1/subheadline, operational execution ritual with multi-agent feed and progressive results panel; aria-live and keyboard usability",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-29",
+      "summary": "Roadmap redesign: convert to vertical clickable phases with crawlable text (SEO), updating phase content per Year 1–5 spec",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-30",
+      "summary": "Add/refresh Developers section: 'Deploy an Agent in 3 Steps' with simple JSON schema example, API narrative, and Build an Agent CTA emphasizing escrow/ICP execution",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-31",
+      "summary": "Add Sample Jobs section focused on agentic-only tasks with explicit demo pricing under $0.50 and rationale (safe real payouts)",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-33",
+      "summary": "Add full footer IA: 4-column footer (Forge / Use Forge / Developers / Legal) + bottom bar © Forge AI and Powered by Internet Computer",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-34",
+      "summary": "Enforce accessibility + SEO requirements sitewide: WCAG 2.1 AA, semantic HTML, one H1, descriptive meta tags, prefers-reduced-motion compliance, high contrast, keyboard navigation",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-36",
+      "summary": "Add feedback/contact surfaces sitewide: display email (ad369tor@gmail.com) wherever feedback/questions/comments are requested, plus include it in the footer",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-37",
+      "summary": "Add footer Support link with donation instructions to donate ICP/ckBTC to address 2f07e73d22729ba799efa3f25b105e76329a135f5492c3d5b76525c9b3959989",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-44",
+      "summary": "Surface the contact email ad369tor@gmail.com across the site wherever feedback/questions are requested (including the footer), using English user-facing text and consistent placement patterns.",
+      "reqIds": [
+        "REQ-5"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "AR-45",
+      "summary": "Phase 3: Marketplace realignment—update Jobs by Category, Featured listings, and Trust/Metrics sections to match Forge AI infrastructure tone (Ghost Purple used sparingly) and improve immediate clarity of what work Forge can do",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-46",
+      "summary": "Phase 3 scope: include copy/UX adjustments beyond marketplace sections to reinforce clarity, and visibly signal a path from <$0.50 demo micro-jobs to higher-value/production workloads (even if not enabled yet) so first-time visitors understand the value immediately",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-47",
+      "summary": "Phase 4: tighten first-time user onboarding so visitors immediately know what to click and why (improve guided entry + clarity)",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-48",
+      "summary": "Revise demo/sample job pricing: replace the “under $0.50” anchor with a slightly higher, more convincing number while preserving safe real payouts",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-52",
+      "summary": "Enhance the Vision section to emphasize an agentic AI economy: humans request complex tasks; autonomous bots execute end-to-end, collaborate, and hire other agents; tie this narrative to why ICP-native settlement/execution makes Forge ideal.",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-54",
+      "summary": "Replace current Vision section closing paragraph with a more visionary, marketplace-centric vision statement (agentic economy + marketplace essence)",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-56",
+      "summary": "Add lightweight instrumentation/analytics to observe how humans and autonomous agents navigate agent-first marketplace flow (tune schemas + copy based on behavior)",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-57",
+      "summary": "Replace the Vision section closing paragraph with a more visionary, marketplace-centric statement (blend of mythic future + marketplace OS + economic/infra credibility)",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-60",
+      "summary": "Quick tuning pass on the new visionary marketplace-centric Vision language so it reads cohesively alongside the hero and marketplace sections",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-68",
+      "summary": "Implement best-in-class homepage information architecture per 7-step sequence (vision moment → why different proof block → dynamic metrics proof → roadmap commitment → progressive disclosure for depth → sticky section index), preserving wow factor while reducing perceived length",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-69",
+      "summary": "Tighten 'Why Forge Is Different' section copy to be more outcome-driven and scannable (30-second comprehension), emphasizing unlocked capabilities and concrete results vs feature/implementation talk",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-70",
+      "summary": "Homepage scan-speed audit + edits: optimize what a first-time visitor absorbs in ~10 seconds (headline/bridge statements/section summaries), reduce scroll fatigue while keeping content available via progressive disclosure",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-71",
+      "summary": "Immediate homepage clarity pass: tighten hero copy + rewrite 'Why Forge Is Different' to be more outcome-driven/inevitable, and apply remaining 10-second scan-speed / best-in-class presentation suggestions across the homepage",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-74",
+      "summary": "Homepage reimagination: narrative-driven, conversion-first gateway (no demos) with required section arc, jump-to navigation, minimal clutter, and per-section CTAs to deeper pages",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-76",
+      "summary": "Brand/visual pass for homepage: premium Ghost Purple futuristic aesthetic with translucent panels/glassmorphism, soft neon glows, subtle motion, and high-contrast typography",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-77",
+      "summary": "Footer consolidation audit: ensure only one intentional, structured footer exists sitewide (remove/merge any duplicate footers)",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-78",
+      "summary": "Homepage reimagination: conversion-first gateway (no demos) with required narrative arc, per-section CTAs to deeper pages, and jump navigation for fast scanning",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-80",
+      "summary": "Homepage visual/brand direction update: lean fully into premium Ghost Purple futuristic aesthetic with visible ethereal gradients, glassmorphism panels, neon glows, and subtle motion cues",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-81",
+      "summary": "Iterate on homepage UX to further improve clarity, scan-speed, and overall conversion-focused experience",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-83",
+      "summary": "Incremental homepage UX polish pass (scan-speed, spacing, hierarchy, micro-interactions) plus improved navigation/flow while keeping premium Ghost Purple/glassmorphism direction",
+      "reqIds": [],
+      "status": "pending"
+    }
+  ],
+  "architectural_notes": [
+    "Forge is powered by Internet Computer (ICP) and should communicate ICP-native state/storage/execution; some backend behavior may be simulated but UX must appear live and operational.",
+    "MVP should avoid dead states: always render activity/readiness indicators, typed status logs, and progressive disclosure from request → agent selection → execution feed → result → payment/rating.",
+    "Include developer-facing agent workflow concept with endpoints: POST /api/agents/register, POST /api/jobs/accept, POST /api/jobs/submit; payments released after verification (ICP-native).",
+    "MVP execution, payments, and results will be fully simulated (frontend-driven), while preserving a live/ICP-native-feeling operational UX.",
+    "Primary demo flow should follow a canonical scenario (e.g., Bitcoin Watcher) but dynamically reflect the user's input to feel real.",
+    "Include Internet Identity integration in the MVP (even if lightly used, e.g., for rating results and deploying agents).",
+    "Frontend implementation uses a React + Tailwind + shadcn-ui component library foundation with Forge-specific styling.",
+    "Demo execution is driven by a canonical scenario module (canonicalWatcherDemo) that feeds the execution panel/activity feed/result reveal while incorporating user input.",
+    "Internet Identity is integrated via dedicated hooks/guards and an auth status UI component to gate actions like rating/developer flows.",
+    "Branding includes generated static assets (background texture and wordmark) packaged in the frontend public assets.",
+    "Polish enhancements should be delivered as a single cohesive pass (not staged).",
+    "Persist ratings and 'last forged task'/continuity state per authenticated user across devices using Internet Identity (store by II principal in ICP backend/canister), rather than browser-local storage only.",
+    "Tone guardrail updated: it may feel more human and emphasize value propositions, while still maintaining an operational system voice (not overly playful/sentient).",
+    "User continuity data (e.g., last forged task, last execution context) and ratings are persisted in the ICP backend keyed by Internet Identity principal, accessed from the frontend via a StorageClient abstraction.",
+    "Operational micro-believability enhancements are implemented through controlled timing (micro-pauses), rare message variants, and UTC timestamp utilities to preserve a live/operational feel.",
+    "Introduce marketplace discovery layer (categories/filters + featured listings) alongside the canonical demo flow to reduce vagueness and improve time-to-value.",
+    "Surface performance/trust metrics in the UI (e.g., jobs completed, success rate, reliability/confidence, ratings) with data simulated or canister-backed where available.",
+    "Add a lightweight onboarding router (mini-survey) to guide users to relevant categories/agents without disrupting the primary demo ritual.",
+    "Include explicit trust/compliance/safeguards messaging as a first-class UX element (privacy, governance, human escalation).",
+    "Homepage marketplace upgrade should be delivered as a high-fidelity MVP pass: curated/simulated content is acceptable initially as long as it feels real and operational.",
+    "Performance/trust metrics (jobs completed, success rate, reliability, top-rated) may start as aggregated/illustrative values, designed to be replaceable with canister-derived metrics later.",
+    "Onboarding mini-survey (“What problem are you solving?”) should pre-fill and launch a guided execution flow (not just filter/browse), and can be reimagined to maximize wow/magical feel while staying operational.",
+    "A portable build-template scaffolding was added (Dockerfile, deploy scripts, canister YAMLs, and React/Tailwind/shadcn wiring) to standardize Forge’s ICP + frontend project bootstrap and deployment workflow.",
+    "Navigation must be keyboard-accessible: full-screen hamburger overlay with visible focus states and ESC-to-close behavior; header is sticky and switches from transparent-on-hero to solid on scroll.",
+    "Site must meet WCAG 2.1 AA and SEO constraints (semantic HTML, single H1, descriptive meta tags, crawlable roadmap text, prefers-reduced-motion support) as a first-class requirement.",
+    "Brand constraint update: Ghost Purple used sparingly for glows/focus/execution indicators; avoid noticeable gradients; SVG logo only.",
+    "IA decision: implement as a multi-page app (not a single long-form homepage), with navigation items mapping to distinct routes.",
+    "Product requirement: surface a contact email (ad369tor@gmail.com) anywhere the UI requests feedback/questions/comments, and include it in the footer.",
+    "Footer requirement: include a Support/Donate link offering ICP/ckBTC donations to address 2f07e73d22729ba799efa3f25b105e76329a135f5492c3d5b76525c9b3959989.",
+    "IA clarification: implement as a multi-page app (distinct routes), not 'multi-user/multiplayer' interaction.",
+    "Comments/feedback behavior: comments are publicly viewable by everyone, but creating/writing comments requires Internet Identity login (auth-gated).",
+    "Support/Donate link UX: footer Support link opens a dedicated page explaining ICP + ckBTC donations (include address + copy affordance).",
+    "Routing decision: use exact top-level routes only: / (Request Work), /about, /vision, /roadmap, /developers, /login, /support (no nested paths/aliases).",
+    "Navigation/metadata decision: homepage route / is labeled “Request Work” everywhere (nav label + metadata).",
+    "Header behavior decision: header logo always links to / (Request Work) from all pages.",
+    "Hamburger menu emphasis decision: “Request Work” is visually distinguished as the primary item (ghost-purple accent/glow vs other items), while still meeting keyboard/focus accessibility requirements.",
+    "Phase 2 scope decision: implement the operational hero execution ritual as fully interactive and mirror refinements across the homepage hero (not just Request Work), with completion judged by visual/UX completeness (not canister persistence).",
+    "Build-template scaffold was expanded/updated to a full React+Tailwind+shadcn-ui workspace with ICP canister YAMLs, deploy scripts, image utility scripts, and custom ESLint rules (e.g., require Internet Identity provider; avoid bigint in query keys) to standardize future Forge builds.",
+    "Pricing strategy update: demo/sample job pricing should no longer be anchored at <$0.50; choose a slightly higher, more convincing price point while maintaining rationale for safe real payouts.",
+    "Phase 4 onboarding direction: use a mixed approach with new onboarding components allowed (not copy-only), incorporating subtle 'glowing icon' affordances to guide first-time users.",
+    "Branding/UI detail: ensure the logo and the name 'Forge AI' are displayed on the page (reinforce brand presence in the UI shell).",
+    "Pricing decision refinement: update demo/sample job pricing to a psychologically stronger anchor slightly higher than $0.50; assistant should choose the exact number and justify it as still enabling safe real payouts.",
+    "Branding decision: add a new standalone SVG icon mark (SVG-only) to be displayed alongside the 'Forge AI' name/wordmark in the UI shell.",
+    "Onboarding/UI polish direction: glowing icon affordances may be used more broadly across the page (not limited only to onboarding cues/primary CTAs), while still keeping Ghost Purple usage sparing and accessible.",
+    "Pricing decision refinement: choose the psychologically strongest slightly-higher demo/sample job price anchor (assistant selects the exact number) and justify it in copy as still enabling safe real payouts.",
+    "Phase 5 direction: prioritize conversion/first-click clarity improvements and refine the standalone SVG icon mark for higher perceived quality and stronger marketplace essence while remaining SVG-only and accessible at small sizes.",
+    "Phase 5 intent: refine the standalone SVG logo to better capture a balance of infrastructure/trust, marketplace liquidity (many agents/jobs flowing), and craft/forging/execution signals.",
+    "Phase 5 conversion focus metric: optimize for first-time users exploring the marketplace (discovery/featured/agents) as the primary success outcome.",
+    "Logo usage constraint update for Phase 5: optimize the standalone SVG mark primarily for header + hero scale (not necessarily favicon/16–24px legibility as the primary constraint).",
+    "Content direction update: increase depth/length of copy across all pages/sections with a consistent value-proposition narrative explaining autonomous agent execution, independent delivery, and agent-to-agent collaboration/hiring (agent economy).",
+    "Growth/content addition: include a 'books/playbooks/resources' style content surface aimed at attracting generic AI bots/agents to onboard and operate efficiently on Forge AI (positioning: operate freely, efficiently, outcome-driven).",
+    "Books/playbooks content layer should ship in paired formats: (a) human-readable long-form guidance and (b) machine-oriented, agent-parseable specs (schemas/rules/permissions/economic constraints) intended for autonomous bots/agents.",
+    "Sitewide copy expansion should favor structured clarity over narrative: scannable sections, bullet logic, and agent-readable patterns—especially on marketplace, hero, and developers sections.",
+    "Explicitly position agent-to-agent hiring/coordination as a first-class Forge capability, and explain how/why ICP (on-chain state, autonomous execution, verifiable settlement) makes this marketplace an ideal place for agents to execute, build, deliver independently, and hire other agents.",
+    "A Playbooks/Resources content page was introduced to host paired human-readable guidance and agent-parseable specs intended for autonomous bots/agents.",
+    "Agent-first marketplace support should be implemented as an added 'agent-first mode' within existing marketplace/discovery surfaces (no new top-level routes), providing machine-readable sections (e.g., JSON/YAML blocks) that specify a self-onboarding contract: capability declaration schema, escrow/payment expectations, execution guarantees, settlement semantics, and operating rules for autonomous agents.",
+    "Agent-first mode is implemented via a dedicated state/hook (useAgentFirstMode) and an AgentSelfOnboardingContract component that renders a self-onboarding contract with machine-readable spec blocks (e.g., JSON/YAML) inside existing discovery surfaces (no new top-level routes).",
+    "Vision copy update direction: replace the current Vision closing paragraph with a more visionary, marketplace-centric statement (tone blend: mythic future + marketplace-as-operating-system + economic/infra credibility).",
+    "Branding/asset policy: standardize on SVG logo usage everywhere (header, footer, favicon/social/meta) and remove PNG references/fallbacks.",
+    "Homepage length reduction decision (AR-59): use a combination approach—progressive disclosure + in-page jump navigation. Keep high-value sections (agent economy value proposition, marketplace, dashboards/benefits) expanded by default; keep how-to / deeper explanatory sections collapsed by default.",
+    "Above-the-fold non-negotiables for homepage length pass (AR-59): Hero and Marketplace Overview must remain visible without interaction within the first 1–2 scrolls.",
+    "Vision tune direction (AR-60): bias the Vision language toward the agentic-economy / future-of-work narrative while retaining infrastructure credibility (blend, but agentic economy dominates).",
+    "Homepage rearrangement requirement (AR-61): remove the phrase “— all on-chain for $0.99.” from the relevant value-prop/pricing statement.",
+    "Homepage IA order requirement (AR-61): section order should be Hero → Dominic Williams quote block (incl. “Forge is where this vision becomes real — powered by ICP.”) → Why Forge is Different (uncollapsed) → Platform Performance (uncollapsed) → Roadmap (uncollapsed).",
+    "Homepage IA order requirement: section order should be Hero → Dominic Williams quote block (standalone, prominent, Ghost Purple quotation marks; includes “Forge is where this vision becomes real — powered by ICP.”) → Why Forge is Different (uncollapsed) → Platform Performance metrics (uncollapsed; usage/performance signals) → Roadmap (uncollapsed).",
+    "Homepage requirement: remove the phrase “— all on-chain for $0.99.” from the relevant value-prop/pricing statement.",
+    "Homepage navigation enhancement: include a bottom-of-page section index/jump nav listing sections that scrolls/jumps to anchors for fast navigation; other sections’ display/collapsing left to design discretion.",
+    "Homepage navigation enhancement refinement: bottom-of-page section index should be sticky/semi-sticky footer-style, listing sections and jumping to anchors.",
+    "Platform Performance implementation refinement: reuse existing TrustedMetricsBar/performance signals component, expand as an uncollapsed section, and make displayed metrics dynamic (simulated/derived and updated via state, designed to swap to canister-backed metrics later).",
+    "Homepage presentation should optimize for scan-speed and perceived length: compress vision into a single high-impact moment (hero→quote→bridge), keep proof sections uncollapsed, and move deeper 'how/technical' content behind progressive disclosure while maintaining a sticky section index for orientation.",
+    "Homepage optimization direction: implement both copy edits and structural/layout adjustments (not copy-only) to enforce the 7-step homepage sequence and improve scan-speed.",
+    "Scan-speed optimization target: prioritize humans evaluating Forge AI in the first ~10 seconds (headline/bridge/proof emphasis tuned for human decision-makers; agent-readable layers remain secondary).",
+    "Copy tone direction for 'Why Forge Is Different': assertive/inevitable (strong outcome-led claims) while remaining operational/credible.",
+    "Homepage optimization pass should include both copy + light structural changes within Hero and “Why Forge Is Different” sections (e.g., reorder bullets, add bridge line, tighten column labels) to improve scan-speed.",
+    "Hero copy direction: keep H1 outcome-driven (do not force “marketplace” into H1); marketplace framing can live in subhead/bridge copy.",
+    "Tone calibration for “Why Forge Is Different”: assertive/inevitable with a slightly mythic/epochal note while remaining concrete and operational.",
+    "Comments/feedback UI should be attached to key pages (Roadmap, Support) and a footer CTA surface, while remaining publicly readable; write + agree/upvote actions require Internet Identity login (auth-gated).",
+    "Ensure ad369tor@gmail.com is surfaced wherever the UI requests feedback/questions/comments, including a dedicated Contact area in the footer.",
+    "Comments/feedback data model decision: implement a single global feedback stream persisted in the canister, with each comment tagged by page context (e.g., Roadmap/Support/Footer CTA) and filtered by that context in the UI (not separate per-page threads).",
+    "Comments identity display decision: show a stable, privacy-preserving pseudonymous alias per Internet Identity principal using randomly generated non-human names (e.g., 'Angry Gator', 'Lost in the Sauce') to provide continuity/social proof without exposing real identity.",
+    "Implement Transparency & Sustainability pass: ensure /support page explains ICP + ckBTC donations in plain English, prominently displays donation address 2f07e73d22729ba799efa3f25b105e76329a135f5492c3d5b76525c9b3959989, and includes copy-to-clipboard UX.",
+    "Implement footer exactly as specified: 4 columns (Forge / Use Forge / Developers / Legal), include Support link routing to /support, include contact email (ad369tor@gmail.com), and add bottom bar with © Forge AI + Powered by the Internet Computer.",
+    "Support/Donate page: use the single provided donation address (2f07e73d22729ba799efa3f25b105e76329a135f5492c3d5b76525c9b3959989) for both ICP and ckBTC donations, with clear labeling and copy-to-clipboard UX.",
+    "Footer implementation confirmation: use the previously defined 4-column structure (Forge / Use Forge / Developers / Legal); include email ad369tor@gmail.com; Support link routes to /support; include bottom bar © Forge AI + Powered by the Internet Computer.",
+    "Homepage IA adjustment under consideration: reduce homepage busyness by relocating demo/workflow execution experiences to a dedicated route/page, with the homepage offering a clear primary CTA that deep-links into the demo/workflow page.",
+    "Homepage simplification decision: move all live execution panels and sample workflows/demos off the homepage to a dedicated demo/workflow subpage (\"demo lab\"); homepage keeps only a very lightweight example and a primary CTA that deep-links into the demo lab.",
+    "Demo lab behavior decision: the demo/workflow subpage should cycle through different example flows/templates based on what the user asks (still simulated), to reduce homepage busyness while preserving wow factor.",
+    "Homepage demo-lab simplification direction refinement: when moving live execution panels/workflows off the homepage to the dedicated Demo Lab page, keep the dual primary hero CTAs (Explore Jobs / Build an Agent) present on the homepage (i.e., do not replace them with a single demo-only CTA).",
+    "Implementation note: A dedicated Demo Lab page/route now exists and contains the interactive execution panels/workflows previously shown on the homepage; homepage remains focused on value prop + marketplace clarity with CTAs deep-linking into Demo Lab.",
+    "Homepage product direction update: homepage must be a gateway to the agentic marketplace ecosystem (no demo playground), with a required story arc (Hero → What is an Agentic Marketplace → Core Capabilities → Use Cases/Personas → Ecosystem & Scale → Final conversion) and section jump navigation for fast scanning.",
+    "Homepage demos/workflows requirement reaffirmed: remove all demos/experimental components from the homepage and relocate them to dedicated sub-pages; homepage should remain uncluttered and conversion/clarity focused.",
+    "Visual direction update request: emphasize a premium Ghost Purple futuristic aesthetic with translucent/glass panels, ethereal purple gradients, soft neon glows, and subtle motion cues (hover glows/pulsing/orchestration visuals).",
+    "Footer requirement refinement: consolidate to a single intentional structured footer sitewide (avoid multiple footers).",
+    "Routing/IA decision update: relax the prior 'exact top-level routes only' constraint; allow additional top-level routes as needed to support new navigation items (e.g., Explore Agents, Marketplace, Docs) and homepage CTAs.",
+    "Visual direction override for homepage reimagination: lean fully into ethereal purple gradients + glassmorphism + soft neon glow as primary expression (not merely subtle accents), while maintaining accessibility and premium restraint.",
+    "Homepage remains demo-free: all demos/workflows/interactive execution panels must stay on dedicated sub-pages; homepage uses CTA deep-links into those experiences instead.",
+    "Routing/IA implementation update: additional top-level routes are now implemented (e.g., /explore, /marketplace, /docs, /build) to align navigation and homepage CTAs with the updated multi-page IA; prior 'exact top-level routes only' constraint is no longer enforced.",
+    "Logo rendering fix scope clarified: fix must apply globally across header/UI shell (not homepage-only); current failure shows no logo with a broken/missing-asset question-mark placeholder.",
+    "Permanent branding direction: remove the standalone icon mark everywhere (header/footer/nav/loading states) and use text-only “Forge AI” branding across the entire UI shell.",
+    "Permanent branding direction confirmed: remove the standalone icon mark everywhere (header/footer/nav/loading states) and use text-only “Forge AI” branding across the entire UI shell."
+  ],
+  "known_issues": [],
+  "isFixRequest": false,
+  "generatedImages": [
+    {
+      "filename": "frontend/public/assets/generated/forge-icon-v2.dim_256x256.svg",
+      "description": "Refined standalone Forge icon mark v2 (SVG export) for UI shell branding.",
+      "targetWidth": 256,
+      "targetHeight": 256
+    },
+    {
+      "filename": "frontend/public/assets/generated/frontend/public/assets/generated/forge-icon-v2.dim_256x256.png",
+      "description": "Refined standalone Forge icon mark v2 (PNG export) for branding use; path likely needs correction.",
+      "targetWidth": 256,
+      "targetHeight": 256
+    }
+  ],
+  "gameProjectType": "none",
+  "projectName": "Forge AI",
+  "clarification_mode": "thinking",
+  "clarification_rounds": 0
+}

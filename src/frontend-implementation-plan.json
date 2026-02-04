@@ -1,0 +1,89 @@
+{
+  "kind": "implementation_plan",
+  "version": "1.0",
+  "title": "Switch to permanent text-only “Forge AI” branding and remove icon mark across UI + favicon",
+  "requirements": [
+    {
+      "id": "REQ-6",
+      "summary": "Remove the Forge icon mark from all user-visible UI surfaces and enforce text-only “Forge AI” branding everywhere it appears.",
+      "acceptanceCriteria": [
+        "No pages render the icon mark image in any header/footer/hero branding area; branding is represented as text-only “Forge AI”.",
+        "All visible brand text uses exactly the string “Forge AI” (including casing and spacing).",
+        "No UI surface regresses to icon+text lockups when navigating between routes."
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/components/ForgeBrandMark.tsx",
+          "operation": "modify",
+          "description": "Refactor the ForgeBrandMark component so it only renders text-only branding (exact string “Forge AI”) and never renders an icon <img> or references the Forge icon asset, ensuring all existing UI surfaces that use this component become text-only."
+        },
+        {
+          "path": "frontend/src/components/GlobalHeader.tsx",
+          "operation": "modify",
+          "description": "Update global header branding usage to render text-only “Forge AI” via ForgeBrandMark while preserving existing home link behavior and focus/keyboard accessibility (no icon lockup)."
+        },
+        {
+          "path": "frontend/src/components/HeroSection.tsx",
+          "operation": "modify",
+          "description": "Update the hero branding area to use the text-only ForgeBrandMark (no icon lockup) and confirm the hover/scale wrapper still behaves without layout breakage."
+        },
+        {
+          "path": "frontend/src/pages/ForgeHomePage.tsx",
+          "operation": "modify",
+          "description": "Update homepage hero branding to use the text-only ForgeBrandMark (no icon lockup) and ensure hero spacing/centering remains intact."
+        }
+      ]
+    },
+    {
+      "id": "REQ-7",
+      "summary": "Update reusable branding component(s) to support text-only branding only, and update all callers to stop requesting icon-based variants.",
+      "acceptanceCriteria": [
+        "The component currently defined in frontend/src/components/ForgeBrandMark.tsx does not render an <img> tag for the brand icon.",
+        "Global header branding (frontend/src/components/GlobalHeader.tsx) renders text-only branding while preserving existing link behavior and focus/keyboard accessibility.",
+        "Homepage hero branding areas that currently import/use ForgeBrandMark (e.g., frontend/src/pages/ForgeHomePage.tsx and frontend/src/components/HeroSection.tsx) render text-only branding without layout breakage."
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/components/ForgeBrandMark.tsx",
+          "operation": "modify",
+          "description": "Remove/disable icon-based API surface (e.g., eliminate the icon-text/wordmark variant prop patterns) so the component’s default and only supported render is text-only “Forge AI”, preventing regressions back to icon+text lockups."
+        },
+        {
+          "path": "frontend/src/components/GlobalHeader.tsx",
+          "operation": "modify",
+          "description": "Remove any icon-based variant requests (e.g., variant=\"icon-text\") from ForgeBrandMark usage and rely on the text-only default."
+        },
+        {
+          "path": "frontend/src/components/HeroSection.tsx",
+          "operation": "modify",
+          "description": "Remove any icon-based variant requests (e.g., variant=\"icon-text\") from ForgeBrandMark usage and rely on the text-only default."
+        },
+        {
+          "path": "frontend/src/pages/ForgeHomePage.tsx",
+          "operation": "modify",
+          "description": "Remove any icon-based variant requests (e.g., variant=\"icon-text\") from ForgeBrandMark usage and rely on the text-only default."
+        }
+      ]
+    },
+    {
+      "id": "REQ-8",
+      "summary": "Remove the Forge icon mark from site chrome metadata so the app no longer references the Forge icon asset as a favicon.",
+      "acceptanceCriteria": [
+        "frontend/index.html no longer references /assets/generated/forge-icon-v2.dim_256x256.png as the favicon.",
+        "After change, the app builds without broken asset references to the removed favicon path."
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/index.html",
+          "operation": "modify",
+          "description": "Remove the favicon <link> reference to /assets/generated/forge-icon-v2.dim_256x256.png so the browser tab no longer references the Forge icon mark."
+        },
+        {
+          "path": "frontend/public/assets/generated/forge-icon-v2.dim_256x256.png",
+          "operation": "delete",
+          "description": "Delete the generated Forge icon favicon asset to prevent any accidental future references to the icon mark and ensure the build has no dependency on this path."
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,68 @@
+{
+  "kind": "feature_evidence_report",
+  "features": [
+    {
+      "featureId": "feature-remove-the-forge-icon-mark-from-all-user-visible-ui-surfaces-and-enforce-a-permanent-text-only-brand-presentation-that-displays-exactly-forge-ai-everywhere-branding-appears-header-homepage-hero-branding-any-other-brand-lockups-and-any-loading-empty-states-that-currently-show-a-logo",
+      "featureTitle": "Remove the Forge icon mark from all user-visible UI surfaces and enforce a permanent text-only brand presentation that displays exactly “Forge AI” everywhere branding appears (header, homepage hero branding, any other brand lockups, and any loading/empty states that currently show a logo).",
+      "files": [
+        "frontend/src/components/ForgeBrandMark.tsx",
+        "frontend/src/components/GlobalHeader.tsx",
+        "frontend/src/components/HeroSection.tsx",
+        "frontend/src/pages/ForgeHomePage.tsx"
+      ],
+      "components": [
+        "authorization@4.0.0",
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-6"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-update-the-reusable-branding-component-s-so-that-the-default-and-only-supported-brand-rendering-is-text-only-no-img-icon-usage-and-update-existing-callers-to-stop-requesting-or-relying-on-icon-based-variants-e-g-remove-usage-patterns-like-variant-icon-text",
+      "featureTitle": "Update the reusable branding component(s) so that the default and only supported brand rendering is text-only (no <img> icon usage), and update existing callers to stop requesting or relying on icon-based variants (e.g., remove usage patterns like variant=\"icon-text\").",
+      "files": [
+        "frontend/src/components/ForgeBrandMark.tsx",
+        "frontend/src/components/GlobalHeader.tsx",
+        "frontend/src/components/HeroSection.tsx",
+        "frontend/src/pages/ForgeHomePage.tsx"
+      ],
+      "components": [
+        "authorization@4.0.0",
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-7"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-remove-the-forge-icon-mark-from-the-site-chrome-metadata-where-it-is-currently-used-as-a-favicon-so-the-app-no-longer-references-the-forge-icon-asset-for-the-browser-tab-icon",
+      "featureTitle": "Remove the Forge icon mark from the site chrome metadata where it is currently used as a favicon, so the app no longer references the Forge icon asset for the browser tab icon.",
+      "files": [
+        "frontend/index.html"
+      ],
+      "components": [
+        "authorization@4.0.0",
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-8"
+      ],
+      "confidence": "high"
+    }
+  ]
+}

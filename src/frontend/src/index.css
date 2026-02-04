@@ -1,0 +1,231 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+    :root {
+        --radius: 0.5rem;
+        /* Forge Ghost Purple + Black Theme - Light Mode (fallback) */
+        --background: 0.05 0 0;
+        --foreground: 0.98 0 0;
+        --card: 0.08 0 0;
+        --card-foreground: 0.98 0 0;
+        --popover: 0.08 0 0;
+        --popover-foreground: 0.98 0 0;
+        --primary: 0.60 0.20 285;
+        --primary-foreground: 0.98 0 0;
+        --secondary: 0.15 0 0;
+        --secondary-foreground: 0.98 0 0;
+        --muted: 0.15 0 0;
+        --muted-foreground: 0.65 0 0;
+        --accent: 0.70 0.18 285;
+        --accent-foreground: 0.98 0 0;
+        --destructive: 0.55 0.22 25;
+        --destructive-foreground: 0.98 0 0;
+        --border: 0.30 0.12 285;
+        --input: 0.30 0.12 285;
+        --ring: 0.60 0.20 285;
+        --chart-1: 0.60 0.20 285;
+        --chart-2: 0.70 0.18 285;
+        --chart-3: 0.50 0.15 285;
+        --chart-4: 0.40 0.10 285;
+        --chart-5: 0.80 0.22 285;
+        
+        /* Forge-specific tokens - intensified for visible gradients */
+        --forge-purple-start: 0.60 0.20 285;
+        --forge-purple-end: 0.80 0.22 285;
+        --forge-glow: 0.70 0.18 285;
+        --forge-near-black: 0.05 0 0;
+    }
+
+    .dark {
+        /* Forge Ghost Purple + Black Theme - Dark Mode (primary) */
+        --background: 0.05 0 0;
+        --foreground: 0.98 0 0;
+        --card: 0.08 0 0;
+        --card-foreground: 0.98 0 0;
+        --popover: 0.12 0 0;
+        --popover-foreground: 0.98 0 0;
+        --primary: 0.60 0.20 285;
+        --primary-foreground: 0.98 0 0;
+        --secondary: 0.15 0 0;
+        --secondary-foreground: 0.98 0 0;
+        --muted: 0.15 0 0;
+        --muted-foreground: 0.65 0 0;
+        --accent: 0.70 0.18 285;
+        --accent-foreground: 0.98 0 0;
+        --destructive: 0.55 0.22 25;
+        --destructive-foreground: 0.98 0 0;
+        --border: 0.30 0.12 285;
+        --input: 0.30 0.12 285;
+        --ring: 0.60 0.20 285;
+        --chart-1: 0.60 0.20 285;
+        --chart-2: 0.70 0.18 285;
+        --chart-3: 0.50 0.15 285;
+        --chart-4: 0.40 0.10 285;
+        --chart-5: 0.80 0.22 285;
+        
+        /* Forge-specific tokens - intensified for visible gradients */
+        --forge-purple-start: 0.60 0.20 285;
+        --forge-purple-end: 0.80 0.22 285;
+        --forge-glow: 0.70 0.18 285;
+        --forge-near-black: 0.05 0 0;
+    }
+
+    * {
+        @apply border-border;
+    }
+    
+    body {
+        @apply bg-background text-foreground;
+        background-color: #0B0B0F;
+        color: oklch(0.98 0 0);
+        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', sans-serif;
+    }
+
+    /* Screen reader only utility */
+    .sr-only {
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        padding: 0;
+        margin: -1px;
+        overflow: hidden;
+        clip: rect(0, 0, 0, 0);
+        white-space: nowrap;
+        border-width: 0;
+    }
+}
+
+@layer utilities {
+    .forge-gradient {
+        background: linear-gradient(135deg, oklch(var(--forge-purple-start)) 0%, oklch(var(--forge-purple-end)) 100%);
+    }
+    
+    .forge-glow {
+        box-shadow: 0 0 30px oklch(var(--forge-glow) / 0.4), 0 0 60px oklch(var(--forge-glow) / 0.2);
+    }
+    
+    .forge-glow-sm {
+        box-shadow: 0 0 15px oklch(var(--forge-glow) / 0.3);
+    }
+    
+    .forge-border-glow {
+        border: 1px solid oklch(var(--forge-glow) / 0.5);
+        box-shadow: 0 0 20px oklch(var(--forge-glow) / 0.2), inset 0 0 20px oklch(var(--forge-glow) / 0.1);
+    }
+    
+    .forge-text-gradient {
+        background: linear-gradient(135deg, oklch(var(--forge-purple-start)) 0%, oklch(var(--forge-purple-end)) 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+    }
+    
+    /* Active state glow intensification */
+    .forge-active-glow {
+        box-shadow: 0 0 35px oklch(var(--forge-glow) / 0.35), 0 0 70px oklch(var(--forge-glow) / 0.15);
+    }
+    
+    .forge-active-glow-subtle {
+        box-shadow: 0 0 20px oklch(var(--forge-glow) / 0.2);
+    }
+    
+    /* Ultra-slow ambient background gradient drift */
+    .forge-ambient-drift {
+        position: fixed;
+        inset: 0;
+        pointer-events: none;
+        z-index: 0;
+        background: radial-gradient(
+            ellipse at 20% 30%,
+            oklch(var(--forge-purple-start) / 0.08) 0%,
+            transparent 50%
+        ),
+        radial-gradient(
+            ellipse at 80% 70%,
+            oklch(var(--forge-purple-end) / 0.06) 0%,
+            transparent 50%
+        );
+    }
+    
+    @keyframes ambient-drift {
+        0%, 100% {
+            transform: translate(0, 0) scale(1);
+            opacity: 0.6;
+        }
+        33% {
+            transform: translate(4%, -3%) scale(1.08);
+            opacity: 0.7;
+        }
+        66% {
+            transform: translate(-3%, 4%) scale(0.95);
+            opacity: 0.65;
+        }
+    }
+
+    @media (prefers-reduced-motion: no-preference) {
+        .forge-ambient-drift {
+            animation: ambient-drift 60s ease-in-out infinite;
+        }
+    }
+
+    /* Full-screen menu overlay with edge glow */
+    .forge-menu-overlay {
+        box-shadow: 
+            inset 0 0 120px oklch(var(--forge-glow) / 0.08),
+            inset 0 0 60px oklch(var(--forge-glow) / 0.05);
+    }
+
+    /* Enhanced focus-visible styles for WCAG 2.1 AA compliance */
+    *:focus-visible {
+        outline: 2px solid oklch(var(--ring));
+        outline-offset: 2px;
+    }
+
+    /* Hover vs focus-visible differentiation for interactive surfaces */
+    .forge-interactive-card {
+        transition: all 0.3s ease;
+    }
+
+    .forge-interactive-card:hover {
+        box-shadow: 0 0 15px oklch(var(--forge-glow) / 0.25);
+    }
+
+    .forge-interactive-card:focus-visible {
+        box-shadow: 0 0 20px oklch(var(--forge-glow) / 0.35), 0 0 0 2px oklch(var(--ring));
+    }
+
+    /* Reduce motion for animations */
+    @media (prefers-reduced-motion: reduce) {
+        *,
+        *::before,
+        *::after {
+            animation-duration: 0.01ms !important;
+            animation-iteration-count: 1 !important;
+            transition-duration: 0.01ms !important;
+            scroll-behavior: auto !important;
+        }
+
+        .animate-pulse {
+            animation: none;
+        }
+
+        .animate-in {
+            animation: none;
+        }
+
+        /* Disable glow transitions for reduced motion */
+        .forge-glow,
+        .forge-glow-sm,
+        .forge-border-glow,
+        .forge-active-glow {
+            transition: none !important;
+        }
+        
+        /* Disable scale transforms for reduced motion */
+        .hover\:scale-105:hover {
+            transform: none !important;
+        }
+    }
+}
