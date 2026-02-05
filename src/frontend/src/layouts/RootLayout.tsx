@@ -2,6 +2,7 @@ import { Outlet, useRouterState } from '@tanstack/react-router';
 import GlobalHeader from '../components/GlobalHeader';
 import FooterNote from '../components/FooterNote';
 import { useDocumentTitle } from '../hooks/useDocumentTitle';
+import { useRouteMeta } from '../hooks/useRouteMeta';
 import { useEffect } from 'react';
 import CtaBackButton from '../components/CtaBackButton';
 import { useSmoothScrollToTop } from '../hooks/useScrollBehavior';
@@ -9,6 +10,7 @@ import { useScrollRestoration } from '../hooks/useScrollRestoration';
 
 export default function RootLayout() {
     useDocumentTitle();
+    useRouteMeta();
     const routerState = useRouterState();
     const scrollToTop = useSmoothScrollToTop(500);
     const { isPopstate } = useScrollRestoration();
@@ -35,7 +37,7 @@ export default function RootLayout() {
     };
 
     return (
-        <div className="min-h-screen relative overflow-hidden flex flex-col forge-motion-subtle">
+        <div className="min-h-screen relative flex flex-col forge-motion-subtle">
             {/* Ambient background drift */}
             <div className="forge-ambient-drift" />
             
@@ -60,7 +62,7 @@ export default function RootLayout() {
 
             {/* Back button (shown when arriving via CTA) */}
             {showBackButton() && (
-                <div className="relative z-20 px-6 pt-20 pb-2">
+                <div className="relative z-20 px-6 pt-20 pb-3">
                     <div className="max-w-7xl mx-auto">
                         <CtaBackButton />
                     </div>

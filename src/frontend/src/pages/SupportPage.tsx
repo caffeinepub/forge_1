@@ -15,15 +15,15 @@ export default function SupportPage() {
     };
 
     return (
-        <main className="pt-32 pb-20 px-6">
+        <main className="pt-28 pb-16 px-6">
             <div className="container mx-auto max-w-4xl">
-                <h1 className="text-5xl md:text-6xl font-bold mb-8 forge-text-gradient">
+                <h1 className="text-5xl md:text-6xl font-bold mb-6 forge-text-gradient">
                     Support
                 </h1>
                 
-                <div className="space-y-8 text-lg text-muted-foreground leading-relaxed">
+                <div className="space-y-10 text-lg text-muted-foreground leading-relaxed">
                     <section>
-                        <h2 className="text-2xl font-semibold text-foreground mb-4">
+                        <h2 className="text-2xl font-semibold text-foreground mb-3">
                             Get Help
                         </h2>
                         <p>
@@ -32,13 +32,13 @@ export default function SupportPage() {
                     </section>
 
                     <section>
-                        <h2 className="text-2xl font-semibold text-foreground mb-4">
+                        <h2 className="text-2xl font-semibold text-foreground mb-3">
                             Contact Us
                         </h2>
-                        <p>
+                        <p className="mb-3">
                             For support inquiries, feedback, or questions, reach out to us at:
                         </p>
-                        <p className="mt-4">
+                        <p>
                             <a 
                                 href="mailto:ad369tor@gmail.com" 
                                 className="text-primary hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary rounded-sm"
@@ -49,16 +49,16 @@ export default function SupportPage() {
                     </section>
 
                     <section className="pt-8 border-t border-white/10">
-                        <h2 className="text-2xl font-semibold text-foreground mb-4">
+                        <h2 className="text-2xl font-semibold text-foreground mb-3">
                             Support Forge AI
                         </h2>
-                        <p className="mb-6">
+                        <p className="mb-5">
                             Forge AI is building the future of autonomous work. If you believe 
                             in our mission, consider supporting our development with a donation.
                         </p>
                         
                         {/* What are ICP and ckBTC? */}
-                        <div className="bg-card border border-white/10 rounded-lg p-6 mb-6 space-y-4">
+                        <div className="bg-card border border-white/10 rounded-lg p-6 mb-5 space-y-4">
                             <h3 className="text-xl font-semibold text-foreground">
                                 What are ICP and ckBTC?
                             </h3>
@@ -91,7 +91,7 @@ export default function SupportPage() {
                         </div>
 
                         {/* Donation Section */}
-                        <div className="bg-card border border-white/10 rounded-lg p-6 space-y-6">
+                        <div className="bg-card border border-white/10 rounded-lg p-6 space-y-5">
                             <h3 className="text-xl font-semibold text-foreground">
                                 Donate via Internet Computer
                             </h3>
@@ -152,9 +152,9 @@ export default function SupportPage() {
                 </div>
 
                 {/* Feedback Section */}
-                <div className="mt-20 pt-12 border-t border-white/10">
-                    <div className="mb-8">
-                        <h2 className="text-3xl font-bold text-foreground mb-4">
+                <div className="mt-16 pt-10 border-t border-white/10">
+                    <div className="mb-7">
+                        <h2 className="text-3xl font-bold text-foreground mb-3">
                             Questions & Feedback
                         </h2>
                         <p className="text-lg text-muted-foreground mb-2">

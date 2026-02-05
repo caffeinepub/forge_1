@@ -1,13 +1,15 @@
 import { useState, useRef, useEffect } from 'react';
 import { useNavigate, useSearch } from '@tanstack/react-router';
 import { Button } from '../components/ui/button';
-import { ArrowLeft, Sparkles } from 'lucide-react';
+import { ArrowLeft, Sparkles, ChevronRight } from 'lucide-react';
 import ExecutionPanel from '../components/ExecutionPanel';
 import RotatingPlaceholderInput from '../components/RotatingPlaceholderInput';
 import { generateJobId } from '../utils/jobId';
 import { useSetLastForgedTask } from '../hooks/useQueries';
 import { useInternetIdentity } from '../hooks/useInternetIdentity';
 import { categoryTemplates, featuredTemplates, detectTemplateType, type PromptTemplate } from '../lib/demo/promptTemplates';
+import { EXPLORE_DEMO_LAB_COPY } from '../content/exploreDemoLabCopy';
+import ProgressiveDisclosure from '../components/ProgressiveDisclosure';
 
 export default function DemoLabPage() {
     const navigate = useNavigate();
@@ -126,7 +128,7 @@ export default function DemoLabPage() {
     return (
         <main className="pt-16 min-h-screen px-6 py-12">
             <div className="max-w-5xl mx-auto">
-                {/* Header */}
+                {/* Header with breadcrumb-style context */}
                 <div className="mb-12">
                     <Button
                         onClick={() => navigate({ to: '/' })}
@@ -134,22 +136,32 @@ export default function DemoLabPage() {
                         className="mb-6 text-muted-foreground hover:text-foreground focus-visible:ring-2 focus-visible:ring-primary"
                     >
                         <ArrowLeft className="mr-2 h-4 w-4" />
-                        Back to Home
+                        {EXPLORE_DEMO_LAB_COPY.shared.backToHome}
                     </Button>
                     
+                    {/* Breadcrumb-style context */}
+                    <div className="flex items-center gap-2 text-sm text-muted-foreground mb-4">
+                        <span>Explore</span>
+                        <ChevronRight className="h-4 w-4" />
+                        <span className="text-foreground font-medium">Request Work</span>
+                    </div>
+                    
                     <h1 className="text-4xl md:text-5xl font-bold mb-4">
-                        Demo Lab
+                        {EXPLORE_DEMO_LAB_COPY.demoLab.requestWork.heading}
                     </h1>
-                    <p className="text-xl text-muted-foreground">
-                        Explore live agent executions across different workflows
+                    <p className="text-xl text-muted-foreground mb-4">
+                        {EXPLORE_DEMO_LAB_COPY.demoLab.requestWork.subtitle}
+                    </p>
+                    <p className="text-sm text-muted-foreground/80 italic">
+                        {EXPLORE_DEMO_LAB_COPY.demoLab.requestWork.postSubmitExpectation}
                     </p>
                 </div>
 
-                {/* Prompt Input */}
-                <div className="mb-12 space-y-6">
-                    <div>
-                        <label className="block text-sm font-medium mb-3">
-                            Describe your workflow
+                {/* PRIMARY ACTION: Prompt Input */}
+                <div className="mb-12 p-8 rounded-xl bg-gradient-to-br from-primary/10 to-accent/5 backdrop-blur-sm border border-primary/30">
+                    <div className="mb-6">
+                        <label className="block text-lg font-semibold mb-3">
+                            {EXPLORE_DEMO_LAB_COPY.demoLab.requestWork.inputLabel}
                         </label>
                         <RotatingPlaceholderInput 
                             value={inputValue}
@@ -159,55 +171,54 @@ export default function DemoLabPage() {
                         />
                     </div>
                     
-                    <div className="flex gap-4">
-                        <Button
-                            onClick={handleSubmit}
-                            disabled={!inputValue.trim()}
-                            size="lg"
-                            className="forge-gradient text-lg px-10 py-6 h-auto font-semibold transition-all duration-300 hover:forge-glow focus-visible:ring-2 focus-visible:ring-primary disabled:opacity-50"
-                        >
-                            <Sparkles className="mr-2 h-5 w-5" />
-                            Run Demo
-                        </Button>
-                        
-                        {recommendedTemplate && (
-                            <Button
-                                onClick={handleCycleNext}
-                                variant="outline"
-                                size="lg"
-                                className="px-8 py-6 h-auto font-medium border-primary/40 hover:bg-primary/10 hover:border-primary/60 transition-all duration-300 focus-visible:ring-2 focus-visible:ring-primary"
-                            >
-                                Try Next Example
-                            </Button>
-                        )}
-                    </div>
+                    <Button
+                        onClick={handleSubmit}
+                        disabled={!inputValue.trim()}
+                        size="lg"
+                        className="w-full forge-gradient text-xl px-10 py-6 h-auto font-bold transition-all duration-300 hover:forge-glow focus-visible:ring-4 focus-visible:ring-primary disabled:opacity-50 shadow-lg"
+                    >
+                        <Sparkles className="mr-2 h-6 w-6" />
+                        {EXPLORE_DEMO_LAB_COPY.demoLab.requestWork.ctaLabel}
+                    </Button>
                 </div>
 
-                {/* Recommended Template */}
+                {/* SECONDARY: Recommended Template - Optional, visually de-emphasized */}
                 {recommendedTemplate && (
-                    <div className="mb-12 p-6 bg-primary/5 backdrop-blur-sm rounded-lg border border-primary/30 forge-glow-sm animate-in fade-in duration-500">
-                        <div className="flex items-start justify-between mb-4">
-                            <div>
-                                <p className="text-sm text-muted-foreground mb-2">Recommended for you</p>
-                                <h3 className="text-xl font-semibold mb-2">{recommendedTemplate.title}</h3>
+                    <div className="mb-12">
+                        <ProgressiveDisclosure 
+                            title={`${EXPLORE_DEMO_LAB_COPY.demoLab.recommendedTemplate.label}: ${recommendedTemplate.title}`}
+                            defaultOpen={true}
+                        >
+                            <div className="space-y-4">
                                 {recommendedTemplate.description && (
                                     <p className="text-muted-foreground">{recommendedTemplate.description}</p>
                                 )}
+                                <div className="flex gap-3">
+                                    <Button
+                                        onClick={() => handleTemplateSelect(recommendedTemplate)}
+                                        className="forge-gradient font-semibold hover:forge-glow focus-visible:ring-2 focus-visible:ring-primary"
+                                    >
+                                        {EXPLORE_DEMO_LAB_COPY.demoLab.recommendedTemplate.ctaLabel}
+                                    </Button>
+                                    <Button
+                                        onClick={handleCycleNext}
+                                        variant="outline"
+                                        className="border-primary/40 hover:bg-primary/10 hover:border-primary/60 focus-visible:ring-2 focus-visible:ring-primary"
+                                    >
+                                        {EXPLORE_DEMO_LAB_COPY.demoLab.recommendedTemplate.cycleLabel}
+                                    </Button>
+                                </div>
                             </div>
-                        </div>
-                        <Button
-                            onClick={() => handleTemplateSelect(recommendedTemplate)}
-                            className="forge-gradient font-semibold hover:forge-glow focus-visible:ring-2 focus-visible:ring-primary"
-                        >
-                            Run This Demo
-                        </Button>
+                        </ProgressiveDisclosure>
                     </div>
                 )}
 
-                {/* Example Categories */}
-                <div className="space-y-12">
-                    <div>
-                        <h2 className="text-2xl font-bold mb-6">Browse by Category</h2>
+                {/* SECONDARY: Example Categories - Progressive disclosure */}
+                <div className="space-y-8">
+                    <ProgressiveDisclosure 
+                        title={EXPLORE_DEMO_LAB_COPY.demoLab.categories.heading}
+                        defaultOpen={false}
+                    >
                         <div className="grid md:grid-cols-2 gap-6">
                             {categoryTemplates.map((template) => (
                                 <div
@@ -218,7 +229,7 @@ export default function DemoLabPage() {
                                         {template.title}
                                     </h3>
                                     {template.description && (
-                                        <p className="text-sm text-muted-foreground mb-4">
+                                        <p className="text-sm text-muted-foreground mb-4 leading-relaxed">
                                             {template.description}
                                         </p>
                                     )}
@@ -227,15 +238,17 @@ export default function DemoLabPage() {
                                         variant="outline"
                                         className="w-full border-primary/40 hover:bg-primary/10 hover:border-primary/60 focus-visible:ring-2 focus-visible:ring-primary"
                                     >
-                                        Launch Demo
+                                        {EXPLORE_DEMO_LAB_COPY.demoLab.categories.ctaLabel}
                                     </Button>
                                 </div>
                             ))}
                         </div>
-                    </div>
+                    </ProgressiveDisclosure>
 
-                    <div>
-                        <h2 className="text-2xl font-bold mb-6">Featured Workflows</h2>
+                    <ProgressiveDisclosure 
+                        title={EXPLORE_DEMO_LAB_COPY.demoLab.featured.heading}
+                        defaultOpen={false}
+                    >
                         <div className="grid md:grid-cols-2 gap-6">
                             {featuredTemplates.map((template) => (
                                 <div
@@ -246,7 +259,7 @@ export default function DemoLabPage() {
                                         {template.title}
                                     </h3>
                                     {template.description && (
-                                        <p className="text-sm text-muted-foreground mb-4">
+                                        <p className="text-sm text-muted-foreground mb-4 leading-relaxed">
                                             {template.description}
                                         </p>
                                     )}
@@ -255,12 +268,12 @@ export default function DemoLabPage() {
                                         variant="outline"
                                         className="w-full border-primary/40 hover:bg-primary/10 hover:border-primary/60 focus-visible:ring-2 focus-visible:ring-primary"
                                     >
-                                        Launch Demo
+                                        {EXPLORE_DEMO_LAB_COPY.demoLab.featured.ctaLabel}
                                     </Button>
                                 </div>
                             ))}
                         </div>
-                    </div>
+                    </ProgressiveDisclosure>
                 </div>
             </div>
         </main>

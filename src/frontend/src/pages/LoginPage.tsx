@@ -2,9 +2,9 @@ import AuthStatus from '../components/AuthStatus';
 
 export default function LoginPage() {
     return (
-        <main className="pt-32 pb-20 px-6">
+        <main className="pt-28 pb-16 px-6">
             <div className="container mx-auto max-w-2xl">
-                <h1 className="text-5xl md:text-6xl font-bold mb-8 text-center forge-text-gradient">
+                <h1 className="text-5xl md:text-6xl font-bold mb-6 text-center forge-text-gradient">
                     Login
                 </h1>
                 
@@ -13,7 +13,7 @@ export default function LoginPage() {
                         Sign in with Internet Identity to access your Forge account
                     </p>
 
-                    <div className="flex justify-center py-8">
+                    <div className="flex justify-center py-6">
                         <AuthStatus />
                     </div>
 

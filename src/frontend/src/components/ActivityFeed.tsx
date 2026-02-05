@@ -12,13 +12,14 @@ interface ActivityFeedProps {
     feedItems: FeedItem[];
     jobId: string;
     onComplete: () => void;
+    agentName?: string;
 }
 
 interface TimestampedFeedItem extends FeedItem {
     timestamp: string;
 }
 
-export default function ActivityFeed({ feedItems, jobId, onComplete }: ActivityFeedProps) {
+export default function ActivityFeed({ feedItems, jobId, onComplete, agentName = 'Agent' }: ActivityFeedProps) {
     const [visibleItems, setVisibleItems] = useState<TimestampedFeedItem[]>([]);
     const [currentIndex, setCurrentIndex] = useState(0);
     const [liveAnnouncement, setLiveAnnouncement] = useState('');
@@ -26,17 +27,17 @@ export default function ActivityFeed({ feedItems, jobId, onComplete }: ActivityF
 
     useEffect(() => {
         if (currentIndex < feedItems.length) {
-            const delay = prefersReducedMotion ? 500 : 1500;
+            const delay = prefersReducedMotion ? 400 : 1200;
             const timer = setTimeout(() => {
                 const item = feedItems[currentIndex];
                 
                 // Apply rare agency variants based on message content
                 let message = item.message;
-                if (message.includes('Monitoring')) {
+                if (message.includes('Monitoring') || message.includes('monitoring')) {
                     message = getRareVariant(message, AGENCY_VARIANTS.monitoring, jobId + currentIndex);
-                } else if (message.includes('Threshold')) {
+                } else if (message.includes('Threshold') || message.includes('threshold')) {
                     message = getRareVariant(message, AGENCY_VARIANTS.threshold, jobId + currentIndex);
-                } else if (message.includes('APIs')) {
+                } else if (message.includes('APIs') || message.includes('API')) {
                     message = getRareVariant(message, AGENCY_VARIANTS.api, jobId + currentIndex);
                 }
                 
@@ -47,7 +48,7 @@ export default function ActivityFeed({ feedItems, jobId, onComplete }: ActivityF
                 };
                 
                 setVisibleItems((prev) => [...prev, timestampedItem]);
-                setLiveAnnouncement(`Watcher: ${message}`);
+                setLiveAnnouncement(`${agentName}: ${message}`);
                 setCurrentIndex((prev) => prev + 1);
             }, delay);
             return () => clearTimeout(timer);
@@ -56,7 +57,7 @@ export default function ActivityFeed({ feedItems, jobId, onComplete }: ActivityF
             const timer = setTimeout(() => onComplete(), completionDelay);
             return () => clearTimeout(timer);
         }
-    }, [currentIndex, feedItems, jobId, onComplete, prefersReducedMotion]);
+    }, [currentIndex, feedItems, jobId, onComplete, prefersReducedMotion, agentName]);
 
     return (
         <div className="space-y-4 mb-8">
@@ -80,7 +81,7 @@ export default function ActivityFeed({ feedItems, jobId, onComplete }: ActivityF
                         <div className="flex items-start space-x-3 flex-1">
                             <span className="text-xl" aria-hidden="true">{item.icon}</span>
                             <span className="text-muted-foreground flex-1">
-                                <span className="text-accent font-medium">Watcher:</span> {item.message}
+                                <span className="text-accent font-medium">{agentName}:</span> {item.message}
                             </span>
                         </div>
                         <span className="text-xs text-muted-foreground/60 ml-4 whitespace-nowrap">{item.timestamp}</span>
@@ -90,7 +91,7 @@ export default function ActivityFeed({ feedItems, jobId, onComplete }: ActivityF
                     <div className="flex items-center justify-between text-muted-foreground">
                         <div className="flex items-center space-x-3">
                             <div className="w-2 h-2 rounded-full bg-primary animate-pulse" />
-                            <span className="text-sm">Standing by</span>
+                            <span className="text-sm">Processing</span>
                         </div>
                         <span className="text-xs text-muted-foreground/60">{formatUTCTimestamp()}</span>
                     </div>

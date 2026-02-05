@@ -1,47 +1,32 @@
 {
   "kind": "spec_vs_diff_report",
   "version": "1.0",
-  "generatedAt": "2026-02-04T14:01:52.332Z",
-  "summary": "REQ-6 and REQ-7 appear implemented via global CSS smooth scrolling with prefers-reduced-motion handling (index.css) and updated scroll-to-top/section-jump hooks used by RootLayout and homepage/footer. However, the diff summary also indicates multiple unrequested product/IA changes (e.g., new routes, major homepage rework, and additional component behavior changes) that go beyond the BuildRequest scope and non-goals.",
-  "missing_requirements": [],
-  "hallucinated_features": [
+  "generatedAt": "2026-02-05T03:56:30.469Z",
+  "summary": "VisionPage.tsx was updated with a new outcome-first narrative and the start of a multi-step “Future Law Firm” section. However, due to truncation, the diff summary only shows Step 1 of the ordered story, so the full required 4-step law-firm example cannot be verified. Additionally, repository metadata/summaries were updated to describe multiple unrelated UX/routes/features, which were not requested (and contradict the “copy/narrative only” constraint), though the diff evidence for those items is limited to summary/metadata files.",
+  "missing_requirements": [
     {
-      "description": "Introduced a new \"/demo-lab\" route and related router/app changes.",
-      "reason": "BuildRequest explicitly lists non-goals including no new routes or product features; only scrolling + light-touch homepage polish were requested.",
+      "id": "REQ-2",
+      "requirement": "Add an explicit, ordered 4-step law-firm storytelling section (human request → AI orchestrates multiple AI agents → hires a human to serve papers → proof/results returned), written as future-facing narrative (not claiming already live).",
+      "reason": "The provided diff snippet for VisionPage.tsx shows the law-firm section intro and the beginning of Step 1, but steps 2–4 (including multi-agent coordination, hiring a human to serve papers, and returning proof/results) are not present in the truncated evidence, so completion of the full ordered 4-step narrative cannot be confirmed.",
       "evidence": [
-        "frontend-file-summaries.txt (mentions: \"frontend/src/App.tsx\" includes new /demo-lab route)"
-      ]
-    },
-    {
-      "description": "Reimagined/changed homepage information architecture and narrative arc beyond \"light-touch\" polish (e.g., new deliberate narrative arc, \"no demos on homepage\", etc.).",
-      "reason": "REQ-8 allows only micro-motion/spacing/visual refinements without changing homepage information architecture or adding sections/features.",
-      "evidence": [
-        "project_state.json (summary describes reimagining homepage IA and narrative arc)"
-      ]
-    },
-    {
-      "description": "Modified/added multiple homepage and site components with new behaviors/copy not requested (HeroSection routing to Demo Lab/Playbooks; ForgeQuoteCard id/tagline changes; RotatingPlaceholderInput behavior; ExecutionPanel demo selection/micro-pauses; ActivityFeed timing/aria-live; RatingStars fetching/submitting ratings; AboutVisionSection rewrite; RoadmapTimeline copy changes; DevelopersSection padding changes; etc.).",
-      "reason": "BuildRequest is narrowly scoped to scrolling behaviors and light-touch homepage polish; extensive functional/copy changes across many components are not requested and may constitute new/changed product behavior.",
-      "evidence": [
-        "frontend-file-summaries.txt (lists changes across many components beyond ForgeHomePage/useScrollBehavior/index.css/RootLayout)"
-      ]
-    },
-    {
-      "description": "ThemeProvider forcing dark mode (application-level behavior change).",
-      "reason": "Not requested by any requirement; could be considered a broader UX/theme behavior change outside scrolling/homepage polish scope.",
-      "evidence": [
-        "frontend-file-summaries.txt (mentions: \"wrapped in ThemeProvider forcing dark mode\")"
+        "frontend/src/pages/VisionPage.tsx (truncated: shows law-firm section header and start of Step 1 only)"
       ]
     }
   ],
-  "confidence": 0.72,
+  "hallucinated_features": [
+    {
+      "description": "Repository metadata/summaries now describe numerous unrelated UI/UX/product changes (e.g., new routes, forced dark mode, updated components, donations page, enhanced motion system), which were not requested in this BuildRequest (copy/narrative only).",
+      "reason": "The BuildRequest scope is explicitly limited to rewriting Vision page copy with no backend/feature changes, but the modified summary/metadata files describe broader product modifications beyond the Vision page narrative.",
+      "evidence": [
+        "frontend-file-summaries.txt",
+        "project_state.json"
+      ]
+    }
+  ],
+  "confidence": 0.62,
   "changed_files": [
     "frontend-file-summaries.txt",
-    "frontend/src/components/HomeSectionIndexFooter.tsx",
-    "frontend/src/hooks/useScrollBehavior.ts",
-    "frontend/src/index.css",
-    "frontend/src/layouts/RootLayout.tsx",
-    "frontend/src/pages/ForgeHomePage.tsx",
+    "frontend/src/pages/VisionPage.tsx",
     "project_state.json"
   ]
 }

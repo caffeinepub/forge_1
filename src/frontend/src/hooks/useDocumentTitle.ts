@@ -15,6 +15,7 @@ const routeTitles: Record<string, string> = {
     '/build': 'Build | Forge AI',
     '/marketplace': 'Marketplace | Forge AI',
     '/docs': 'Docs | Forge AI',
+    '/agent-onboarding': 'Agent Self-Onboarding | Forge AI',
     '/marketplace/task-driven-agents': 'Task-Driven Agents | Forge AI',
     '/marketplace/multi-agent-collaboration': 'Multi-Agent Collaboration | Forge AI',
     '/marketplace/hiring-sourcing-agents': 'Hiring & Sourcing Agents | Forge AI',

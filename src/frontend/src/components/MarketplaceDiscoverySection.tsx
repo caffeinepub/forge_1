@@ -1,6 +1,8 @@
 import { useState } from 'react';
 import { Button } from './ui/button';
-import { categoryTemplates, featuredTemplates, type PromptTemplate } from '../lib/demo/promptTemplates';
+import { Input } from './ui/input';
+import { Sparkles } from 'lucide-react';
+import { categoryTemplates, featuredTemplates, quickStartSamples, type PromptTemplate } from '../lib/demo/promptTemplates';
 import { useAgentFirstMode } from '../hooks/useAgentFirstMode';
 import ProgressiveDisclosure from './ProgressiveDisclosure';
 import { useCtaNavigation } from '../hooks/useCtaNavigation';
@@ -8,9 +10,22 @@ import { useCtaNavigation } from '../hooks/useCtaNavigation';
 export default function MarketplaceDiscoverySection() {
     const { ctaNavigate } = useCtaNavigation();
     const { isAgentMode, toggleMode } = useAgentFirstMode();
+    const [freeFormInput, setFreeFormInput] = useState('');
 
     const handleSelectJob = (template: PromptTemplate) => {
         ctaNavigate('/demo-lab', { prompt: template.prompt });
+    };
+
+    const handleFreeFormSubmit = () => {
+        if (freeFormInput.trim()) {
+            ctaNavigate('/demo-lab', { prompt: freeFormInput });
+        }
+    };
+
+    const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+        if (e.key === 'Enter') {
+            handleFreeFormSubmit();
+        }
     };
 
     return (
@@ -36,7 +51,51 @@ export default function MarketplaceDiscoverySection() {
                     </Button>
                 </div>
 
-                {/* Jobs by Category */}
+                {/* What do you want done? - Free-form entry */}
+                <div className="mb-16 p-6 rounded-xl bg-gradient-to-br from-primary/10 to-accent/5 backdrop-blur-sm border border-primary/30">
+                    <h3 className="text-xl font-bold mb-3">What do you want done?</h3>
+                    <p className="text-sm text-muted-foreground mb-4">
+                        Describe your workflow and we'll match you with the right agent
+                    </p>
+                    
+                    <div className="flex flex-col sm:flex-row gap-3">
+                        <Input
+                            type="text"
+                            value={freeFormInput}
+                            onChange={(e) => setFreeFormInput(e.target.value)}
+                            onKeyDown={handleKeyDown}
+                            placeholder="e.g., Analyze support tickets and generate priority report..."
+                            className="flex-1 bg-background/80 border-border/50 focus:border-primary/50 focus-visible:ring-primary/20"
+                            aria-label="Describe your workflow"
+                        />
+                        <Button
+                            onClick={handleFreeFormSubmit}
+                            disabled={!freeFormInput.trim()}
+                            className="forge-gradient font-semibold hover:forge-glow focus-visible:ring-2 focus-visible:ring-primary disabled:opacity-50"
+                        >
+                            <Sparkles className="mr-2 h-4 w-4" />
+                            Run Demo
+                        </Button>
+                    </div>
+
+                    {/* Quick-start samples */}
+                    <div className="mt-4">
+                        <p className="text-xs text-muted-foreground mb-2">Quick start:</p>
+                        <div className="flex flex-wrap gap-2">
+                            {quickStartSamples.map((sample) => (
+                                <button
+                                    key={sample.id}
+                                    onClick={() => handleSelectJob(sample)}
+                                    className="px-3 py-1.5 text-xs rounded-md bg-card/50 border border-border/50 hover:border-primary/50 hover:bg-primary/5 transition-all duration-200 focus-visible:ring-2 focus-visible:ring-primary focus-visible:outline-none"
+                                >
+                                    {sample.title}
+                                </button>
+                            ))}
+                        </div>
+                    </div>
+                </div>
+
+                {/* Jobs by Category - Strengthened with clear hierarchy */}
                 <div className="mb-16">
                     <h3 className="text-2xl font-semibold mb-6">Jobs by Category</h3>
                     <div className="grid md:grid-cols-2 gap-6">
@@ -49,7 +108,7 @@ export default function MarketplaceDiscoverySection() {
                                     {template.title}
                                 </h4>
                                 {template.description && (
-                                    <p className="text-muted-foreground mb-4">
+                                    <p className="text-sm text-muted-foreground mb-4 leading-relaxed">
                                         {template.description}
                                     </p>
                                 )}
@@ -78,7 +137,7 @@ export default function MarketplaceDiscoverySection() {
                                     {template.title}
                                 </h4>
                                 {template.description && (
-                                    <p className="text-sm text-muted-foreground mb-4">
+                                    <p className="text-sm text-muted-foreground mb-4 leading-relaxed">
                                         {template.description}
                                     </p>
                                 )}

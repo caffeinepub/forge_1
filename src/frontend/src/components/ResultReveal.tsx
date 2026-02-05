@@ -5,6 +5,7 @@ import { usePrefersReducedMotion } from '../hooks/usePrefersReducedMotion';
 interface ResultData {
     title: string;
     description: string;
+    deliverable?: string;
     source: string;
     timestamp: string;
 }
@@ -39,7 +40,7 @@ export default function ResultReveal({ result, jobId }: ResultRevealProps) {
                     {/* Alert card with active glow */}
                     <div className="forge-border-glow forge-active-glow rounded-lg p-6 bg-card/50 backdrop-blur-sm">
                         <div className="flex items-start space-x-4">
-                            <span className="text-4xl" aria-hidden="true">📉</span>
+                            <span className="text-4xl" aria-hidden="true">✅</span>
                             <div className="flex-1">
                                 <h3 className="text-2xl font-semibold mb-2">{result.title}</h3>
                                 <p className="text-lg text-muted-foreground mb-3">{result.description}</p>
@@ -49,6 +50,18 @@ export default function ResultReveal({ result, jobId }: ResultRevealProps) {
                             </div>
                         </div>
                     </div>
+
+                    {/* Polished deliverable section */}
+                    {result.deliverable && (
+                        <div className="p-6 bg-card/30 backdrop-blur-sm rounded-lg border border-border">
+                            <h4 className="text-lg font-semibold mb-4 text-primary">Final Deliverable</h4>
+                            <div className="prose prose-sm prose-invert max-w-none">
+                                <pre className="whitespace-pre-wrap text-sm text-muted-foreground leading-relaxed font-sans">
+                                    {result.deliverable}
+                                </pre>
+                            </div>
+                        </div>
+                    )}
 
                     {/* Completion affirmation */}
                     <div className="text-center">

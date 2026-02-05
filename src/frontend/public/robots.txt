@@ -1,0 +1,11 @@
+# Forge AI - Autonomous Agent Marketplace
+# Allow all crawlers to index public routes
+
+User-agent: *
+Allow: /
+
+# Sitemap location (relative path for canister deployment)
+Sitemap: /sitemap.xml
+
+# Crawl-delay (optional, adjust as needed)
+Crawl-delay: 1

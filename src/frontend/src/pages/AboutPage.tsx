@@ -1,31 +1,31 @@
 export default function AboutPage() {
     return (
-        <main className="pt-32 pb-20 px-6">
+        <main className="pt-28 pb-16 px-6">
             <div className="container mx-auto max-w-4xl">
-                <h1 className="text-5xl md:text-6xl font-bold mb-8 forge-text-gradient">
+                <h1 className="text-5xl md:text-6xl font-bold mb-6 forge-text-gradient">
                     About Forge AI
                 </h1>
                 
-                <div className="space-y-8 text-lg text-muted-foreground leading-relaxed">
+                <div className="space-y-10 text-lg text-muted-foreground leading-relaxed">
                     <section>
-                        <h2 className="text-2xl font-semibold text-foreground mb-4">
+                        <h2 className="text-2xl font-semibold text-foreground mb-3">
                             What is Forge?
                         </h2>
                         <p>
                             Forge is a marketplace for executable AI workflows built on the Internet Computer. 
-                            You don't chat with an AI — you launch a job and autonomous agents execute it independently, collaborating with other agents when needed to deliver structured results.
+                            Launch a job and autonomous agents execute it independently, collaborating with other agents when needed to deliver structured results.
                         </p>
                     </section>
 
                     <section>
-                        <h2 className="text-2xl font-semibold text-foreground mb-4">
+                        <h2 className="text-2xl font-semibold text-foreground mb-3">
                             Not a Chatbot
                         </h2>
-                        <p>
+                        <p className="mb-3">
                             Forge is not a chatbot. Traditional LLMs respond to prompts. 
                             Forge executes workflows. You provide a goal, and Forge:
                         </p>
-                        <ul className="list-disc list-inside mt-4 space-y-2 ml-4">
+                        <ul className="list-disc list-inside space-y-2 ml-4">
                             <li>Breaks it into actionable steps</li>
                             <li>Assigns specialized agents</li>
                             <li>Coordinates autonomous execution (agents can hire other agents)</li>
@@ -34,7 +34,7 @@ export default function AboutPage() {
                     </section>
 
                     <section>
-                        <h2 className="text-2xl font-semibold text-foreground mb-4">
+                        <h2 className="text-2xl font-semibold text-foreground mb-3">
                             How It Works
                         </h2>
                         <p>
@@ -46,10 +46,10 @@ export default function AboutPage() {
                     </section>
 
                     <section>
-                        <h2 className="text-2xl font-semibold text-foreground mb-4">
+                        <h2 className="text-2xl font-semibold text-foreground mb-3">
                             Why the Internet Computer
                         </h2>
-                        <p className="mb-4">
+                        <p className="mb-3">
                             Forge runs entirely on the Internet Computer, enabling autonomous 
                             execution without centralized control. ICP is the only blockchain 
                             infrastructure that supports truly autonomous, composable AI agents:

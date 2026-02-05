@@ -1,4 +1,4 @@
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useRouterState } from '@tanstack/react-router';
 
 /**
@@ -8,7 +8,7 @@ import { useRouterState } from '@tanstack/react-router';
 export function useScrollRestoration() {
   const routerState = useRouterState();
   const scrollPositions = useRef<Map<string, number>>(new Map());
-  const isPopstateRef = useRef(false);
+  const [isPopstate, setIsPopstate] = useState(false);
   const currentKeyRef = useRef<string>('');
 
   // Generate a unique key for the current route
@@ -37,7 +37,7 @@ export function useScrollRestoration() {
   // Track popstate events (back/forward navigation)
   useEffect(() => {
     const handlePopstate = () => {
-      isPopstateRef.current = true;
+      setIsPopstate(true);
     };
 
     window.addEventListener('popstate', handlePopstate);
@@ -61,7 +61,7 @@ export function useScrollRestoration() {
     currentKeyRef.current = newKey;
 
     // Check if this is a popstate navigation
-    if (isPopstateRef.current) {
+    if (isPopstate) {
       // Restore saved position for this route
       const savedPosition = scrollPositions.current.get(newKey);
       
@@ -69,11 +69,12 @@ export function useScrollRestoration() {
         window.scrollTo(0, savedPosition ?? 0);
       });
 
-      isPopstateRef.current = false;
+      // Reset popstate flag after restoration
+      setIsPopstate(false);
     }
-  }, [routerState.location.pathname, routerState.location.search, routerState.location.hash]);
+  }, [routerState.location.pathname, routerState.location.search, routerState.location.hash, isPopstate]);
 
   return {
-    isPopstate: isPopstateRef.current,
+    isPopstate,
   };
 }

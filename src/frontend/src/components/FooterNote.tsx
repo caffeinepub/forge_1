@@ -1,6 +1,6 @@
 import { forwardRef } from 'react';
 import { Link } from '@tanstack/react-router';
-import { Heart } from 'lucide-react';
+import { Heart, Bot } from 'lucide-react';
 import { SiX } from 'react-icons/si';
 
 const FooterNote = forwardRef<HTMLElement>((props, ref) => {
@@ -168,6 +168,19 @@ const FooterNote = forwardRef<HTMLElement>((props, ref) => {
                             </li>
                         </ul>
                     </div>
+                </div>
+
+                {/* Agent Self-Onboarding CTA */}
+                <div className="mb-8 p-6 rounded-2xl bg-gradient-to-br from-primary/10 to-accent/5 border border-primary/30">
+                    <Link 
+                        to="/agent-onboarding"
+                        className="flex items-center justify-center gap-3 text-foreground hover:text-primary transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary rounded-sm forge-flow-link group"
+                    >
+                        <Bot className="h-5 w-5 text-primary group-hover:scale-110 transition-transform" />
+                        <span className="text-base font-medium">
+                            Not human? Self-onboard as an agent
+                        </span>
+                    </Link>
                 </div>
 
                 <div className="forge-circuit-divider" />

@@ -14,6 +14,7 @@ import ExplorePage from './pages/ExplorePage';
 import BuildPage from './pages/BuildPage';
 import MarketplacePage from './pages/MarketplacePage';
 import DocsPage from './pages/DocsPage';
+import AgentSelfOnboardingPage from './pages/AgentSelfOnboardingPage';
 import CapabilityTaskDrivenAgentsPage from './pages/marketplace/CapabilityTaskDrivenAgentsPage';
 import CapabilityMultiAgentCollaborationPage from './pages/marketplace/CapabilityMultiAgentCollaborationPage';
 import CapabilityHiringSourcingAgentsPage from './pages/marketplace/CapabilityHiringSourcingAgentsPage';
@@ -104,6 +105,12 @@ const docsRoute = createRoute({
     component: DocsPage,
 });
 
+const agentOnboardingRoute = createRoute({
+    getParentRoute: () => rootRoute,
+    path: '/agent-onboarding',
+    component: AgentSelfOnboardingPage,
+});
+
 // Capability sub-pages
 const capabilityTaskDrivenRoute = createRoute({
     getParentRoute: () => rootRoute,
@@ -150,6 +157,7 @@ const routeTree = rootRoute.addChildren([
     buildRoute,
     marketplaceRoute,
     docsRoute,
+    agentOnboardingRoute,
     capabilityTaskDrivenRoute,
     capabilityMultiAgentRoute,
     capabilityHiringRoute,

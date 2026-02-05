@@ -1,142 +1,183 @@
+import { useState, useRef } from 'react';
 import { Button } from '../components/ui/button';
-import { ArrowRight, Search, Filter, Star, Zap } from 'lucide-react';
+import { ArrowRight, Sparkles, Zap } from 'lucide-react';
 import { useNavigate } from '@tanstack/react-router';
+import { categoryTemplates, quickStartSamples } from '../lib/demo/promptTemplates';
+import { useCtaNavigation } from '../hooks/useCtaNavigation';
+import { EXPLORE_DEMO_LAB_COPY } from '../content/exploreDemoLabCopy';
+import ProgressiveDisclosure from '../components/ProgressiveDisclosure';
+import { SectionEntryReveal } from '../motion/SectionEntryReveal';
 
 export default function ExplorePage() {
     const navigate = useNavigate();
+    const { ctaNavigate } = useCtaNavigation();
+    const [freeFormInput, setFreeFormInput] = useState('');
+    const inputRef = useRef<HTMLInputElement>(null);
+
+    const handleFreeFormSubmit = () => {
+        if (freeFormInput.trim()) {
+            ctaNavigate('/demo-lab', { prompt: freeFormInput });
+        }
+    };
+
+    const handleQuickStart = (prompt: string) => {
+        ctaNavigate('/demo-lab', { prompt });
+    };
+
+    const handleCategorySelect = (prompt: string) => {
+        ctaNavigate('/demo-lab', { prompt });
+    };
+
+    const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+        if (e.key === 'Enter') {
+            handleFreeFormSubmit();
+        }
+    };
 
     return (
         <main className="pt-16">
-            <div className="px-6 py-20">
+            <div className="px-6 py-16">
                 <div className="max-w-7xl mx-auto">
                     {/* Header */}
-                    <div className="text-center mb-16">
-                        <h1 className="text-5xl md:text-6xl font-bold mb-6">
-                            Explore <span className="forge-text-gradient">Agents</span>
-                        </h1>
-                        <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-                            Browse autonomous agents by capability, reputation, and specialization. Find the right agent for your workflow.
-                        </p>
-                    </div>
+                    <SectionEntryReveal profile="exploreHero">
+                        <div className="text-center mb-16">
+                            <h1 className="text-5xl md:text-6xl font-bold mb-5">
+                                {EXPLORE_DEMO_LAB_COPY.explore.hero.title.split(' ')[0]}{' '}
+                                <span className="forge-text-gradient">
+                                    {EXPLORE_DEMO_LAB_COPY.explore.hero.title.split(' ')[1]}
+                                </span>
+                            </h1>
+                            <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
+                                {EXPLORE_DEMO_LAB_COPY.explore.hero.subtitle}
+                            </p>
+                        </div>
+                    </SectionEntryReveal>
 
-                    {/* Search & Filter (placeholder UI) */}
-                    <div className="mb-12 p-8 rounded-2xl bg-card/30 backdrop-blur-sm border border-border/50">
-                        <div className="flex flex-col md:flex-row gap-4">
-                            <div className="flex-1 flex items-center gap-3 p-4 rounded-lg bg-background/50 border border-border/30">
-                                <Search className="h-5 w-5 text-muted-foreground" />
+                    {/* PRIMARY PATH: What do you want done? - Free-form entry */}
+                    <SectionEntryReveal profile="explorePrimaryPath">
+                        <div className="mb-20 p-9 rounded-2xl bg-gradient-to-br from-primary/15 to-accent/10 backdrop-blur-sm border-2 border-primary/40 shadow-2xl forge-pulse-container">
+                            <h2 className="text-3xl md:text-4xl font-bold mb-4 text-center">
+                                {EXPLORE_DEMO_LAB_COPY.explore.primaryPath.heading}
+                            </h2>
+                            <p className="text-lg text-muted-foreground text-center mb-7 max-w-2xl mx-auto">
+                                {EXPLORE_DEMO_LAB_COPY.explore.primaryPath.helperText}
+                            </p>
+                            
+                            <div className="flex flex-col md:flex-row gap-4 max-w-4xl mx-auto mb-7">
                                 <input
+                                    ref={inputRef}
                                     type="text"
-                                    placeholder="Search agents by capability, task type, or keyword..."
-                                    className="flex-1 bg-transparent outline-none text-foreground placeholder:text-muted-foreground"
-                                    disabled
+                                    value={freeFormInput}
+                                    onChange={(e) => setFreeFormInput(e.target.value)}
+                                    onKeyDown={handleKeyDown}
+                                    placeholder={EXPLORE_DEMO_LAB_COPY.explore.primaryPath.inputPlaceholder}
+                                    className="flex-1 px-6 py-5 text-lg rounded-lg bg-background/90 backdrop-blur-sm border-2 border-border/50 focus:border-primary focus:outline-none focus:ring-4 focus:ring-primary/30 text-foreground placeholder:text-muted-foreground transition-all"
+                                    aria-label={EXPLORE_DEMO_LAB_COPY.explore.primaryPath.inputLabel}
                                 />
-                            </div>
-                            <Button variant="outline" className="border-primary/40 hover:bg-primary/10" disabled>
-                                <Filter className="mr-2 h-4 w-4" />
-                                Filters
-                            </Button>
-                        </div>
-                    </div>
-
-                    {/* Featured Agents (placeholder) */}
-                    <div className="mb-16">
-                        <h2 className="text-3xl font-bold mb-8">Featured Agents</h2>
-                        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-                            {[
-                                {
-                                    name: 'Watcher',
-                                    description: 'Monitors workflows and generates insights',
-                                    rating: 4.9,
-                                    tasks: 1247,
-                                },
-                                {
-                                    name: 'Researcher',
-                                    description: 'Deep research and competitive analysis',
-                                    rating: 4.8,
-                                    tasks: 892,
-                                },
-                                {
-                                    name: 'Coordinator',
-                                    description: 'Multi-agent workflow orchestration',
-                                    rating: 4.7,
-                                    tasks: 634,
-                                },
-                            ].map((agent, idx) => (
-                                <div
-                                    key={idx}
-                                    className="p-6 rounded-2xl bg-gradient-to-br from-primary/10 to-transparent backdrop-blur-sm border border-primary/30 hover:border-primary/50 hover:forge-glow-sm transition-all duration-300"
+                                <Button
+                                    onClick={handleFreeFormSubmit}
+                                    disabled={!freeFormInput.trim()}
+                                    size="lg"
+                                    className="forge-gradient text-xl px-11 py-5 h-auto font-bold hover:forge-glow focus-visible:ring-4 focus-visible:ring-primary disabled:opacity-50 shadow-lg forge-button-primary"
                                 >
-                                    <div className="flex items-start justify-between mb-4">
-                                        <h3 className="text-xl font-semibold">{agent.name}</h3>
-                                        <div className="flex items-center gap-1 text-sm">
-                                            <Star className="h-4 w-4 text-primary fill-primary" />
-                                            <span>{agent.rating}</span>
-                                        </div>
+                                    <Sparkles className="mr-2 h-6 w-6" />
+                                    {EXPLORE_DEMO_LAB_COPY.explore.primaryPath.ctaLabel}
+                                </Button>
+                            </div>
+
+                            {/* Quick-start sample flows */}
+                            <div>
+                                <p className="text-sm text-muted-foreground text-center mb-4 font-medium">
+                                    {EXPLORE_DEMO_LAB_COPY.explore.quickStart.label}
+                                </p>
+                                <SectionEntryReveal profile="exploreQuickStart" staggerChildren>
+                                    <div className="grid grid-cols-2 md:grid-cols-4 gap-3 max-w-4xl mx-auto">
+                                        {quickStartSamples.map((sample) => (
+                                            <button
+                                                key={sample.id}
+                                                onClick={() => handleQuickStart(sample.prompt)}
+                                                className="p-4 rounded-lg bg-card/60 backdrop-blur-sm border border-border/50 hover:border-primary/60 hover:bg-primary/10 transition-all duration-300 text-left group focus-visible:ring-2 focus-visible:ring-primary focus-visible:outline-none forge-handoff relative overflow-hidden"
+                                            >
+                                                <div className="relative z-10">
+                                                    <h3 className="text-sm font-semibold mb-1 group-hover:text-primary transition-colors flex items-center gap-1.5">
+                                                        <Sparkles className="h-3.5 w-3.5 opacity-0 group-hover:opacity-100 transition-opacity" />
+                                                        {sample.title}
+                                                    </h3>
+                                                    <p className="text-xs text-muted-foreground line-clamp-2">
+                                                        {sample.description}
+                                                    </p>
+                                                </div>
+                                            </button>
+                                        ))}
                                     </div>
-                                    <p className="text-muted-foreground mb-4">{agent.description}</p>
-                                    <div className="flex items-center justify-between">
-                                        <span className="text-sm text-muted-foreground">
-                                            {agent.tasks.toLocaleString()} tasks completed
-                                        </span>
-                                        <Button
-                                            onClick={() => navigate({ to: '/demo-lab' })}
-                                            variant="ghost"
-                                            size="sm"
-                                            className="text-primary hover:text-primary/80 p-0 h-auto font-medium"
+                                </SectionEntryReveal>
+                            </div>
+                        </div>
+                    </SectionEntryReveal>
+
+                    {/* SECONDARY: Browse by Category - Progressive disclosure */}
+                    <div className="mb-14">
+                        <ProgressiveDisclosure 
+                            title={EXPLORE_DEMO_LAB_COPY.explore.categories.heading}
+                            defaultOpen={false}
+                        >
+                            <SectionEntryReveal profile="exploreCategories" staggerChildren>
+                                <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-5">
+                                    {categoryTemplates.map((category) => (
+                                        <div
+                                            key={category.id}
+                                            className="p-6 rounded-xl bg-card/30 backdrop-blur-sm border border-border/50 hover:border-primary/40 hover:bg-primary/5 transition-all duration-300 group forge-dependency-path"
                                         >
-                                            Try it →
-                                        </Button>
-                                    </div>
+                                            <h3 className="text-xl font-semibold mb-3 group-hover:text-primary transition-colors">
+                                                {category.title}
+                                            </h3>
+                                            <p className="text-sm text-muted-foreground mb-4 leading-relaxed">
+                                                {category.description}
+                                            </p>
+                                            <Button
+                                                onClick={() => handleCategorySelect(category.prompt)}
+                                                variant="outline"
+                                                className="w-full border-primary/40 hover:bg-primary/10 hover:border-primary/60 focus-visible:ring-2 focus-visible:ring-primary forge-flow-link"
+                                            >
+                                                {EXPLORE_DEMO_LAB_COPY.explore.categories.ctaLabel}
+                                            </Button>
+                                        </div>
+                                    ))}
                                 </div>
-                            ))}
-                        </div>
+                            </SectionEntryReveal>
+                        </ProgressiveDisclosure>
                     </div>
 
-                    {/* Categories */}
-                    <div className="mb-16">
-                        <h2 className="text-3xl font-bold mb-8">Browse by Category</h2>
-                        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-4">
-                            {['Research', 'Operations', 'Support', 'Development', 'Marketing', 'Finance', 'Legal', 'Creative'].map(
-                                (category) => (
-                                    <button
-                                        key={category}
-                                        className="p-6 rounded-xl bg-card/30 backdrop-blur-sm border border-border/50 hover:border-primary/40 hover:bg-primary/5 transition-all duration-300 text-left"
-                                        disabled
-                                    >
-                                        <h3 className="text-lg font-semibold mb-2">{category}</h3>
-                                        <p className="text-sm text-muted-foreground">Coming soon</p>
-                                    </button>
-                                )
-                            )}
+                    {/* Bottom CTA */}
+                    <SectionEntryReveal profile="exploreBottomCta">
+                        <div className="text-center p-10 rounded-2xl bg-gradient-to-br from-primary/20 to-accent/10 backdrop-blur-sm border border-primary/40">
+                            <h2 className="text-3xl font-bold mb-4">
+                                {EXPLORE_DEMO_LAB_COPY.explore.bottomCta.heading}
+                            </h2>
+                            <p className="text-lg text-muted-foreground mb-7 max-w-2xl mx-auto">
+                                {EXPLORE_DEMO_LAB_COPY.explore.bottomCta.description}
+                            </p>
+                            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+                                <Button
+                                    onClick={() => ctaNavigate('/demo-lab')}
+                                    size="lg"
+                                    className="forge-gradient text-lg px-9 py-6 h-auto font-semibold hover:forge-glow focus-visible:ring-2 focus-visible:ring-primary forge-button-primary"
+                                >
+                                    <Zap className="mr-2 h-5 w-5" />
+                                    {EXPLORE_DEMO_LAB_COPY.explore.bottomCta.primaryLabel}
+                                </Button>
+                                <Button
+                                    onClick={() => navigate({ to: '/build' })}
+                                    size="lg"
+                                    variant="outline"
+                                    className="border-primary/40 hover:bg-primary/10 focus-visible:ring-2 focus-visible:ring-primary forge-flow-link"
+                                >
+                                    {EXPLORE_DEMO_LAB_COPY.explore.bottomCta.secondaryLabel}
+                                    <ArrowRight className="ml-2 h-5 w-5" />
+                                </Button>
+                            </div>
                         </div>
-                    </div>
-
-                    {/* CTA */}
-                    <div className="text-center p-12 rounded-2xl bg-gradient-to-br from-primary/20 to-accent/10 backdrop-blur-sm border border-primary/40">
-                        <h2 className="text-3xl font-bold mb-4">Ready to Deploy an Agent?</h2>
-                        <p className="text-lg text-muted-foreground mb-8 max-w-2xl mx-auto">
-                            Try our Demo Lab to see agents in action, or start building your own.
-                        </p>
-                        <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                            <Button
-                                onClick={() => navigate({ to: '/demo-lab' })}
-                                size="lg"
-                                className="forge-gradient text-lg px-10 py-6 h-auto font-semibold hover:forge-glow"
-                            >
-                                <Zap className="mr-2 h-5 w-5" />
-                                Try Demo Lab
-                            </Button>
-                            <Button
-                                onClick={() => navigate({ to: '/build' })}
-                                size="lg"
-                                variant="outline"
-                                className="border-primary/40 hover:bg-primary/10"
-                            >
-                                Start Building
-                                <ArrowRight className="ml-2 h-5 w-5" />
-                            </Button>
-                        </div>
-                    </div>
+                    </SectionEntryReveal>
                 </div>
             </div>
         </main>

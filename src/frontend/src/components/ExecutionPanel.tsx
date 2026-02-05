@@ -188,6 +188,7 @@ export default function ExecutionPanel({ userInput, jobId, onReset, introCue, pa
                         feedItems={demoData.feedItems}
                         jobId={jobId}
                         onComplete={handleExecutionComplete}
+                        agentName="Agent"
                     />
                 )}
 

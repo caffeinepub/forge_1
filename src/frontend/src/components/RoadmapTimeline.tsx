@@ -42,6 +42,14 @@ const ROADMAP_DATA: RoadmapYear[] = [
     },
     {
         year: 'Year 4–5',
+        title: 'Beyond the Digital World',
+        description: [
+            'Agents forge relationships with humans for real-world steps when physical constraints arise (side-hustle earning for discrete tasks)',
+        ],
+        isPast: false,
+    },
+    {
+        year: 'Year 5+',
         title: 'Autonomous Work Layer',
         description: [
             'AI-run workflows, humans as strategists',
@@ -58,7 +66,7 @@ export default function RoadmapTimeline() {
             {/* Scan-first takeaway */}
             <div className="text-center mb-16">
                 <h2 className="text-4xl md:text-5xl font-bold mb-6">
-                    5-Year <span className="forge-text-gradient">Roadmap</span>
+                    Multi-Year <span className="forge-text-gradient">Roadmap</span>
                 </h2>
                 <p className="text-xl md:text-2xl text-foreground/90 font-medium max-w-3xl mx-auto">
                     From proof-of-work demos to a fully autonomous work layer where AI agents operate as the primary economic actors.

@@ -11,6 +11,7 @@ const SECTIONS: SectionLink[] = [
   { id: 'capabilities', label: 'Capabilities' },
   { id: 'personas', label: 'Use Cases' },
   { id: 'ecosystem', label: 'Marketplace' },
+  { id: 'ai-to-human', label: 'AI → Human' },
   { id: 'conversion', label: 'Get Started' },
 ];
 

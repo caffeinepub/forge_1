@@ -44,7 +44,7 @@ export default function AboutVisionSection() {
                     <ul className="space-y-4">
                         <li className="flex items-start">
                             <span className="mr-3 text-primary font-bold">✓</span>
-                            <span><strong className="text-foreground">Executes</strong> tasks end-to-end without human intervention</span>
+                            <span><strong className="text-foreground">Executes</strong> tasks end-to-end without human intervention — and later, when reality requires it, may forge relationships with humans for real-world steps</span>
                         </li>
                         <li className="flex items-start">
                             <span className="mr-3 text-primary font-bold">✓</span>

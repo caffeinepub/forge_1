@@ -1,74 +1,53 @@
 {
   "kind": "implementation_plan",
   "version": "1.0",
-  "title": "Sitewide smooth scrolling + homepage micro-polish",
+  "title": "Vision page rewrite with AI→AI→human orchestration narrative and law-firm multi-step story",
   "requirements": [
     {
-      "id": "REQ-6",
-      "summary": "Enable sitewide smooth scrolling via global CSS while strictly honoring prefers-reduced-motion.",
+      "id": "REQ-1",
+      "summary": "Rewrite the Vision page so the primary narrative leads with humans requesting outcomes, AI agents orchestrating execution (including hiring other agents), and optionally hiring humans for real-world steps.",
       "acceptanceCriteria": [
-        "On all pages, normal scrolling animates smoothly without requiring any per-component changes to scroll handlers.",
-        "When the OS/browser setting prefers-reduced-motion is enabled, normal scrolling is not smoothed (reverts to default/instant behavior).",
-        "No regression to existing animated sections and no new console errors."
+        "Vision page hero title remains “Vision” and the page remains the same route/component (frontend/src/pages/VisionPage.tsx).",
+        "The opening Vision narrative clearly leads with: humans request outcomes; agents orchestrate execution; agents may hire other agents; and real-world steps can be fulfilled by humans when needed.",
+        "Tone is marketing-friendly and accessible (minimal jargon), while still visionary and future-forward.",
+        "All updated user-facing text is in English."
       ],
       "file_operations": [
         {
-          "path": "frontend/src/index.css",
+          "path": "frontend/src/pages/VisionPage.tsx",
           "operation": "modify",
-          "description": "Add a global CSS smooth-scroll rule (e.g., on the root scrolling element) gated under prefers-reduced-motion: no-preference so mousewheel/trackpad scrolling becomes smooth sitewide; ensure the existing prefers-reduced-motion: reduce block continues to force scroll-behavior: auto (non-smooth) without affecting non-scroll animations."
+          "description": "Rewrite the top-of-page narrative section(s) so the primary vision explicitly and prominently frames Forge as: humans request outcomes; agents execute and orchestrate; agents can hire/coordinate other agents; and when digital meets the real world, agents can optionally route discrete physical steps to humans (future-facing), while keeping the H1 text “Vision” unchanged."
         }
       ]
     },
     {
-      "id": "REQ-7",
-      "summary": "Refine scroll-to-top easing/duration and standardize section-jump scrolling with consistent reduced-motion behavior.",
+      "id": "REQ-2",
+      "summary": "Add an explicit ordered multi-step storytelling section using a future law-firm scenario to illustrate AI+AI+human orchestration and proof/results returning to the requester.",
       "acceptanceCriteria": [
-        "Internal route navigations (handled in frontend/src/layouts/RootLayout.tsx) use the updated smoother scroll-to-top behavior.",
-        "Homepage section jumps (e.g., ForgeHomePage scrollToSection + HomeSectionIndexFooter buttons) remain smooth when reduced-motion is off and are instant/non-animated when reduced-motion is on.",
-        "Scroll-to-top animation cancels cleanly if another scroll-to-top is triggered mid-animation (no jitter)."
+        "The law-firm example is presented as an explicit, ordered multi-step narrative (not a single sentence or a brief parenthetical).",
+        "The story explicitly includes: coordination across multiple AI agents for the digital work, and hiring a human for the physical/real-world step (serving papers).",
+        "The section is written as illustrative/future-facing narrative copy and does not claim the capability is already live (it may describe it as a future state or “where this leads”)."
       ],
       "file_operations": [
         {
-          "path": "frontend/src/hooks/useScrollBehavior.ts",
+          "path": "frontend/src/pages/VisionPage.tsx",
           "operation": "modify",
-          "description": "Tune the scroll-to-top motion (duration and easing curve) for a smoother feel, and make the implementation more robust by ensuring re-entrant calls cancel cleanly and the returned function is stable (avoid unnecessary effect retriggers). Also introduce a shared helper for section-jump scrolling that mirrors the same prefers-reduced-motion behavior (smooth when allowed, instant otherwise)."
-        },
-        {
-          "path": "frontend/src/layouts/RootLayout.tsx",
-          "operation": "modify",
-          "description": "Ensure route-change scroll-to-top continues to invoke the updated useSmoothScrollToTop behavior (and remains non-animated for reduced-motion users) without changing routing or scroll restoration logic."
-        },
-        {
-          "path": "frontend/src/pages/ForgeHomePage.tsx",
-          "operation": "modify",
-          "description": "Replace the page-local scrollToSection implementation with the standardized section-jump behavior from the scroll behavior hook/util so section jumps match sitewide smoothness and prefers-reduced-motion handling consistently."
-        },
-        {
-          "path": "frontend/src/components/HomeSectionIndexFooter.tsx",
-          "operation": "modify",
-          "description": "Update the sticky section index footer buttons to use the same standardized section-jump behavior used by the homepage (consistent smooth vs instant behavior based on prefers-reduced-motion)."
+          "description": "Add a dedicated Vision-page section that tells the future law-firm scenario as a clearly ordered 4-step story: (1) human requests legal action, (2) an orchestrating agent coordinates multiple specialized AI agents to research/cross-reference precedents and draft filings, (3) the agent hires a human for the real-world serving step, and (4) proof/results are returned to the requester; ensure the copy is explicitly future-facing (not presented as already live)."
         }
       ]
     },
     {
-      "id": "REQ-8",
-      "summary": "Apply light-touch homepage visual polish (spacing, subtle gradients/glows, hierarchy) using existing Tailwind utilities without changing content structure or behavior.",
+      "id": "REQ-3",
+      "summary": "Align updated Vision copy with Forge’s established terminology (execute/coordinate/orchestrate/settlement) and avoid introducing conflicting vocabulary or stronger claims about payments/escrow/settlement than elsewhere on the site.",
       "acceptanceCriteria": [
-        "Hero section: improved spacing and typographic rhythm (headline/subheadline/CTAs) for faster scanability while keeping the same message and CTAs.",
-        "Panels/cards (e.g., 'Agents vs. Traditional AI', capabilities, personas, ecosystem): slightly refined borders/glow/gradient treatments to feel cleaner and less harsh while preserving the Ghost Purple/black theme.",
-        "Micro-interactions (hover/focus states) feel consistent and slightly more refined on the homepage (no new motion that violates prefers-reduced-motion behavior already defined in CSS).",
-        "No changes to routing, data flow, or backend calls."
+        "Copy aligns with the established lexicon in frontend/src/content/lexicon.ts (preferred verbs and core terms) where applicable.",
+        "Any references to payments/escrow/settlement remain described at the same level of certainty as the rest of the site (no new claims of already-live on-chain escrow if not already claimed elsewhere on the page)."
       ],
       "file_operations": [
         {
-          "path": "frontend/src/pages/ForgeHomePage.tsx",
+          "path": "frontend/src/pages/VisionPage.tsx",
           "operation": "modify",
-          "description": "Polish homepage presentation with small class-level adjustments only (no new sections/features): tighten hero spacing/rhythm, slightly soften background gradients and glow intensity on panels/cards, and normalize hover/focus treatments across hero CTAs and cards using existing Tailwind + existing Forge utility classes; ensure any motion remains covered by current prefers-reduced-motion CSS behavior."
-        },
-        {
-          "path": "frontend/src/index.css",
-          "operation": "modify",
-          "description": "If needed to support the homepage polish without touching immutable UI component sources, adjust existing Forge utility classes/tokens (e.g., glow softness/gradient subtlety or transition timing tokens) in a minimal, backward-compatible way so the homepage refinements stay consistent with the site theme and reduced-motion rules."
+          "description": "Edit wording throughout the Vision page to prefer lexicon-aligned terms (e.g., “execute”, “coordinate”, “orchestrate”, “settlement”) and remove/replace conflicting synonyms where they create concept drift; review and soften/normalize any settlement/escrow phrasing so it does not introduce new certainty beyond the page/site’s existing claims."
         }
       ]
     }

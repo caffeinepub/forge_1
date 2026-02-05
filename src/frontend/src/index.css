@@ -104,19 +104,49 @@
         background-color: #0B0B0F;
         color: oklch(0.98 0 0);
         font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', sans-serif;
+        line-height: 1.6;
     }
 
-    /* Typography hierarchy improvements */
+    /* Typography hierarchy - refined for consistent rhythm */
     h1 {
-        @apply text-5xl md:text-6xl lg:text-7xl font-bold tracking-tight leading-[1.1];
+        @apply text-5xl md:text-6xl lg:text-7xl font-bold tracking-tight;
+        line-height: 1.1;
+        margin-bottom: 1.5rem;
     }
 
     h2 {
-        @apply text-4xl md:text-5xl font-bold leading-tight;
+        @apply text-3xl md:text-4xl font-bold;
+        line-height: 1.2;
+        margin-bottom: 1rem;
     }
 
     h3 {
-        @apply text-2xl md:text-3xl font-semibold leading-snug;
+        @apply text-xl md:text-2xl font-semibold;
+        line-height: 1.3;
+        margin-bottom: 0.75rem;
+    }
+
+    /* Paragraph and list rhythm */
+    p {
+        line-height: 1.7;
+        margin-bottom: 1rem;
+    }
+
+    p:last-child {
+        margin-bottom: 0;
+    }
+
+    ul, ol {
+        line-height: 1.7;
+        margin-bottom: 1rem;
+    }
+
+    li {
+        margin-bottom: 0.5rem;
+    }
+
+    li:last-child {
+        margin-bottom: 0;
     }
 
     /* Screen reader only utility */
@@ -222,7 +252,7 @@
     /* Enhanced focus-visible styles for WCAG 2.1 AA compliance */
     *:focus-visible {
         outline: 2px solid oklch(var(--ring));
-        outline-offset: 2px;
+        outline-offset: 3px;
         transition: outline-offset var(--motion-duration-fast) var(--motion-easing-standard);
     }
 
@@ -240,7 +270,7 @@
         transform: translateY(0);
     }
 
-    /* Card hover micro-interactions - refined */
+    /* Card hover micro-interactions - refined with energy pulse */
     .forge-interactive-card {
         transition: all var(--motion-duration-normal) var(--motion-easing-standard);
         position: relative;
@@ -262,15 +292,16 @@
     }
 
     .forge-interactive-card:hover {
-        box-shadow: 0 0 16px oklch(var(--forge-glow) / 0.2);
-        border-color: oklch(var(--primary) / 0.45);
+        transform: translateY(-2px);
+        box-shadow: 0 0 20px oklch(var(--forge-glow) / 0.25), 0 4px 16px oklch(var(--forge-glow) / 0.15);
+        border-color: oklch(var(--primary) / 0.5);
     }
 
     .forge-interactive-card:focus-visible {
-        box-shadow: 0 0 20px oklch(var(--forge-glow) / 0.28), 0 0 0 2px oklch(var(--ring));
+        box-shadow: 0 0 24px oklch(var(--forge-glow) / 0.32), 0 0 0 2px oklch(var(--ring));
     }
 
-    /* Button micro-interactions - refined */
+    /* Button micro-interactions - refined with shimmer */
     .forge-button-primary {
         position: relative;
         overflow: hidden;
@@ -281,9 +312,9 @@
         content: '';
         position: absolute;
         inset: 0;
-        background: linear-gradient(135deg, transparent, oklch(var(--primary-foreground) / 0.08), transparent);
+        background: linear-gradient(135deg, transparent, oklch(var(--primary-foreground) / 0.12), transparent);
         transform: translateX(-100%);
-        transition: transform var(--motion-duration-slow) var(--motion-easing-standard);
+        transition: transform 0.8s var(--motion-easing-standard);
     }
 
     .forge-button-primary:hover::after {
@@ -291,12 +322,12 @@
     }
 
     .forge-button-primary:hover {
-        transform: scale(1.015);
-        box-shadow: 0 0 24px oklch(var(--forge-glow) / 0.32);
+        transform: scale(1.02);
+        box-shadow: 0 0 28px oklch(var(--forge-glow) / 0.38), 0 4px 20px oklch(var(--forge-glow) / 0.2);
     }
 
     .forge-button-primary:active {
-        transform: scale(0.985);
+        transform: scale(0.98);
     }
 
     /* Input focus micro-interactions */
@@ -387,7 +418,7 @@
         width: 0;
         height: 2px;
         background: linear-gradient(90deg, oklch(var(--primary)), oklch(var(--accent)));
-        transition: width var(--motion-duration-slow) var(--motion-easing-decelerate);
+        transition: width 0.6s var(--motion-easing-decelerate);
     }
 
     .forge-flow-link:hover::after,
@@ -422,8 +453,9 @@
         left: 0;
         width: 30%;
         height: 100%;
-        background: linear-gradient(90deg, transparent, oklch(var(--primary) / 0.35), transparent);
-        animation: pulse-travel 3s ease-in-out infinite;
+        background: linear-gradient(90deg, transparent, oklch(var(--primary) / 0.4), transparent);
+        animation: pulse-travel 4s ease-in-out infinite;
+        pointer-events: none;
     }
 
     /* Dependency path highlight - shows connection on hover */
@@ -442,13 +474,13 @@
         background: oklch(var(--primary));
         opacity: 0;
         transition: opacity var(--motion-duration-normal) var(--motion-easing-standard), 
-                    width var(--motion-duration-normal) var(--motion-easing-decelerate);
+                    width 0.5s var(--motion-easing-decelerate);
     }
 
     .forge-dependency-path:hover::before,
     .forge-dependency-path:focus-visible::before {
         opacity: 1;
-        width: 1rem;
+        width: 1.5rem;
     }
 
     /* Parallel lane pulses - multiple coordinated flows */
@@ -494,10 +526,10 @@
     /* Handoff highlight - emphasizes transfer/coordination moment */
     @keyframes handoff-glow {
         0%, 100% {
-            box-shadow: 0 0 8px oklch(var(--primary) / 0.18);
+            box-shadow: 0 0 10px oklch(var(--primary) / 0.2);
         }
         50% {
-            box-shadow: 0 0 20px oklch(var(--primary) / 0.4), 0 0 32px oklch(var(--accent) / 0.25);
+            box-shadow: 0 0 24px oklch(var(--primary) / 0.45), 0 0 36px oklch(var(--accent) / 0.28);
         }
     }
 
@@ -508,14 +540,14 @@
 
     .forge-handoff:hover,
     .forge-handoff:focus-visible {
-        animation: handoff-glow 1.8s ease-in-out infinite;
+        animation: handoff-glow 2s ease-in-out infinite;
     }
 
-    /* Section entry reveal - staged appearance */
+    /* Section entry reveal - staged appearance with profile-driven timing */
     @keyframes section-reveal {
         from {
             opacity: 0;
-            transform: translateY(30px);
+            transform: translateY(40px);
         }
         to {
             opacity: 1;
@@ -528,36 +560,40 @@
     }
 
     .forge-section-reveal.entered {
-        animation: section-reveal 0.9s var(--motion-easing-decelerate) forwards;
+        animation: section-reveal var(--motion-duration, 0.9s) var(--motion-easing, cubic-bezier(0.0, 0.0, 0.2, 1)) var(--motion-delay, 0s) forwards;
     }
 
-    /* Staged entrance for multiple items */
+    /* Staged entrance for multiple items with stagger */
     .forge-staged-entrance > * {
         opacity: 0;
     }
 
     .forge-staged-entrance.entered > *:nth-child(1) {
-        animation: section-reveal 0.7s var(--motion-easing-decelerate) 0.1s forwards;
+        animation: section-reveal var(--motion-duration, 0.7s) var(--motion-easing, cubic-bezier(0.0, 0.0, 0.2, 1)) calc(var(--motion-delay, 0s) + var(--motion-stagger, 0.1s) * 0) forwards;
     }
 
     .forge-staged-entrance.entered > *:nth-child(2) {
-        animation: section-reveal 0.7s var(--motion-easing-decelerate) 0.2s forwards;
+        animation: section-reveal var(--motion-duration, 0.7s) var(--motion-easing, cubic-bezier(0.0, 0.0, 0.2, 1)) calc(var(--motion-delay, 0s) + var(--motion-stagger, 0.1s) * 1) forwards;
     }
 
     .forge-staged-entrance.entered > *:nth-child(3) {
-        animation: section-reveal 0.7s var(--motion-easing-decelerate) 0.3s forwards;
+        animation: section-reveal var(--motion-duration, 0.7s) var(--motion-easing, cubic-bezier(0.0, 0.0, 0.2, 1)) calc(var(--motion-delay, 0s) + var(--motion-stagger, 0.1s) * 2) forwards;
     }
 
     .forge-staged-entrance.entered > *:nth-child(4) {
-        animation: section-reveal 0.7s var(--motion-easing-decelerate) 0.4s forwards;
+        animation: section-reveal var(--motion-duration, 0.7s) var(--motion-easing, cubic-bezier(0.0, 0.0, 0.2, 1)) calc(var(--motion-delay, 0s) + var(--motion-stagger, 0.1s) * 3) forwards;
     }
 
     .forge-staged-entrance.entered > *:nth-child(5) {
-        animation: section-reveal 0.7s var(--motion-easing-decelerate) 0.5s forwards;
+        animation: section-reveal var(--motion-duration, 0.7s) var(--motion-easing, cubic-bezier(0.0, 0.0, 0.2, 1)) calc(var(--motion-delay, 0s) + var(--motion-stagger, 0.1s) * 4) forwards;
     }
 
-    .forge-staged-entrance.entered > *:nth-child(n+6) {
-        animation: section-reveal 0.7s var(--motion-easing-decelerate) 0.6s forwards;
+    .forge-staged-entrance.entered > *:nth-child(6) {
+        animation: section-reveal var(--motion-duration, 0.7s) var(--motion-easing, cubic-bezier(0.0, 0.0, 0.2, 1)) calc(var(--motion-delay, 0s) + var(--motion-stagger, 0.1s) * 5) forwards;
+    }
+
+    .forge-staged-entrance.entered > *:nth-child(n+7) {
+        animation: section-reveal var(--motion-duration, 0.7s) var(--motion-easing, cubic-bezier(0.0, 0.0, 0.2, 1)) calc(var(--motion-delay, 0s) + var(--motion-stagger, 0.1s) * 6) forwards;
     }
 
     /* Hero orchestration effect - parallel lanes with traveling pulses */
@@ -594,24 +630,27 @@
     }
 
     .forge-motion-early {
-        --motion-intensity: 0.7;
+        --motion-intensity: 0.75;
     }
 
     .forge-motion-subtle {
-        --motion-intensity: 0.4;
+        --motion-intensity: 0.5;
     }
 
-    /* Apply intensity scaling */
+    /* Apply intensity scaling to pulse containers */
     .forge-motion-hero .forge-pulse-container::before {
-        opacity: calc(var(--motion-intensity) * 0.35);
+        opacity: calc(var(--motion-intensity) * 0.4);
+        animation-duration: 3.5s;
     }
 
     .forge-motion-early .forge-pulse-container::before {
-        opacity: calc(var(--motion-intensity) * 0.35);
+        opacity: calc(var(--motion-intensity) * 0.4);
+        animation-duration: 4s;
     }
 
     .forge-motion-subtle .forge-pulse-container::before {
-        opacity: calc(var(--motion-intensity) * 0.35);
+        opacity: calc(var(--motion-intensity) * 0.4);
+        animation-duration: 4.5s;
     }
 
     /* Nav overlay staged transition */
@@ -728,7 +767,8 @@
         
         /* Disable scale transforms for reduced motion */
         .hover\:scale-105:hover,
-        .forge-button-primary:hover {
+        .forge-button-primary:hover,
+        .forge-interactive-card:hover {
             transform: none !important;
         }
 
@@ -762,6 +802,16 @@
         .forge-interactive:hover,
         .forge-interactive-card:hover {
             transform: none !important;
+        }
+
+        /* Disable flow-link animation */
+        .forge-flow-link::after {
+            transition: none !important;
+        }
+
+        /* Disable dependency path animation */
+        .forge-dependency-path::before {
+            transition: none !important;
         }
     }
 }

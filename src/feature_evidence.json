@@ -2,10 +2,10 @@
   "kind": "feature_evidence_report",
   "features": [
     {
-      "featureId": "feature-implement-sitewide-smooth-scrolling-for-normal-page-scrolling-mousewheel-trackpad-using-a-global-css-approach-with-strict-prefers-reduced-motion-compliance-so-reduced-motion-users-get-default-non-smooth-scrolling",
-      "featureTitle": "Implement sitewide smooth scrolling for normal page scrolling (mousewheel/trackpad) using a global CSS approach, with strict prefers-reduced-motion compliance so reduced-motion users get default (non-smooth) scrolling.",
+      "featureId": "feature-rewrite-the-vision-page-copy-to-make-the-humans-request-outcomes-ai-agents-execute-and-coordinate-optionally-hire-humans-for-real-world-steps-narrative-the-primary-vision-in-a-marketing-friendly-but-visionary-tone-integrated-directly-into-the-existing-vision-page-not-as-a-small-aside",
+      "featureTitle": "Rewrite the Vision page copy to make the “humans request outcomes → AI agents execute and coordinate → optionally hire humans for real‑world steps” narrative the primary vision, in a marketing-friendly but visionary tone, integrated directly into the existing Vision page (not as a small aside).",
       "files": [
-        "frontend/src/index.css"
+        "frontend/src/pages/VisionPage.tsx"
       ],
       "components": [
         "authorization@4.0.0",
@@ -16,18 +16,15 @@
         "github-export-icp-cli@1.0.0"
       ],
       "testIds": [
-        "REQ-6"
+        "REQ-1"
       ],
       "confidence": "high"
     },
     {
-      "featureId": "feature-make-scroll-to-top-and-section-jump-transitions-feel-smoother-across-the-entire-site-by-tuning-the-scroll-to-top-easing-duration-frontend-src-hooks-usescrollbehavior-ts-and-standardizing-section-jump-behavior-so-it-is-consistent-with-prefers-reduced-motion-support",
-      "featureTitle": "Make scroll-to-top and section-jump transitions feel smoother across the entire site by tuning the scroll-to-top easing/duration (frontend/src/hooks/useScrollBehavior.ts) and standardizing section-jump behavior so it is consistent with prefers-reduced-motion support.",
+      "featureId": "feature-add-a-multi-step-storytelling-section-on-the-vision-page-that-uses-the-future-law-firm-scenario-as-a-concrete-example-of-ai-ai-human-orchestration-1-a-human-requests-legal-action-2-an-ai-orchestrates-multiple-ai-agents-to-research-and-generate-cross-reference-legal-precedents-and-draft-filings-3-the-ai-coordinates-the-final-real-world-step-by-hiring-a-human-to-serve-papers-and-4-the-workflow-completes-with-proof-results-returned-to-the-requester",
+      "featureTitle": "Add a multi-step storytelling section on the Vision page that uses the future law-firm scenario as a concrete example of AI+AI+human orchestration: (1) a human requests legal action, (2) an AI orchestrates multiple AI agents to research and generate/cross-reference legal precedents and draft filings, (3) the AI coordinates the final real-world step by hiring a human to serve papers, and (4) the workflow completes with proof/results returned to the requester.",
       "files": [
-        "frontend/src/components/HomeSectionIndexFooter.tsx",
-        "frontend/src/hooks/useScrollBehavior.ts",
-        "frontend/src/layouts/RootLayout.tsx",
-        "frontend/src/pages/ForgeHomePage.tsx"
+        "frontend/src/pages/VisionPage.tsx"
       ],
       "components": [
         "authorization@4.0.0",
@@ -38,16 +35,15 @@
         "github-export-icp-cli@1.0.0"
       ],
       "testIds": [
-        "REQ-7"
+        "REQ-2"
       ],
       "confidence": "high"
     },
     {
-      "featureId": "feature-apply-a-light-touch-homepage-polish-pass-frontend-src-pages-forgehomepage-tsx-existing-global-tailwind-utilities-focused-on-micro-motion-spacing-and-small-visual-refinements-glow-softness-gradient-subtlety-hierarchy-tightening-without-changing-the-homepage-information-architecture-or-adding-new-sections-features",
-      "featureTitle": "Apply a light-touch homepage polish pass (frontend/src/pages/ForgeHomePage.tsx + existing global Tailwind utilities) focused on micro-motion, spacing, and small visual refinements (glow softness, gradient subtlety, hierarchy tightening) without changing the homepage information architecture or adding new sections/features.",
+      "featureId": "feature-ensure-the-updated-vision-copy-remains-consistent-with-existing-forge-terminology-used-across-the-site-e-g-execute-coordinate-orchestrate-settlement-and-does-not-introduce-conflicting-vocabulary-for-the-same-concepts",
+      "featureTitle": "Ensure the updated Vision copy remains consistent with existing Forge terminology used across the site (e.g., “execute”, “coordinate”, “orchestrate”, “settlement”) and does not introduce conflicting vocabulary for the same concepts.",
       "files": [
-        "frontend/src/index.css",
-        "frontend/src/pages/ForgeHomePage.tsx"
+        "frontend/src/pages/VisionPage.tsx"
       ],
       "components": [
         "authorization@4.0.0",
@@ -58,7 +54,7 @@
         "github-export-icp-cli@1.0.0"
       ],
       "testIds": [
-        "REQ-8"
+        "REQ-3"
       ],
       "confidence": "high"
     }

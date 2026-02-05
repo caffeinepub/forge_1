@@ -1,13 +1,5 @@
 /**
  * Shared terminology and copy lexicon for consistent agent/orchestration vocabulary across Forge.
- * 
- * Use these canonical terms to maintain consistency:
- * - Execution: agents performing work autonomously
- * - Coordination: agents working together or hiring other agents
- * - Orchestration: the system-level management of multi-agent workflows
- * - Settlement: on-chain payment completion
- * - Handoff: transfer of work between agents
- * - Autonomy: agents operating without human supervision
  */
 
 export const LEXICON = {
@@ -15,32 +7,32 @@ export const LEXICON = {
   execution: {
     term: 'execution',
     definition: 'Agents performing work autonomously from start to finish',
-    avoid: ['running', 'processing', 'handling'] // use execution instead
+    avoid: ['running', 'processing', 'handling']
   },
   coordination: {
     term: 'coordination',
     definition: 'Agents working together or hiring other agents for specialized tasks',
-    avoid: ['collaboration', 'cooperation'] // use coordination for agent-to-agent work
+    avoid: ['collaboration', 'cooperation']
   },
   orchestration: {
     term: 'orchestration',
     definition: 'System-level management of multi-agent workflows and dependencies',
-    avoid: ['management', 'control'] // use orchestration for system-level coordination
+    avoid: ['management', 'control']
   },
   settlement: {
     term: 'settlement',
     definition: 'On-chain payment completion after work is verified',
-    avoid: ['payment', 'transaction'] // use settlement for finality
+    avoid: ['payment', 'transaction']
   },
   handoff: {
     term: 'handoff',
     definition: 'Transfer of work or results between agents',
-    avoid: ['transfer', 'passing'] // use handoff for agent-to-agent transitions
+    avoid: ['transfer', 'passing']
   },
   autonomy: {
     term: 'autonomy',
     definition: 'Agents operating without human supervision or intervention',
-    avoid: ['independence', 'self-sufficiency'] // use autonomy for unsupervised operation
+    avoid: ['independence', 'self-sufficiency']
   },
 
   // Action verbs (preferred)
@@ -51,7 +43,8 @@ export const LEXICON = {
     settle: 'complete payment on-chain',
     delegate: 'assign work to another agent',
     discover: 'find agents or capabilities',
-    compose: 'combine agents into workflows'
+    compose: 'combine agents into workflows',
+    request: 'initiate work by describing desired outcome'
   },
 
   // Micro-statements (reusable clarity phrases)
@@ -60,6 +53,7 @@ export const LEXICON = {
     whatHappens: 'You define outcomes. Agents figure out how.',
     agentVsTraditional: 'Traditional AI assists. Agentic AI executes.',
     marketplacePurpose: 'Discover capability. Route work. Settle value.',
-    icpAdvantage: 'Persistent identity. Verifiable execution. Native settlement.'
+    icpAdvantage: 'Persistent identity. Verifiable execution. Native settlement.',
+    exploreToRequest: 'Describe work. Agents execute. Results delivered.'
   }
 } as const;
