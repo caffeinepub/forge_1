@@ -1,53 +1,38 @@
 {
   "kind": "implementation_plan",
   "version": "1.0",
-  "title": "Vision page rewrite with AI→AI→human orchestration narrative and law-firm multi-step story",
+  "title": "Copy-only updates for Vision page and Homepage hero block",
   "requirements": [
     {
       "id": "REQ-1",
-      "summary": "Rewrite the Vision page so the primary narrative leads with humans requesting outcomes, AI agents orchestrating execution (including hiring other agents), and optionally hiring humans for real-world steps.",
+      "summary": "Rewrite Vision page copy for clarity, consistent heading hierarchy, and reduced jargon while preserving sections and examples.",
       "acceptanceCriteria": [
-        "Vision page hero title remains “Vision” and the page remains the same route/component (frontend/src/pages/VisionPage.tsx).",
-        "The opening Vision narrative clearly leads with: humans request outcomes; agents orchestrate execution; agents may hire other agents; and real-world steps can be fulfilled by humans when needed.",
-        "Tone is marketing-friendly and accessible (minimal jargon), while still visionary and future-forward.",
-        "All updated user-facing text is in English."
+        "Vision page renders without layout regressions and remains fully readable/scannable with a consistent heading structure across sections and example steps.",
+        "All user-facing text on `/vision` is updated to the rewritten version; no placeholder/lorem text remains.",
+        "Rewrite keeps the same core sections and examples (Legal Action Orchestration, Supply Chain Verification, Market Research with Field Verification, AI as Infrastructure, Lifecycle, Why ICP is the Ideal Platform, Marketplace as Operating System) while improving clarity and reducing jargon.",
+        "No changes are made to routing, authentication, backend, or non-copy UI behavior."
       ],
       "file_operations": [
         {
           "path": "frontend/src/pages/VisionPage.tsx",
           "operation": "modify",
-          "description": "Rewrite the top-of-page narrative section(s) so the primary vision explicitly and prominently frames Forge as: humans request outcomes; agents execute and orchestrate; agents can hire/coordinate other agents; and when digital meets the real world, agents can optionally route discrete physical steps to humans (future-facing), while keeping the H1 text “Vision” unchanged."
+          "description": "Update all user-facing copy to match the provided “Vision” draft content (source-of-truth for meaning), refining for consistency/readability: enforce a clear heading hierarchy (H1 page title, H2 major sections, H3 example sub-steps), keep the same narrative structure and examples, and reduce unnecessary crypto/blockchain jargon (prefer plain-language phrasing unless essential). Keep layout/classes/structure unchanged aside from text-level edits needed to support the heading hierarchy."
         }
       ]
     },
     {
       "id": "REQ-2",
-      "summary": "Add an explicit ordered multi-step storytelling section using a future law-firm scenario to illustrate AI+AI+human orchestration and proof/results returning to the requester.",
+      "summary": "Rewrite only the Homepage hero block headline, supporting paragraph, and italic teaser line without changing any other Homepage content.",
       "acceptanceCriteria": [
-        "The law-firm example is presented as an explicit, ordered multi-step narrative (not a single sentence or a brief parenthetical).",
-        "The story explicitly includes: coordination across multiple AI agents for the digital work, and hiring a human for the physical/real-world step (serving papers).",
-        "The section is written as illustrative/future-facing narrative copy and does not claim the capability is already live (it may describe it as a future state or “where this leads”)."
+        "Only hero text content changes on the Homepage; all other Homepage sections remain byte-for-byte unchanged except for any necessary formatting to support the new hero copy.",
+        "Homepage hero preserves the same intent: outcome-first positioning, agent orchestration, and the future human-hiring teaser line.",
+        "No CTA destinations or button labels are changed unless required solely to match the rewritten hero copy (prefer keeping existing labels)."
       ],
       "file_operations": [
         {
-          "path": "frontend/src/pages/VisionPage.tsx",
+          "path": "frontend/src/pages/ForgeHomePage.tsx",
           "operation": "modify",
-          "description": "Add a dedicated Vision-page section that tells the future law-firm scenario as a clearly ordered 4-step story: (1) human requests legal action, (2) an orchestrating agent coordinates multiple specialized AI agents to research/cross-reference precedents and draft filings, (3) the agent hires a human for the real-world serving step, and (4) proof/results are returned to the requester; ensure the copy is explicitly future-facing (not presented as already live)."
-        }
-      ]
-    },
-    {
-      "id": "REQ-3",
-      "summary": "Align updated Vision copy with Forge’s established terminology (execute/coordinate/orchestrate/settlement) and avoid introducing conflicting vocabulary or stronger claims about payments/escrow/settlement than elsewhere on the site.",
-      "acceptanceCriteria": [
-        "Copy aligns with the established lexicon in frontend/src/content/lexicon.ts (preferred verbs and core terms) where applicable.",
-        "Any references to payments/escrow/settlement remain described at the same level of certainty as the rest of the site (no new claims of already-live on-chain escrow if not already claimed elsewhere on the page)."
-      ],
-      "file_operations": [
-        {
-          "path": "frontend/src/pages/VisionPage.tsx",
-          "operation": "modify",
-          "description": "Edit wording throughout the Vision page to prefer lexicon-aligned terms (e.g., “execute”, “coordinate”, “orchestrate”, “settlement”) and remove/replace conflicting synonyms where they create concept drift; review and soften/normalize any settlement/escrow phrasing so it does not introduce new certainty beyond the page/site’s existing claims."
+          "description": "Rewrite ONLY the hero block copy (H1 headline text, supporting paragraph, and the italic “Later…” line) using the provided hero text as meaning source-of-truth. Do not change any other sections, CTAs, button labels, destinations, structure, ordering, or non-copy behavior on the Homepage; keep all non-hero content byte-for-byte unchanged."
         }
       ]
     }

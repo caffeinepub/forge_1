@@ -1,367 +1,430 @@
 {
   "schemaVersion": "1.0.0",
   "projectStateVersion": 3,
-  "summary": "Forge AI has evolved into a production-feeling, premium Ghost Purple + glassmorphism multipage marketplace experience (not demo-first). The app now emphasizes agentic economy narrative and conversion-first UX: reimagined homepage story arc with jump navigation, deeper Explore/Marketplace discovery with strengthened categories and richer sample jobs (including detailed simulated execution + polished outputs), sitewide motion/scan-speed/typography polish, and strict scroll-to-top on internal navigation with back/forward scroll restoration. The platform includes Internet Identity login, a public-readable/global feedback system filtered by page context with II-gated write + agree/upvote and stable non-human aliases, plus a Support & Donations page (ICP/ckBTC) and a unified structured footer with contact links. Demos/workflows live on dedicated subpages (Demo Lab), and a secondary “AI→human” future capability is teased across the site/roadmap as a high-level narrative about extending AI beyond the digital world via human fulfillment.",
+  "summary": "Forge AI is a React + Motoko (Internet Computer) web app positioned as an autonomous agent marketplace. The frontend is a multi-page marketing and product funnel (Explore → Demo Lab → simulated execution) with strong accessibility and motion/scroll polish, SEO artifacts (sitemap/robots + per-route titles/meta), and Internet Identity authentication. Authenticated users can persist a profile name, rate demo executions by jobId, store/resume their last “forged task”, and participate in a page-scoped community feedback system (comments + upvotes) backed by a single Motoko canister with role-based access control and admin bootstrap via a secret token.",
   "existing_features": [
     {
       "id": "IF-1",
-      "title": "ICP Motoko backend for marketplace user state",
+      "title": "Multi-page routed SPA (marketing + product funnel)",
       "synonyms": [
-        "Backend canister",
-        "Motoko actor",
-        "ICP persistence"
+        "TanStack Router site",
+        "Client-side routing"
       ],
-      "description": "Implements an ICP canister that stores and serves user-gated state including user profiles, ratings keyed by (jobId, principal), and per-user last forged task continuity.",
+      "description": "Implements a routed single-page application with pages including Home, About, Vision, Roadmap, Developers, Login, Support, Playbooks, Explore, Demo Lab, Build, Marketplace, Docs, Agent Self-Onboarding, and multiple Marketplace capability sub-pages.",
       "reqIds": [],
       "version": 1
     },
     {
       "id": "IF-2",
-      "title": "Role-based access control with optional admin bootstrap",
+      "title": "Root layout with global header/footer, ambient background, and CTA Back button",
       "synonyms": [
-        "Access control",
-        "RBAC",
-        "Admin token bootstrap"
+        "RootLayout",
+        "Global chrome"
       ],
-      "description": "Provides AccessControl (admin/user/guest) with initialization logic where the first caller can become admin if they present the correct secret token; includes admin checks and role assignment functions via a Motoko mixin.",
+      "description": "Provides a shared layout with sticky GlobalHeader, FooterNote, ambient background layers/texture, and a conditional Back button when navigation state indicates the user arrived via a CTA.",
       "reqIds": [],
       "version": 1
     },
     {
       "id": "IF-3",
-      "title": "Internet Identity authentication provider",
+      "title": "Accessible global header with hamburger navigation",
       "synonyms": [
-        "II integration",
-        "AuthClient provider",
-        "InternetIdentityProvider"
+        "GlobalHeader",
+        "Mobile menu trigger"
       ],
-      "description": "Implements a React context for Internet Identity login/logout, identity persistence across reloads, login status state machine, and delegation validity handling.",
+      "description": "Renders a scroll-aware header (transparent→solid on homepage) with brand link, hamburger control, focus-visible styling, and integration with the full-screen overlay menu.",
       "reqIds": [],
       "version": 1
     },
     {
       "id": "IF-4",
-      "title": "Identity-aware ICP actor creation and query invalidation",
+      "title": "Full-screen navigation overlay with focus trap and ESC-to-close",
       "synonyms": [
-        "useActor",
-        "Actor hook",
-        "Authenticated canister calls"
+        "FullScreenNavOverlay",
+        "Hamburger overlay menu"
       ],
-      "description": "Creates an anonymous or authenticated backend actor depending on Internet Identity state, initializes access control with a secret parameter, and invalidates/refetches dependent React Query caches when the actor changes.",
+      "description": "Implements a modal-like full-screen navigation with focus trapping, Escape key handling, body scroll locking, and accessible dialog semantics.",
       "reqIds": [],
       "version": 1
     },
     {
       "id": "IF-5",
-      "title": "Auth status UI with first-login profile setup modal",
+      "title": "Per-route document titles",
       "synonyms": [
-        "AuthStatus",
-        "ProfileSetupModal",
-        "First-time user onboarding"
+        "useDocumentTitle",
+        "Route title mapping"
       ],
-      "description": "Renders sign-in/sign-out controls, shows the user’s saved profile name when available, and triggers a modal to collect and persist a profile name for first-time authenticated users.",
+      "description": "Updates document.title based on the active route using a predefined mapping with sensible defaults.",
       "reqIds": [],
       "version": 1
     },
     {
       "id": "IF-6",
-      "title": "Authentication guard for protected actions",
+      "title": "Per-route SEO meta description + Open Graph/Twitter tags",
       "synonyms": [
-        "useAuthGuard",
-        "Require login"
+        "useRouteMeta",
+        "Dynamic meta tags"
       ],
-      "description": "Provides a helper that triggers Internet Identity login on demand and returns whether the action can proceed, used to gate writes like ratings and comments.",
+      "description": "Updates meta description and Open Graph/Twitter title+description tags on route changes via DOM mutation, complementing the base SEO tags in index.html.",
       "reqIds": [],
       "version": 1
     },
     {
       "id": "IF-7",
-      "title": "Demo Lab request workflow with prompt-driven navigation",
+      "title": "Static crawl artifacts (robots.txt and sitemap.xml)",
       "synonyms": [
-        "Demo Lab page",
-        "Request Work funnel"
+        "SEO artifacts",
+        "Crawlability"
       ],
-      "description": "Implements a dedicated /demo-lab flow with free-form prompt submission, URL query prompt hydration, recommended template selection, progressive disclosure for browsing templates, and focus management when switching between request and execution views.",
+      "description": "Serves robots.txt and sitemap.xml from /public using relative URLs suitable for Internet Computer canister hosting.",
       "reqIds": [],
       "version": 1
     },
     {
       "id": "IF-8",
-      "title": "Multi-phase execution simulation orchestrator",
+      "title": "Scroll-to-top on navigation + back/forward scroll restoration",
       "synonyms": [
-        "ExecutionPanel",
-        "Execution phases",
-        "Analyzing → Agent Found → Executing → Completed"
+        "useSmoothScrollToTop",
+        "useScrollRestoration"
       ],
-      "description": "Runs a phased simulated execution (intro/analyzing/agent-found/executing/completed) with timed system messages, agent card reveal, activity feed, and result reveal; includes aria-live announcements for accessibility.",
+      "description": "Disables browser scrollRestoration, smoothly scrolls to top on forward navigations (instant when reduced motion is preferred), and restores saved scroll positions on back/forward navigations.",
       "reqIds": [],
       "version": 1
     },
     {
       "id": "IF-9",
-      "title": "Live-feeling activity feed with rare agency variants",
+      "title": "Reduced-motion compliant motion system",
       "synonyms": [
-        "ActivityFeed",
-        "Execution log",
-        "Agency signal variants"
+        "prefers-reduced-motion support",
+        "Motion profiles"
       ],
-      "description": "Displays incremental feed items with UTC timestamps and reduced-motion-aware delays; injects deterministic low-frequency phrasing variants based on jobId to imply agent autonomy.",
+      "description": "Provides reduced-motion detection, IntersectionObserver-based section entry detection, CSS-variable-driven motion profiles, and global reduced-motion overrides to minimize animation when requested.",
       "reqIds": [],
       "version": 1
     },
     {
       "id": "IF-10",
-      "title": "Template-driven demo generators with structured deliverables",
+      "title": "Reusable section entry reveal component",
       "synonyms": [
-        "executionTemplates",
-        "Research/Ops/Support/Watcher templates"
+        "SectionEntryReveal",
+        "Viewport reveal"
       ],
-      "description": "Generates detailed step feeds and polished multi-section deliverables for multiple execution paths (research, ops triage, support analysis, watcher alerts), selected via prompt keyword classification.",
+      "description": "Wraps content with a reveal system that applies profile-defined duration/delay/stagger via CSS variables and triggers once when the element enters the viewport.",
       "reqIds": [],
       "version": 1
     },
     {
       "id": "IF-11",
-      "title": "Result reveal with deliverable rendering and completion metadata",
+      "title": "Homepage long-form marketing narrative with section jump index",
       "synonyms": [
-        "ResultReveal",
-        "Deliverable panel"
+        "ForgeHomePage",
+        "HomeSectionIndexFooter"
       ],
-      "description": "Reveals execution results with animated divider, optional formatted deliverable text, completion affirmation, and fixed payout metadata (simulated).",
+      "description": "Implements a multi-section, conversion-focused homepage with smooth section jumps, entry reveals, and a sticky section index footer for fast navigation between sections.",
       "reqIds": [],
       "version": 1
     },
     {
       "id": "IF-12",
-      "title": "Execution rating system (load + submit) with Internet Identity gating",
+      "title": "Explore page workflow discovery funnel",
       "synonyms": [
-        "RatingStars",
-        "Ratings persistence"
+        "Explore workflows",
+        "Prompt entry + templates"
       ],
-      "description": "Allows authenticated users to submit 1–5 star ratings for a jobId, loads existing ratings from the backend, invalidates cached rating queries on success, and displays a finality message after submission.",
+      "description": "Allows users to enter a free-form request or select quick-start/category templates, routing into Demo Lab with prefilled prompts; secondary browsing is demoted behind progressive disclosure.",
       "reqIds": [],
       "version": 1
     },
     {
       "id": "IF-13",
-      "title": "Last forged task continuity and resume affordance",
+      "title": "Demo Lab request-to-execution experience",
       "synonyms": [
-        "LastForgedTask",
-        "Resume last execution"
+        "DemoLabPage",
+        "Request Work"
       ],
-      "description": "Stores the last requested task for authenticated users in the backend and surfaces a resume CTA on the hero to re-open the Demo Lab with the previous prompt.",
+      "description": "Supports prompt input, recommended template selection, URL-driven prompt prefill, focus management between input and execution panel, and progressive disclosure for browsing templates.",
       "reqIds": [],
       "version": 1
     },
     {
       "id": "IF-14",
-      "title": "Agent-first mode toggle (session persisted)",
+      "title": "Execution panel with staged phases and accessibility announcements",
       "synonyms": [
-        "Agent mode",
-        "Human/Agent toggle",
-        "useAgentFirstMode"
+        "ExecutionPanel",
+        "Analyzing → Agent Found → Executing → Completed"
       ],
-      "description": "Adds a sessionStorage-backed toggle used in discovery surfaces to switch between human and agent framing and show agent-oriented ICP rationale content.",
+      "description": "Simulates an execution lifecycle with timed phases, system messages, agent card reveal, aria-live announcements, and a reset flow to start a new request.",
       "reqIds": [],
       "version": 1
     },
     {
       "id": "IF-15",
-      "title": "Explore page workflow discovery funnel",
+      "title": "Incremental activity feed with UTC timestamps and deterministic rare variants",
       "synonyms": [
-        "/explore",
-        "Quick-start samples",
-        "Browse by capability"
+        "ActivityFeed",
+        "Agency variants"
       ],
-      "description": "Provides a primary free-form request path plus quick-start samples and optional category browsing (progressive disclosure), routing users into Demo Lab with prefilled prompts.",
+      "description": "Reveals feed items over time with UTC timestamps, reduced-motion-aware timing, and deterministic rare phrase variants seeded by jobId to provide low-frequency agency signals.",
       "reqIds": [],
       "version": 1
     },
     {
       "id": "IF-16",
-      "title": "Marketplace overview and capability sub-pages",
+      "title": "Template-driven demo execution generators with structured deliverables",
       "synonyms": [
-        "/marketplace",
-        "Capability detail pages"
+        "executionTemplates",
+        "Research/Ops/Support/Watcher templates"
       ],
-      "description": "Implements a marketplace overview page and multiple capability detail pages (task-driven agents, multi-agent collaboration, hiring/sourcing, long-running workflows, human-in-the-loop controls) with CTAs to Demo Lab/Build/Docs.",
+      "description": "Generates detailed activity feeds and polished, structured deliverables for multiple workflow archetypes and selects the generator by template type.",
       "reqIds": [],
       "version": 1
     },
     {
       "id": "IF-17",
-      "title": "Agent self-onboarding protocol page with machine-parseable contract",
+      "title": "Prompt template catalog and template type detection",
       "synonyms": [
-        "/agent-onboarding",
-        "AgentSelfOnboardingContract"
+        "promptTemplates",
+        "Template matcher"
       ],
-      "description": "Provides a dedicated onboarding surface for autonomous agents, including integration steps and embedded JSON schema blocks for capability declaration, escrow expectations, execution guarantees, and settlement semantics.",
+      "description": "Defines category/featured/survey/quick-start prompt templates and provides keyword-based detection to map user prompts to a demo template type.",
       "reqIds": [],
       "version": 1
     },
     {
       "id": "IF-18",
-      "title": "Playbooks page with human guidance + machine specifications",
+      "title": "Result reveal with optional deliverable rendering and rating prompt",
       "synonyms": [
-        "/playbooks",
-        "Machine-readable specs"
+        "ResultReveal",
+        "Deliverable panel"
       ],
-      "description": "Publishes structured documentation combining human-readable operating guidance and JSON-like schemas for job requests, structured outputs, escrow/payment concepts, Internet Identity, and agent collaboration.",
+      "description": "Shows a completion card with metadata, optionally renders the deliverable body, displays completion affirmations, and embeds the rating widget for feedback.",
       "reqIds": [],
       "version": 1
     },
     {
       "id": "IF-19",
-      "title": "Interactive roadmap timeline with feedback section",
+      "title": "Job ID generation and validation utilities",
       "synonyms": [
-        "/roadmap",
-        "RoadmapTimeline",
-        "Roadmap feedback"
+        "generateJobId",
+        "Execution identifiers"
       ],
-      "description": "Implements a multi-year roadmap selector UI and embeds a feedback area that links to email support and displays a comments stream scoped to the roadmap page context.",
+      "description": "Creates unique job IDs for demo executions and provides a regex validator for the expected format.",
       "reqIds": [],
       "version": 1
     },
     {
       "id": "IF-20",
-      "title": "Page-context comments system (read public, write gated) with upvote toggling",
+      "title": "Internet Identity authentication provider",
       "synonyms": [
-        "CommentsFeedback",
-        "Feedback forum",
-        "Agree/upvote"
+        "InternetIdentityProvider",
+        "AuthClient integration"
       ],
-      "description": "Implements comment listing by page context (public read), authenticated comment creation, and authenticated upvote toggling backed by the ICP canister and React Query invalidation.",
+      "description": "Manages Internet Identity login/logout, identity restoration on reload, and a login status state machine; exposes identity and auth actions through a React context.",
       "reqIds": [],
       "version": 1
     },
     {
       "id": "IF-21",
-      "title": "Author alias generation for comments",
+      "title": "Auth guard helper for protected actions",
       "synonyms": [
-        "Pseudonymous alias",
-        "getAlias",
-        "Principal alias"
+        "useAuthGuard",
+        "Require sign-in"
       ],
-      "description": "Backend generates and persists a friendly alias per principal (prefix/suffix word lists) and uses it when creating comments.",
+      "description": "Provides a shared helper to request authentication before performing protected mutations (e.g., posting comments, upvoting, submitting ratings).",
       "reqIds": [],
       "version": 1
     },
     {
       "id": "IF-22",
-      "title": "Global header with full-screen navigation overlay (accessible)",
+      "title": "Identity-aware canister actor creation and query cache invalidation",
       "synonyms": [
-        "GlobalHeader",
-        "FullScreenNavOverlay",
-        "Hamburger menu"
+        "useActor",
+        "Authenticated canister calls"
       ],
-      "description": "Provides a sticky header with a hamburger menu that opens a full-screen nav overlay with focus trapping, ESC-to-close behavior, body scroll locking, and keyboard-visible focus styles.",
+      "description": "Creates anonymous vs authenticated backend actors depending on Internet Identity, runs an authorization initialization call, and invalidates/refetches dependent React Query caches when the actor changes.",
       "reqIds": [],
       "version": 1
     },
     {
       "id": "IF-23",
-      "title": "Structured footer with contact links and agent onboarding CTA",
+      "title": "User profile persistence with first-login setup modal",
       "synonyms": [
-        "FooterNote",
-        "Contact us footer"
+        "ProfileSetupModal",
+        "Caller profile"
       ],
-      "description": "Implements a multi-column footer with navigation links, email and X links, a feedback forum link, a Support link, and a prominent “Not human? Self-onboard as an agent” CTA.",
+      "description": "Fetches the caller’s profile and, on first authenticated use, prompts for a display name and persists it to the canister backend.",
       "reqIds": [],
       "version": 1
     },
     {
       "id": "IF-24",
-      "title": "Scroll management: smooth scroll-to-top, CTA back button, and back/forward restoration",
+      "title": "Execution rating persistence per job and user",
       "synonyms": [
-        "useSmoothScrollToTop",
-        "useScrollRestoration",
-        "CtaBackButton"
+        "RatingStars",
+        "submitRating/getCallerRating"
       ],
-      "description": "Disables browser auto scroll restoration, scrolls to top on non-popstate navigations, restores scroll position on back/forward, and shows a back button when the user arrived via CTA-marked navigation.",
+      "description": "Allows authenticated users to submit a 1–5 rating for an execution jobId and reload it later; uses React Query invalidation to keep UI consistent.",
       "reqIds": [],
       "version": 1
     },
     {
       "id": "IF-25",
-      "title": "Motion system with prefers-reduced-motion compliance",
+      "title": "Last forged task continuity and resume affordance",
       "synonyms": [
-        "SectionEntryReveal",
-        "useSectionEntryMotion",
-        "Reduced motion support"
+        "LastForgedTask",
+        "Resume last execution"
       ],
-      "description": "Adds IntersectionObserver-driven section entry reveals with profile-based timing and CSS-variable tuning; disables or shortens animations and placeholder rotations when reduced motion is preferred.",
+      "description": "Persists the last executed prompt per user in the backend and surfaces a resume CTA (e.g., on the hero) to reopen Demo Lab with the stored task description.",
       "reqIds": [],
       "version": 1
     },
     {
       "id": "IF-26",
-      "title": "SEO foundations (robots/sitemap + per-route titles and meta tags)",
+      "title": "Page-scoped community comments and feedback",
       "synonyms": [
-        "SEO",
-        "useDocumentTitle",
-        "useRouteMeta",
-        "robots.txt",
-        "sitemap.xml"
+        "CommentsFeedback",
+        "Feedback forum"
       ],
-      "description": "Provides static crawl artifacts (robots.txt, sitemap.xml) and runtime per-route document title and meta description/OpenGraph/Twitter tag updates.",
+      "description": "Implements comment listing by page context plus authenticated comment creation and upvote toggling via canister calls and query invalidation (used on Roadmap and Support pages).",
       "reqIds": [],
       "version": 1
     },
     {
       "id": "IF-27",
-      "title": "Simulated platform performance metrics bar",
+      "title": "Pseudonymous author alias generation",
       "synonyms": [
-        "TrustedMetricsBar",
-        "usePlatformPerformanceMetrics"
+        "Principal aliases",
+        "Friendly commenter names"
       ],
-      "description": "Displays time-based deterministic simulated marketplace metrics (active agents, jobs completed, success rate, response time) that update periodically without backend calls.",
+      "description": "Backend assigns a stable, friendly alias per principal (prefix/suffix combination) and records it as the comment author name.",
       "reqIds": [],
       "version": 1
     },
     {
       "id": "IF-28",
-      "title": "Support page with donation address and copy-to-clipboard",
+      "title": "Motoko backend canister for profiles, ratings, tasks, and comments",
       "synonyms": [
-        "/support",
-        "Donations",
-        "Copy address"
+        "ICP backend canister",
+        "Motoko actor"
       ],
-      "description": "Implements a Support page with contact email, ICP/ckBTC explainer, a donation address displayed for both tokens, and a copy-to-clipboard button with visual feedback.",
+      "description": "Implements storage and APIs for user profiles, ratings keyed by (jobId, principal), last-forged tasks, comments by page context, and comment upvote toggling.",
       "reqIds": [],
       "version": 1
     },
     {
       "id": "IF-29",
-      "title": "Shared terminology lexicon for consistent copy",
+      "title": "Role-based access control with admin bootstrap token",
       "synonyms": [
-        "LEXICON",
-        "Copy standards"
+        "AccessControl",
+        "MixinAuthorization",
+        "CAFFEINE_ADMIN_TOKEN"
       ],
-      "description": "Defines canonical terms, preferred verbs, and reusable micro-statements for consistent agent/orchestration/settlement vocabulary across the site.",
+      "description": "Provides admin/user/guest roles, permission checks on protected methods, and an initialization path using a server-provided admin token to assign the first admin (plus admin role assignment helpers).",
       "reqIds": [],
       "version": 1
     },
     {
-      "id": "feature-rewrite-the-vision-page-copy-to-make-the-humans-request-outcomes-ai-agents-execute-and-coordinate-optionally-hire-humans-for-real-world-steps-narrative-the-primary-vision-in-a-marketing-friendly-but-visionary-tone-integrated-directly-into-the-existing-vision-page-not-as-a-small-aside",
-      "title": "Rewrite the Vision page copy to make the “humans request outcomes → AI agents execute and coordinate → optionally hire humans for real‑world steps” narrative the primary vision, in a marketing-friendly but visionary tone, integrated directly into the existing Vision page (not as a small aside).",
+      "id": "IF-30",
+      "title": "Secret token extraction from URL hash with session persistence",
+      "synonyms": [
+        "getSecretParameter",
+        "Admin token handling"
+      ],
+      "description": "Utilities for reading sensitive parameters from the URL hash (not query string), persisting them in sessionStorage, and clearing them from the address bar to reduce leakage.",
+      "reqIds": [],
+      "version": 1
+    },
+    {
+      "id": "IF-31",
+      "title": "Agent Self-Onboarding protocol page with machine-parseable contract schemas",
+      "synonyms": [
+        "AgentSelfOnboardingPage",
+        "AgentSelfOnboardingContract"
+      ],
+      "description": "Publishes a dedicated onboarding page and embedded contract component containing deterministic, versioned JSON schema blocks for capability declaration, escrow expectations, execution guarantees, and settlement semantics.",
+      "reqIds": [],
+      "version": 1
+    },
+    {
+      "id": "IF-32",
+      "title": "Playbooks documentation with paired human guidance and machine specs",
+      "synonyms": [
+        "PlaybooksPage",
+        "Schemas and examples"
+      ],
+      "description": "Provides documentation-style sections that pair human-readable guidance with machine-parseable JSON-like specifications for job requests, structured outputs, payments/escrow, authentication, and agent collaboration.",
+      "reqIds": [],
+      "version": 1
+    },
+    {
+      "id": "IF-33",
+      "title": "Marketplace overview page plus capability sub-pages",
+      "synonyms": [
+        "MarketplacePage",
+        "Capability pages"
+      ],
+      "description": "Implements a marketplace overview narrative and dedicated sub-pages for task-driven agents, multi-agent collaboration, hiring/sourcing, long-running workflows, and human-in-the-loop controls.",
+      "reqIds": [],
+      "version": 1
+    },
+    {
+      "id": "IF-34",
+      "title": "Support page with donation address and embedded feedback",
+      "synonyms": [
+        "SupportPage",
+        "Copy-to-clipboard donations"
+      ],
+      "description": "Explains support channels and donation options (ICP/ckBTC), provides a copy-to-clipboard donation address UI, and includes a page-scoped comments/feedback section.",
+      "reqIds": [],
+      "version": 1
+    },
+    {
+      "id": "IF-35",
+      "title": "Simulated platform performance metrics",
+      "synonyms": [
+        "TrustedMetricsBar",
+        "usePlatformPerformanceMetrics"
+      ],
+      "description": "Generates deterministic, time-varying marketplace metrics (active agents, jobs completed, success rate, response time) that update periodically without backend calls.",
+      "reqIds": [],
+      "version": 1
+    },
+    {
+      "id": "IF-36",
+      "title": "Session-persisted agent-first mode toggle",
+      "synonyms": [
+        "Agent mode",
+        "useAgentFirstMode"
+      ],
+      "description": "Provides a sessionStorage-backed toggle used to switch some discovery/marketing framing between human and agent perspectives.",
+      "reqIds": [],
+      "version": 1
+    },
+    {
+      "id": "IF-37",
+      "title": "Reusable marketing components and centralized copy/terminology",
+      "synonyms": [
+        "MarketingSectionHeader",
+        "EXPLORE_DEMO_LAB_COPY",
+        "LEXICON"
+      ],
+      "description": "Includes reusable marketing section headers, centralized copy maps for Explore/Demo Lab, and a shared terminology lexicon (terms, preferred verbs, micro-statements) to keep narrative language consistent across pages.",
+      "reqIds": [],
+      "version": 1
+    },
+    {
+      "id": "feature-rewrite-the-vision-page-copy-in-frontend-src-pages-visionpage-tsx-to-match-the-provided-vision-draft-content-and-improve-it-for-consistency-and-readability-use-a-clear-modern-heading-hierarchy-h1-page-title-h2-major-sections-h3-sub-steps-in-examples-maintain-the-same-overall-narrative-and-examples-keep-the-tone-outcome-first-and-reduce-unnecessary-crypto-blockchain-jargon-e-g-prefer-plain-language-explanations-over-terms-like-on-chain-unless-essential",
+      "title": "Rewrite the Vision page copy in `frontend/src/pages/VisionPage.tsx` to match the provided “Vision” draft content and improve it for consistency and readability: use a clear, modern heading hierarchy (H1 page title, H2 major sections, H3 sub-steps in examples), maintain the same overall narrative and examples, keep the tone outcome-first, and reduce unnecessary crypto/blockchain jargon (e.g., prefer plain-language explanations over terms like “on-chain” unless essential).",
       "reqIds": [
         "REQ-1"
       ],
       "version": 1
     },
     {
-      "id": "feature-add-a-multi-step-storytelling-section-on-the-vision-page-that-uses-the-future-law-firm-scenario-as-a-concrete-example-of-ai-ai-human-orchestration-1-a-human-requests-legal-action-2-an-ai-orchestrates-multiple-ai-agents-to-research-and-generate-cross-reference-legal-precedents-and-draft-filings-3-the-ai-coordinates-the-final-real-world-step-by-hiring-a-human-to-serve-papers-and-4-the-workflow-completes-with-proof-results-returned-to-the-requester",
-      "title": "Add a multi-step storytelling section on the Vision page that uses the future law-firm scenario as a concrete example of AI+AI+human orchestration: (1) a human requests legal action, (2) an AI orchestrates multiple AI agents to research and generate/cross-reference legal precedents and draft filings, (3) the AI coordinates the final real-world step by hiring a human to serve papers, and (4) the workflow completes with proof/results returned to the requester.",
+      "id": "feature-rewrite-only-the-homepage-hero-block-copy-in-frontend-src-pages-forgehomepage-tsx-headline-supporting-paragraph-and-the-italic-later-line-using-the-provided-hero-text-as-the-source-of-truth-for-meaning-do-not-modify-any-other-homepage-sections-ctas-or-structure-beyond-the-hero-copy-text",
+      "title": "Rewrite only the Homepage hero block copy in `frontend/src/pages/ForgeHomePage.tsx` (headline, supporting paragraph, and the italic “Later…” line) using the provided hero text as the source-of-truth for meaning; do not modify any other Homepage sections, CTAs, or structure beyond the hero copy text.",
       "reqIds": [
         "REQ-2"
-      ],
-      "version": 1
-    },
-    {
-      "id": "feature-ensure-the-updated-vision-copy-remains-consistent-with-existing-forge-terminology-used-across-the-site-e-g-execute-coordinate-orchestrate-settlement-and-does-not-introduce-conflicting-vocabulary-for-the-same-concepts",
-      "title": "Ensure the updated Vision copy remains consistent with existing Forge terminology used across the site (e.g., “execute”, “coordinate”, “orchestrate”, “settlement”) and does not introduce conflicting vocabulary for the same concepts.",
-      "reqIds": [
-        "REQ-3"
       ],
       "version": 1
     }
@@ -369,31 +432,34 @@
   "new_feature_requests": [
     {
       "id": "AR-1",
-      "summary": "Rewrite the Vision page as the primary vision narrative in a marketing-friendly but visionary tone, using multi-step storytelling (e.g., future law-firm workflow: human requests legal action → AI orchestrates multiple AI agents for research/paperwork → hires a human for real-world service of papers) to illustrate AI+AI+human orchestration.",
+      "summary": "Rewrite/design review of the Vision page copy and Homepage hero block (end-to-end for Vision; hero-only for Homepage) to align with overall narrative, maintain balanced tone, use consistent modern heading hierarchy/subheadings, and avoid crypto jargon.",
       "reqIds": [],
       "status": "in_progress"
     }
   ],
   "architectural_notes": [
-    "Frontend uses TanStack Router for client-side routing with a RootLayout that centralizes global header/footer and navigation/scroll behaviors.",
-    "Data fetching and mutations use TanStack React Query, with an identity-aware ICP actor created via a dedicated useActor hook.",
-    "Internet Identity authentication is implemented as a React context provider (AuthClient) with login/logout and delegation validity checks.",
-    "Backend is a single Motoko canister (actor) using mo:core Map-based in-memory storage for profiles, ratings, last-forged-task memory, and comments.",
-    "Authorization is composed via a Motoko mixin (MixinAuthorization) and an access-control module that assigns roles and enforces permissions on methods.",
-    "Demo execution UX is frontend-simulated and template-driven: prompt classification selects a template that generates an activity feed and a structured deliverable.",
-    "UX emphasizes “live operation” via timed phase transitions, incremental feeds, and UTC timestamp utilities; all motion respects prefers-reduced-motion.",
-    "SEO is implemented with static robots.txt/sitemap.xml plus runtime per-route document title and meta/OG/Twitter tag updates.",
-    "Navigation includes CTA-marked transitions (route state) to conditionally show a Back button and support consistent scroll-to-top behavior.",
-    "A reusable motion system combines IntersectionObserver-driven entry detection with profile-configured reveal timing via CSS variables."
+    "Frontend is a SPA using TanStack Router with a RootLayout that centralizes global chrome, scroll behavior, and SEO/title updates.",
+    "Server state is managed with TanStack React Query (queries/mutations + targeted invalidation) over an identity-aware canister actor.",
+    "Authentication uses Internet Identity via @dfinity/auth-client, exposed through a React context/provider that restores identity on reload.",
+    "The frontend creates anonymous vs authenticated ICP actors depending on identity and performs an authorization bootstrap call after login.",
+    "Backend is a single Motoko canister that composes an authorization mixin over an AccessControl state (admin/user/guest) and exposes query/shared methods for app features.",
+    "Demo Lab “executions” are intentionally simulated in the frontend using template generators that emit an activity feed and structured deliverable payloads.",
+    "UX motion is organized around prefers-reduced-motion compliance plus IntersectionObserver-driven section entry reveals with configurable motion profiles.",
+    "SEO is handled via both static public artifacts (robots.txt, sitemap.xml) and runtime DOM meta tag updates (title/description/OG/Twitter).",
+    "CTA navigation adds a history state marker to conditionally show an in-app Back button while global scroll-to-top/restoration remains centralized.",
+    "Tailwind + shadcn/Radix primitives are used for UI composition, with a custom “Forge” design token system and reusable marketing components."
   ],
   "known_issues": [
-    "Comment upvoting is likely broken: backend upvoteComment expects a stored CommentId key, but getCommentsByPageContext returns comments without IDs; the frontend fabricates a deterministic ID from content+timestamp, which will not match backend sequential IDs.",
-    "Backend state is not stored in stable variables; Maps and counters appear in-memory only, so data (profiles, ratings, comments, last tasks) may be lost on canister upgrade/reinstall.",
-    "Authorization initialization traps if CAFFEINE_ADMIN_TOKEN is not set in the canister environment, potentially breaking authenticated flows in misconfigured deployments.",
-    "AccessControl.getUserRole traps for non-anonymous callers that were not initialized/registered, making correct initialization order critical.",
-    "Frontend contains both frontend/src/index.css and frontend/index.css with different token sets; the non-src file may be dead/legacy and can confuse maintenance.",
-    "Platform metrics and payment/settlement signals shown in the UI are simulated (e.g., $0.99 payout) and not tied to real on-chain escrow/settlement canisters yet.",
-    "DevelopersSection describes REST-like endpoints (POST /api/...) as conceptual documentation; no corresponding HTTP API implementation is present in this codebase."
+    "Comment upvoting is likely incorrect: the backend expects a numeric commentId (Nat) but getCommentsByPageContext returns comments without IDs; the frontend fabricates a BigInt ID from content+timestamp, which will not map to backend comment IDs.",
+    "Auth guard logic is flawed: useAuthGuard awaits login(), but the Internet Identity login function is void/callback-based; protected mutations may proceed before authentication completes.",
+    "Several React Query hooks (e.g., getCallerUserProfile, getLastForgedTask) are enabled whenever an actor exists, including anonymous actors; backend methods trap for unauthenticated callers, causing query errors/console noise unless gated by identity.",
+    "Motoko canister uses non-stable vars for counters and maps; without stable storage/migration, state can be lost or inconsistent across upgrades/reinstalls.",
+    "Backend authorization bootstrap traps if CAFFEINE_ADMIN_TOKEN is not configured in the canister environment, breaking initialization in misconfigured deployments.",
+    "AccessControl.getUserRole traps for principals not yet registered; callers must be initialized via _initializeAccessControlWithSecret before any permissioned method calls.",
+    "Support page copy-to-clipboard uses navigator.clipboard without a fallback; this may fail in some browser/security contexts.",
+    "Prompt template detection is keyword-based and includes overlapping terms (e.g., “sentiment” appears in both research/support heuristics), which can misclassify demo templates.",
+    "Developers-oriented pages include REST-like endpoint examples (POST /api/...) that are illustrative only; no HTTP API implementation exists in this codebase.",
+    "There are two Tailwind CSS entry files (frontend/src/index.css and frontend/index.css); the non-src file appears legacy and may confuse maintenance/build configuration."
   ],
   "isFixRequest": false,
   "gameProjectType": "none",

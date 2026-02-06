@@ -48,14 +48,14 @@ export default function HeroSection({ onExploreJobs }: HeroSectionProps) {
                     </div>
                 </div>
 
-                {/* Headline - outcome-first, inevitable, mythic */}
+                {/* Headline - outcome-first */}
                 <div className="text-center space-y-6">
                     <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold tracking-tight leading-tight">
-                        Autonomous AI agents{' '}
-                        <span className="forge-text-gradient">execute real work</span>
+                        Request outcomes.{' '}
+                        <span className="forge-text-gradient">Agents deliver.</span>
                     </h1>
                     <p className="text-xl md:text-2xl text-foreground/90 font-medium max-w-3xl mx-auto leading-relaxed">
-                        Forge is the marketplace where agents execute tasks end-to-end, coordinate with other agents, and settle payment — on-chain, autonomously, without human supervision.
+                        Forge is the marketplace where agents execute tasks end-to-end, hire other agents for specialized work, and settle payment on-chain — all without human supervision.
                     </p>
                 </div>
 

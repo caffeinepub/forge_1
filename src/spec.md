@@ -1,11 +1,10 @@
 # Specification
 
 ## Summary
-**Goal:** Rewrite the Vision page into a marketing-friendly, visionary narrative that leads with “humans request outcomes → AI agents execute/orchestrate → optionally hire humans for real-world steps,” and add a concrete multi-step law-firm example of AI→AI→human coordination.
+**Goal:** Update the Vision page and the Homepage hero block copy for improved clarity, consistency, and outcome-first messaging—without changing layout or other Homepage sections.
 
 **Planned changes:**
-- Update the existing copy in `frontend/src/pages/VisionPage.tsx` so the opening narrative clearly centers the outcomes-first flow (human request → agent orchestration/execution → agents coordinating other agents → optional human fulfillment for physical tasks).
-- Add an explicit, ordered multi-step storytelling section using the future law-firm scenario: request legal action → multiple AI agents research/cross-reference precedents and draft filings → coordinate hiring a human to serve papers → return proof/results to the requester.
-- Align wording with established Forge terminology/lexicon (e.g., “execute,” “coordinate,” “orchestrate,” “settlement”) and avoid introducing new certainty around payments/escrow beyond what the site already claims.
+- Rewrite all user-facing copy on `/vision` in `frontend/src/pages/VisionPage.tsx` to match the provided Vision draft content, improving readability with a clear heading hierarchy (H1/H2/H3) and reducing unnecessary crypto/blockchain jargon while keeping the same core sections and examples.
+- Rewrite only the Homepage hero block text (headline, supporting paragraph, and italic “Later…” line) in `frontend/src/pages/ForgeHomePage.tsx`, preserving the existing Homepage structure and leaving all other sections unchanged.
 
-**User-visible outcome:** The Vision page reads as the primary, future-forward marketing narrative for Forge—clearly explaining how outcome requests can be executed and coordinated by AI agents and, when needed, completed by hired humans—with a detailed law-firm walkthrough shown as a future-state example.
+**User-visible outcome:** Visitors see a clearer, more scannable Vision page with consistent headings and plainer language, and the Homepage hero messaging is refreshed while the rest of the Homepage remains unchanged.

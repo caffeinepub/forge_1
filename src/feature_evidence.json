@@ -2,8 +2,8 @@
   "kind": "feature_evidence_report",
   "features": [
     {
-      "featureId": "feature-rewrite-the-vision-page-copy-to-make-the-humans-request-outcomes-ai-agents-execute-and-coordinate-optionally-hire-humans-for-real-world-steps-narrative-the-primary-vision-in-a-marketing-friendly-but-visionary-tone-integrated-directly-into-the-existing-vision-page-not-as-a-small-aside",
-      "featureTitle": "Rewrite the Vision page copy to make the “humans request outcomes → AI agents execute and coordinate → optionally hire humans for real‑world steps” narrative the primary vision, in a marketing-friendly but visionary tone, integrated directly into the existing Vision page (not as a small aside).",
+      "featureId": "feature-rewrite-the-vision-page-copy-in-frontend-src-pages-visionpage-tsx-to-match-the-provided-vision-draft-content-and-improve-it-for-consistency-and-readability-use-a-clear-modern-heading-hierarchy-h1-page-title-h2-major-sections-h3-sub-steps-in-examples-maintain-the-same-overall-narrative-and-examples-keep-the-tone-outcome-first-and-reduce-unnecessary-crypto-blockchain-jargon-e-g-prefer-plain-language-explanations-over-terms-like-on-chain-unless-essential",
+      "featureTitle": "Rewrite the Vision page copy in `frontend/src/pages/VisionPage.tsx` to match the provided “Vision” draft content and improve it for consistency and readability: use a clear, modern heading hierarchy (H1 page title, H2 major sections, H3 sub-steps in examples), maintain the same overall narrative and examples, keep the tone outcome-first, and reduce unnecessary crypto/blockchain jargon (e.g., prefer plain-language explanations over terms like “on-chain” unless essential).",
       "files": [
         "frontend/src/pages/VisionPage.tsx"
       ],
@@ -21,10 +21,10 @@
       "confidence": "high"
     },
     {
-      "featureId": "feature-add-a-multi-step-storytelling-section-on-the-vision-page-that-uses-the-future-law-firm-scenario-as-a-concrete-example-of-ai-ai-human-orchestration-1-a-human-requests-legal-action-2-an-ai-orchestrates-multiple-ai-agents-to-research-and-generate-cross-reference-legal-precedents-and-draft-filings-3-the-ai-coordinates-the-final-real-world-step-by-hiring-a-human-to-serve-papers-and-4-the-workflow-completes-with-proof-results-returned-to-the-requester",
-      "featureTitle": "Add a multi-step storytelling section on the Vision page that uses the future law-firm scenario as a concrete example of AI+AI+human orchestration: (1) a human requests legal action, (2) an AI orchestrates multiple AI agents to research and generate/cross-reference legal precedents and draft filings, (3) the AI coordinates the final real-world step by hiring a human to serve papers, and (4) the workflow completes with proof/results returned to the requester.",
+      "featureId": "feature-rewrite-only-the-homepage-hero-block-copy-in-frontend-src-pages-forgehomepage-tsx-headline-supporting-paragraph-and-the-italic-later-line-using-the-provided-hero-text-as-the-source-of-truth-for-meaning-do-not-modify-any-other-homepage-sections-ctas-or-structure-beyond-the-hero-copy-text",
+      "featureTitle": "Rewrite only the Homepage hero block copy in `frontend/src/pages/ForgeHomePage.tsx` (headline, supporting paragraph, and the italic “Later…” line) using the provided hero text as the source-of-truth for meaning; do not modify any other Homepage sections, CTAs, or structure beyond the hero copy text.",
       "files": [
-        "frontend/src/pages/VisionPage.tsx"
+        "frontend/src/pages/ForgeHomePage.tsx"
       ],
       "components": [
         "authorization@4.0.0",
@@ -36,25 +36,6 @@
       ],
       "testIds": [
         "REQ-2"
-      ],
-      "confidence": "high"
-    },
-    {
-      "featureId": "feature-ensure-the-updated-vision-copy-remains-consistent-with-existing-forge-terminology-used-across-the-site-e-g-execute-coordinate-orchestrate-settlement-and-does-not-introduce-conflicting-vocabulary-for-the-same-concepts",
-      "featureTitle": "Ensure the updated Vision copy remains consistent with existing Forge terminology used across the site (e.g., “execute”, “coordinate”, “orchestrate”, “settlement”) and does not introduce conflicting vocabulary for the same concepts.",
-      "files": [
-        "frontend/src/pages/VisionPage.tsx"
-      ],
-      "components": [
-        "authorization@4.0.0",
-        "core-infrastructure@1.0.2",
-        "shadcn-ui@1.0.0",
-        "build-template-react@1.0.0",
-        "initial-app@1.0.0",
-        "github-export-icp-cli@1.0.0"
-      ],
-      "testIds": [
-        "REQ-3"
       ],
       "confidence": "high"
     }

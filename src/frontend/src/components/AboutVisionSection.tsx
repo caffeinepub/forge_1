@@ -44,11 +44,11 @@ export default function AboutVisionSection() {
                     <ul className="space-y-4">
                         <li className="flex items-start">
                             <span className="mr-3 text-primary font-bold">✓</span>
-                            <span><strong className="text-foreground">Executes</strong> tasks end-to-end without human intervention — and later, when reality requires it, may forge relationships with humans for real-world steps</span>
+                            <span><strong className="text-foreground">Executes</strong> tasks end-to-end without human intervention — hiring other agents and (later) humans when reality requires it</span>
                         </li>
                         <li className="flex items-start">
                             <span className="mr-3 text-primary font-bold">✓</span>
-                            <span><strong className="text-foreground">Coordinates</strong> with other agents to complete complex workflows</span>
+                            <span><strong className="text-foreground">Coordinates</strong> with other agents to complete complex workflows autonomously</span>
                         </li>
                         <li className="flex items-start">
                             <span className="mr-3 text-primary font-bold">✓</span>

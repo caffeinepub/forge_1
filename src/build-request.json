@@ -1,78 +1,60 @@
 {
   "kind": "build_request",
-  "title": "Rewrite Vision page as primary marketing-friendly, visionary narrative with multi-step AI→AI→human storytelling",
+  "title": "Rewrite Vision page copy and Homepage hero block (leave rest of Homepage unchanged)",
   "priority": "normal",
   "requirements": [
     {
       "id": "REQ-1",
-      "text": "Rewrite the Vision page copy to make the “humans request outcomes → AI agents execute and coordinate → optionally hire humans for real‑world steps” narrative the primary vision, in a marketing-friendly but visionary tone, integrated directly into the existing Vision page (not as a small aside).",
+      "text": "Rewrite the Vision page copy in `frontend/src/pages/VisionPage.tsx` to match the provided “Vision” draft content and improve it for consistency and readability: use a clear, modern heading hierarchy (H1 page title, H2 major sections, H3 sub-steps in examples), maintain the same overall narrative and examples, keep the tone outcome-first, and reduce unnecessary crypto/blockchain jargon (e.g., prefer plain-language explanations over terms like “on-chain” unless essential).",
       "target": "frontend",
       "source": {
         "messageIds": [
-          "msg-6",
-          "msg-8",
-          "msg-10"
+          "msg-vision-paste",
+          "msg-yes-confirm"
         ],
         "quotes": [
-          "Make this the base. Let’s update the copy the future where humans humans request AI solve completing tasks or hiring other AI’s and even humans for things where digital meets the real world.",
-          "The the narrative is part of the overall vision of Forge AI ... this marketplace is to ultimately support humans in a way where AI execute, whether requiring other AI’s or need real life support from humans who internal profit to fulfil the request.",
-          "1. Primary vision\n2. Marketing, friendly, but visionary.\n3. Multi step storytelling."
+          "This the vision section: Vision ... (full Vision copy pasted)",
+          "Yes"
         ]
       },
       "acceptanceCriteria": [
-        "Vision page hero title remains “Vision” and the page remains the same route/component (frontend/src/pages/VisionPage.tsx).",
-        "The opening Vision narrative clearly leads with: humans request outcomes; agents orchestrate execution; agents may hire other agents; and real-world steps can be fulfilled by humans when needed.",
-        "Tone is marketing-friendly and accessible (minimal jargon), while still visionary and future-forward.",
-        "All updated user-facing text is in English."
+        "Vision page renders without layout regressions and remains fully readable/scannable with a consistent heading structure across sections and example steps.",
+        "All user-facing text on `/vision` is updated to the rewritten version; no placeholder/lorem text remains.",
+        "Rewrite keeps the same core sections and examples (Legal Action Orchestration, Supply Chain Verification, Market Research with Field Verification, AI as Infrastructure, Lifecycle, Why ICP is the Ideal Platform, Marketplace as Operating System) while improving clarity and reducing jargon.",
+        "No changes are made to routing, authentication, backend, or non-copy UI behavior."
       ]
     },
     {
       "id": "REQ-2",
-      "text": "Add a multi-step storytelling section on the Vision page that uses the future law-firm scenario as a concrete example of AI+AI+human orchestration: (1) a human requests legal action, (2) an AI orchestrates multiple AI agents to research and generate/cross-reference legal precedents and draft filings, (3) the AI coordinates the final real-world step by hiring a human to serve papers, and (4) the workflow completes with proof/results returned to the requester.",
+      "text": "Rewrite only the Homepage hero block copy in `frontend/src/pages/ForgeHomePage.tsx` (headline, supporting paragraph, and the italic “Later…” line) using the provided hero text as the source-of-truth for meaning; do not modify any other Homepage sections, CTAs, or structure beyond the hero copy text.",
       "target": "frontend",
       "source": {
         "messageIds": [
-          "msg-6",
-          "msg-8",
-          "msg-10"
+          "msg-hero-paste",
+          "msg-yes-confirm"
         ],
         "quotes": [
-          "A law firm of the future as an example human request legal action which which AI executes on and also sources the human to serve the papers as an example",
-          "An example of this is somebody wanting to sue someone the AI can create all the relevant paperwork cross referencing all legal presidents using as many AI agents as necessary to complete digital Side and then finish the job by h hiring a human who can support serving the papers",
-          "Multi step storytelling."
+          "Home page: Hero: Forge AI Humans Ask. AI Delivers. Request an outcome... Later: when physical constraints arise, agents may hire humans to complete real-world steps.",
+          "Yes"
         ]
       },
       "acceptanceCriteria": [
-        "The law-firm example is presented as an explicit, ordered multi-step narrative (not a single sentence or a brief parenthetical).",
-        "The story explicitly includes: coordination across multiple AI agents for the digital work, and hiring a human for the physical/real-world step (serving papers).",
-        "The section is written as illustrative/future-facing narrative copy and does not claim the capability is already live (it may describe it as a future state or “where this leads”)."
-      ]
-    },
-    {
-      "id": "REQ-3",
-      "text": "Ensure the updated Vision copy remains consistent with existing Forge terminology used across the site (e.g., “execute”, “coordinate”, “orchestrate”, “settlement”) and does not introduce conflicting vocabulary for the same concepts.",
-      "target": "frontend",
-      "source": {
-        "messageIds": [
-          "msg-10"
-        ],
-        "quotes": [
-          "Marketing, friendly, but visionary."
-        ]
-      },
-      "acceptanceCriteria": [
-        "Copy aligns with the established lexicon in frontend/src/content/lexicon.ts (preferred verbs and core terms) where applicable.",
-        "Any references to payments/escrow/settlement remain described at the same level of certainty as the rest of the site (no new claims of already-live on-chain escrow if not already claimed elsewhere on the page)."
+        "Only hero text content changes on the Homepage; all other Homepage sections remain byte-for-byte unchanged except for any necessary formatting to support the new hero copy.",
+        "Homepage hero preserves the same intent: outcome-first positioning, agent orchestration, and the future human-hiring teaser line.",
+        "No CTA destinations or button labels are changed unless required solely to match the rewritten hero copy (prefer keeping existing labels)."
       ]
     }
   ],
   "constraints": [
-    "Do not modify files under frontend/src/components/ui (read-only).",
-    "Do not change or add backend functionality; this request is copy/narrative only."
+    "Use English for all user-facing text.",
+    "Do not change any other Homepage content outside the hero block in `frontend/src/pages/ForgeHomePage.tsx`.",
+    "Frontend immutable paths must not be edited: `frontend/src/hooks/useInternetIdentity.ts`, `frontend/src/hooks/useInternetIdentity.tsx`, `frontend/src/hooks/useActor.ts`, `frontend/src/main.tsx`, `frontend/src/components/ui`.",
+    "Do not introduce new backend features; this request is copy-only."
   ],
   "nonGoals": [
-    "Implementing real AI agent execution, real-world hiring, escrow, or payments functionality.",
-    "Changing authentication, comments, ratings, or any other existing product features."
+    "Fixing known issues in comments upvoting, auth guard flow, or React Query anonymous-actor gating.",
+    "Changing SEO route maps, sitemap, or robots.txt beyond what is strictly needed for the copy rewrite.",
+    "Redesigning page layouts, navigation, or adding new sections to the Homepage."
   ],
   "imageRequirements": {
     "required": [],

@@ -1,18 +1,18 @@
 {
   "kind": "coverage_report",
   "version": "1.0",
-  "generatedAt": "2026-02-05T03:56:30.495Z",
+  "generatedAt": "2026-02-05T13:43:29.334Z",
   "sources": {
     "buildRequest": true,
     "implementationPlan": true
   },
   "requirements": {
-    "total": 3,
-    "implemented": 3,
+    "total": 2,
+    "implemented": 2,
     "items": [
       {
         "id": "REQ-1",
-        "summary": "Rewrite the Vision page copy to make the “humans request outcomes → AI agents execute and coordinate → optionally hire humans for real‑world steps” narrative the primary vision, in a marketing-friendly but visionary tone, integrated directly into the existing Vision page (not as a small aside).",
+        "summary": "Rewrite the Vision page copy in `frontend/src/pages/VisionPage.tsx` to match the provided “Vision” draft content and improve it for consistency and readability: use a clear, modern heading hierarchy (H1 page title, H2 major sections, H3 sub-steps in examples), maintain the same overall narrative and examples, keep the tone outcome-first, and reduce unnecessary crypto/blockchain jargon (e.g., prefer plain-language explanations over terms like “on-chain” unless essential).",
         "status": "implemented",
         "plannedFiles": [
           "frontend/src/pages/VisionPage.tsx"
@@ -23,33 +23,24 @@
       },
       {
         "id": "REQ-2",
-        "summary": "Add a multi-step storytelling section on the Vision page that uses the future law-firm scenario as a concrete example of AI+AI+human orchestration: (1) a human requests legal action, (2) an AI orchestrates multiple AI agents to research and generate/cross-reference legal precedents and draft filings, (3) the AI coordinates the final real-world step by hiring a human to serve papers, and (4) the workflow completes with proof/results returned to the requester.",
+        "summary": "Rewrite only the Homepage hero block copy in `frontend/src/pages/ForgeHomePage.tsx` (headline, supporting paragraph, and the italic “Later…” line) using the provided hero text as the source-of-truth for meaning; do not modify any other Homepage sections, CTAs, or structure beyond the hero copy text.",
         "status": "implemented",
         "plannedFiles": [
-          "frontend/src/pages/VisionPage.tsx"
+          "frontend/src/pages/ForgeHomePage.tsx"
         ],
         "matchedFiles": [
-          "frontend/src/pages/VisionPage.tsx"
-        ]
-      },
-      {
-        "id": "REQ-3",
-        "summary": "Ensure the updated Vision copy remains consistent with existing Forge terminology used across the site (e.g., “execute”, “coordinate”, “orchestrate”, “settlement”) and does not introduce conflicting vocabulary for the same concepts.",
-        "status": "implemented",
-        "plannedFiles": [
-          "frontend/src/pages/VisionPage.tsx"
-        ],
-        "matchedFiles": [
-          "frontend/src/pages/VisionPage.tsx"
+          "frontend/src/pages/ForgeHomePage.tsx"
         ]
       }
     ]
   },
   "changedFiles": [
     "build-request.json",
+    "caffeine.lock.json",
     "feature_evidence.json",
     "frontend-file-summaries.txt",
     "frontend-implementation-plan.json",
+    "frontend/src/pages/ForgeHomePage.tsx",
     "frontend/src/pages/VisionPage.tsx",
     "project_state.json",
     "scratch/component-selection.json",

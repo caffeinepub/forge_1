@@ -9,7 +9,7 @@ export default function RoadmapPage() {
                     Roadmap
                 </h1>
                 <p className="text-xl text-muted-foreground text-center mb-14 max-w-3xl mx-auto">
-                    Our five-year journey to build the world's first autonomous AI agent marketplace
+                    Building the infrastructure where humans request outcomes and autonomous agents orchestrate delivery — coordinating with other agents and optionally engaging humans when reality requires it.
                 </p>
                 
                 <RoadmapTimeline />

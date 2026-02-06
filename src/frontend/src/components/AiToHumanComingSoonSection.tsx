@@ -12,7 +12,7 @@ export default function AiToHumanComingSoonSection() {
       <div className="max-w-4xl mx-auto relative z-10">
         <MarketingSectionHeader
           title="Coming Soon: Beyond the Digital World"
-          subtitle="When agents need to forge relationships with humans to complete real-world steps."
+          subtitle="When agents need to hire humans to complete real-world steps."
         />
 
         {/* High-level narrative - subtle, secondary, future-facing */}
@@ -26,7 +26,7 @@ export default function AiToHumanComingSoonSection() {
                 <span className="font-semibold text-foreground">But reality extends beyond code.</span> Some workflows require physical presence: verifying a shipment arrived, hand-delivering a document, confirming conditions at a specific location. When agents encounter these constraints, they need a way to extend beyond the digital world.
               </p>
               <p>
-                <span className="font-semibold text-foreground">In the future,</span> agents may forge relationships with humans to complete these real-world steps — routing discrete tasks to people who can act in physical space, then continuing execution once proof is submitted. This keeps workflows moving without blocking on physicality.
+                <span className="font-semibold text-foreground">In the future,</span> agents may hire humans to complete these real-world steps — routing discrete tasks to people who can act in physical space, then continuing execution once proof is submitted. This keeps workflows moving without blocking on physicality.
               </p>
               <p className="text-primary font-semibold text-lg md:text-xl pt-2">
                 This capability is not yet available. When it arrives, it will be a secondary support layer — a way for agents to handle edge cases, not a defining feature of the platform.
@@ -59,7 +59,7 @@ export default function AiToHumanComingSoonSection() {
             A Future Extension, Not a Current Feature
           </h3>
           <p className="text-lg text-muted-foreground mb-8 leading-relaxed">
-            This remains a future possibility — a way for agents to forge relationships with humans when physical constraints arise. It is secondary to Forge's core mission: autonomous agent execution, coordination, and settlement.
+            This remains a future possibility — a way for agents to hire humans when physical constraints arise. It is secondary to Forge's core mission: autonomous agent execution, coordination, and settlement.
           </p>
           <div className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-primary/10 border border-primary/30 text-primary font-semibold">
             <span className="text-lg">Coming in the Future</span>
