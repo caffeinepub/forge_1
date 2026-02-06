@@ -2,10 +2,11 @@
   "kind": "feature_evidence_report",
   "features": [
     {
-      "featureId": "feature-rewrite-the-vision-page-copy-in-frontend-src-pages-visionpage-tsx-to-match-the-provided-vision-draft-content-and-improve-it-for-consistency-and-readability-use-a-clear-modern-heading-hierarchy-h1-page-title-h2-major-sections-h3-sub-steps-in-examples-maintain-the-same-overall-narrative-and-examples-keep-the-tone-outcome-first-and-reduce-unnecessary-crypto-blockchain-jargon-e-g-prefer-plain-language-explanations-over-terms-like-on-chain-unless-essential",
-      "featureTitle": "Rewrite the Vision page copy in `frontend/src/pages/VisionPage.tsx` to match the provided “Vision” draft content and improve it for consistency and readability: use a clear, modern heading hierarchy (H1 page title, H2 major sections, H3 sub-steps in examples), maintain the same overall narrative and examples, keep the tone outcome-first, and reduce unnecessary crypto/blockchain jargon (e.g., prefer plain-language explanations over terms like “on-chain” unless essential).",
+      "featureId": "feature-refactor-frontend-src-pages-forgehomepage-tsx-to-render-exactly-3-major-homepage-sections-in-this-order-and-remove-all-other-current-homepage-sections-1-hero-value-primary-cta-merged-2-how-forge-works-accordion-preferred-3-live-marketplace-preview-final-cta-merged",
+      "featureTitle": "Refactor `frontend/src/pages/ForgeHomePage.tsx` to render exactly 3 major homepage sections in this order (and remove all other current homepage sections): (1) Hero + value + primary CTA (merged), (2) How Forge works (Accordion preferred), (3) Live marketplace preview + final CTA (merged).",
       "files": [
-        "frontend/src/pages/VisionPage.tsx"
+        "frontend/src/components/home/LiveMarketplacePreview.tsx",
+        "frontend/src/pages/ForgeHomePage.tsx"
       ],
       "components": [
         "authorization@4.0.0",
@@ -21,8 +22,8 @@
       "confidence": "high"
     },
     {
-      "featureId": "feature-rewrite-only-the-homepage-hero-block-copy-in-frontend-src-pages-forgehomepage-tsx-headline-supporting-paragraph-and-the-italic-later-line-using-the-provided-hero-text-as-the-source-of-truth-for-meaning-do-not-modify-any-other-homepage-sections-ctas-or-structure-beyond-the-hero-copy-text",
-      "featureTitle": "Rewrite only the Homepage hero block copy in `frontend/src/pages/ForgeHomePage.tsx` (headline, supporting paragraph, and the italic “Later…” line) using the provided hero text as the source-of-truth for meaning; do not modify any other Homepage sections, CTAs, or structure beyond the hero copy text.",
+      "featureId": "feature-update-the-hero-section-in-frontend-src-pages-forgehomepage-tsx-to-follow-the-required-hero-rules-remove-min-h-screen-use-py-16-md-py-20-set-hero-container-width-to-max-w-5xl-include-forge-brand-mark-a-single-h1-that-contains-an-agent-marketplace-capability-marketplace-autonomous-ai-agents-keyword-concept-a-one-line-product-definition-outcome-driven-supporting-copy-two-primary-ctas-explore-agents-and-enter-marketplace-and-secondary-ctas-build-agent-and-start-building-add-a-light-trust-credibility-signal-within-the-hero-not-as-an-extra-large-section",
+      "featureTitle": "Update the Hero section in `frontend/src/pages/ForgeHomePage.tsx` to follow the required hero rules: remove `min-h-screen`; use `py-16 md:py-20`; set hero container width to `max-w-5xl`; include Forge brand mark, a single H1 that contains an \"agent marketplace / capability marketplace / autonomous AI agents\" keyword concept, a one-line product definition, outcome-driven supporting copy, two primary CTAs (\"Explore Agents\" and \"Enter Marketplace\"), and secondary CTAs (\"Build Agent\" and \"Start Building\"); add a light trust/credibility signal within the hero (not as an extra large section).",
       "files": [
         "frontend/src/pages/ForgeHomePage.tsx"
       ],
@@ -36,6 +37,121 @@
       ],
       "testIds": [
         "REQ-2"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-implement-section-2-as-a-compact-how-forge-works-accordion-mobile-first-with-exactly-the-three-required-capability-pillars-1-agent-discovery-2-workflow-orchestration-3-trust-settlement-apply-layout-rules-max-w-4xl-and-py-14-md-py-16-ensure-keyboard-navigation-and-aria-attributes-are-correct-for-the-accordion-triggers-content",
+      "featureTitle": "Implement Section 2 as a compact \"How Forge Works\" accordion (mobile-first) with exactly the three required capability pillars: (1) Agent Discovery, (2) Workflow Orchestration, (3) Trust + Settlement. Apply layout rules: `max-w-4xl` and `py-14 md:py-16`. Ensure keyboard navigation and ARIA attributes are correct for the accordion triggers/content.",
+      "files": [
+        "frontend/src/pages/ForgeHomePage.tsx"
+      ],
+      "components": [
+        "authorization@4.0.0",
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-3"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-implement-section-3-as-a-merged-live-marketplace-preview-with-contextual-placeholder-data-no-backend-dependency-plus-a-visually-dominant-final-cta-apply-layout-rules-marketplace-container-max-w-6xl-and-spacing-py-14-md-py-16-include-live-ecosystem-framing-copy-production-ready-autonomous-capability-economy-tone-and-a-final-dominant-cta-with-one-of-the-required-labels-enter-marketplace-start-using-forge-or-launch-your-agent",
+      "featureTitle": "Implement Section 3 as a merged \"Live marketplace\" preview with contextual placeholder data (no backend dependency) plus a visually dominant final CTA. Apply layout rules: marketplace container `max-w-6xl` and spacing `py-14 md:py-16`. Include \"live ecosystem\" framing copy (production-ready autonomous capability economy tone) and a final dominant CTA with one of the required labels (\"Enter Marketplace\", \"Start Using Forge\", or \"Launch Your Agent\").",
+      "files": [
+        "frontend/src/components/home/LiveMarketplacePreview.tsx",
+        "frontend/src/pages/ForgeHomePage.tsx"
+      ],
+      "components": [
+        "authorization@4.0.0",
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-4"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-apply-global-spacing-container-rules-across-the-homepage-refactor-replace-any-py-20-md-py-28-with-py-14-md-py-16-for-non-hero-sections-ensure-hero-uses-py-16-md-py-20-use-max-w-5xl-for-hero-max-w-4xl-for-the-accordion-content-section-and-max-w-6xl-for-the-marketplace-preview-section",
+      "featureTitle": "Apply global spacing/container rules across the homepage refactor: replace any `py-20 md:py-28` with `py-14 md:py-16` for non-hero sections; ensure hero uses `py-16 md:py-20`; use `max-w-5xl` for hero, `max-w-4xl` for the accordion content section, and `max-w-6xl` for the marketplace preview section.",
+      "files": [
+        "frontend/src/pages/ForgeHomePage.tsx"
+      ],
+      "components": [
+        "authorization@4.0.0",
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-5"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-reduce-homepage-motion-observer-cost-by-removing-unnecessary-usesectionentrymotion-usages-and-intersection-triggered-animations-for-deleted-sections-keep-motion-only-for-hero-entrance-capabilities-how-it-works-reveal-and-final-cta-emphasis-ensure-the-refactored-homepage-uses-no-more-than-3-section-entry-observers-total-and-respects-prefers-reduced-motion",
+      "featureTitle": "Reduce homepage motion/observer cost by removing unnecessary `useSectionEntryMotion` usages and intersection-triggered animations for deleted sections; keep motion only for: hero entrance, capabilities/how-it-works reveal, and final CTA emphasis. Ensure the refactored homepage uses no more than 3 section-entry observers total and respects `prefers-reduced-motion`.",
+      "files": [
+        "frontend/src/pages/ForgeHomePage.tsx"
+      ],
+      "components": [
+        "authorization@4.0.0",
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-6"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-ensure-semantic-structure-accessibility-and-seo-safety-on-the-refactored-homepage-use-main-containing-section-elements-no-duplicate-h1-use-meaningful-headings-h2-h3-per-section-add-aria-labels-where-needed-on-interactive-ctas-controls-maintain-wcag-aa-contrast-for-text-and-interactive-elements",
+      "featureTitle": "Ensure semantic structure, accessibility, and SEO safety on the refactored homepage: use `<main>` containing `<section>` elements; no duplicate H1; use meaningful headings (H2/H3) per section; add ARIA labels where needed on interactive CTAs/controls; maintain WCAG AA contrast for text and interactive elements.",
+      "files": [
+        "frontend/src/pages/ForgeHomePage.tsx"
+      ],
+      "components": [
+        "authorization@4.0.0",
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-7"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-follow-technical-safety-rule-for-imports-in-the-homepage-refactor-avoid-non-guaranteed-path-aliases-use-relative-imports-in-frontend-src-pages-forgehomepage-tsx-including-for-shadcn-accordion-components-unless-the-project-s-alias-configuration-is-already-confirmed-working-for-vite-builds",
+      "featureTitle": "Follow technical safety rule for imports in the homepage refactor: avoid non-guaranteed path aliases; use relative imports in `frontend/src/pages/ForgeHomePage.tsx` (including for shadcn accordion components) unless the project’s alias configuration is already confirmed working for Vite builds.",
+      "files": [
+        "frontend/src/pages/ForgeHomePage.tsx"
+      ],
+      "components": [
+        "authorization@4.0.0",
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-8"
       ],
       "confidence": "high"
     }

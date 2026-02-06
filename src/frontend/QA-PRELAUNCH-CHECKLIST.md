@@ -79,6 +79,19 @@ This comprehensive checklist ensures Forge AI is production-ready before launch.
 - [ ] Forms are usable
 - [ ] Demo Lab execution panel works
 
+### Mobile Homepage Specific (375x667 & 390x844)
+- [ ] Hero section loads and is visible
+- [ ] "What Is" section (Explore Workflows) loads and is visible (no blank space)
+- [ ] Core Capabilities section loads and is visible
+- [ ] Use Cases section loads and is visible
+- [ ] Ecosystem Flywheel section loads and is visible
+- [ ] AI → Human section loads and is visible
+- [ ] Final Conversion section loads and is visible
+- [ ] All CTAs in each section are tappable and have visible focus states
+- [ ] No sections remain permanently hidden (opacity 0)
+- [ ] Orientation change (portrait/landscape) does not hide sections
+- [ ] No console errors when scrolling through sections
+
 ---
 
 ## 4. Keyboard Accessibility
@@ -105,7 +118,7 @@ This comprehensive checklist ensures Forge AI is production-ready before launch.
 - [ ] Rotating placeholder input stops rotating
 - [ ] Execution panel micro-pauses are shortened
 - [ ] Activity feed reveal is faster
-- [ ] Section entry animations are disabled
+- [ ] Section entry animations are disabled (sections appear immediately)
 - [ ] Navigation overlay animations are simplified
 
 ### Transitions

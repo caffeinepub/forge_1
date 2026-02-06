@@ -1,60 +1,65 @@
 {
   "kind": "spec_vs_diff_report",
   "version": "1.0",
-  "generatedAt": "2026-02-05T13:43:29.312Z",
-  "summary": "REQ-2 (Homepage hero copy) appears to be implemented in ForgeHomePage.tsx. VisionPage.tsx shows substantial copy/structure updates with H1/H2/H3 present, but the diff is truncated, so it’s not possible to confirm that all required core sections/examples from REQ-1 are included. The diff summary indicates many additional, non-copy and non-requested frontend changes (routing, CSS/motion, multiple components), which violate the copy-only/no-other-changes constraints.",
+  "generatedAt": "2026-02-06T12:04:04.594Z",
+  "summary": "Diff adds a LiveMarketplacePreview component with in-file placeholder marketplace items and refactors ForgeHomePage to use three useSectionEntryMotion hooks and a hero section with max-w-5xl, py-16 md:py-20, a single H1 containing “Capability Marketplace”, and an in-hero trust/credibility bullet row. However, the diff summary is truncated before showing the full CTA set, Section 2 accordion content/ARIA behavior, and Section 3 layout + final CTA implementation details, so several requirements cannot be confirmed from the provided evidence.",
   "missing_requirements": [
     {
-      "id": "REQ-1",
-      "requirement": "Vision page rewrite must keep the same core sections and examples (Legal Action Orchestration, Supply Chain Verification, Market Research with Field Verification, AI as Infrastructure, Lifecycle, Why ICP is the Ideal Platform, Marketplace as Operating System) while improving clarity and reducing jargon.",
-      "reason": "VisionPage.tsx is truncated in the diff; only the opening vision section and the start of the “Legal Action Orchestration” example are visible. There is not enough evidence in the provided diff snippet to confirm that the other required sections/examples are present and rewritten.",
+      "id": "REQ-2",
+      "requirement": "Hero must include two primary CTAs (\"Explore Agents\" and \"Enter Marketplace\") and two secondary CTAs (\"Build Agent\" and \"Start Building\").",
+      "reason": "The ForgeHomePage.tsx diff is truncated before the Button labels/secondary CTAs are visible, so the required CTA set and exact labels cannot be verified.",
       "evidence": [
-        "frontend/src/pages/VisionPage.tsx (truncated)"
+        "frontend/src/pages/ForgeHomePage.tsx (truncated)"
+      ]
+    },
+    {
+      "id": "REQ-3",
+      "requirement": "Section 2 must be a compact \"How Forge Works\" accordion with exactly three items: Agent Discovery, Workflow Orchestration, Trust + Settlement; container max-w-4xl and py-14 md:py-16; keyboard + ARIA correctness.",
+      "reason": "The provided ForgeHomePage.tsx snippet shows Accordion imports but is truncated before Section 2 markup/content and spacing classes, so the exact three items, layout rules, and ARIA/keyboard behavior cannot be confirmed.",
+      "evidence": [
+        "frontend/src/pages/ForgeHomePage.tsx (truncated)"
+      ]
+    },
+    {
+      "id": "REQ-4",
+      "requirement": "Section 3 must be a merged \"Live marketplace\" preview + visually dominant final CTA with label \"Enter Marketplace\" or \"Start Using Forge\" or \"Launch Your Agent\"; uses max-w-6xl and py-14 md:py-16; includes live-ecosystem framing copy; CTA navigates to an appropriate existing route (e.g., /marketplace).",
+      "reason": "LiveMarketplacePreview placeholder data is present, but ForgeHomePage.tsx is truncated before Section 3 wrapper, spacing/max-width classes, framing copy, and final CTA label/route can be verified.",
+      "evidence": [
+        "frontend/src/components/home/LiveMarketplacePreview.tsx (truncated)",
+        "frontend/src/pages/ForgeHomePage.tsx (truncated)"
+      ]
+    },
+    {
+      "id": "REQ-5",
+      "requirement": "Apply global spacing/container rules: non-hero sections use py-14 md:py-16 (no py-20 md:py-28); Section 2 max-w-4xl; Section 3 max-w-6xl.",
+      "reason": "Hero spacing/max-width is visible, but the diff is truncated before Section 2 and Section 3 containers, so their spacing/max-width (and absence of py-20 md:py-28) cannot be validated from the provided evidence.",
+      "evidence": [
+        "frontend/src/pages/ForgeHomePage.tsx (truncated)"
+      ]
+    },
+    {
+      "id": "REQ-6",
+      "requirement": "Respect prefers-reduced-motion so sections render without requiring intersection entry to become visible.",
+      "reason": "ForgeHomePage.tsx shows three useSectionEntryMotion hooks, but the truncated diff does not show any prefers-reduced-motion handling (either via the hook implementation or CSS overrides), so compliance cannot be confirmed.",
+      "evidence": [
+        "frontend/src/pages/ForgeHomePage.tsx (truncated)"
+      ]
+    },
+    {
+      "id": "REQ-8",
+      "requirement": "Use relative imports in ForgeHomePage.tsx (including for shadcn accordion components) unless aliases are guaranteed.",
+      "reason": "Relative imports are shown for ui/accordion and other imports in ForgeHomePage.tsx, but the diff is truncated and does not show the entire file; cannot conclusively verify no alias imports appear later in the file.",
+      "evidence": [
+        "frontend/src/pages/ForgeHomePage.tsx (truncated)"
       ]
     }
   ],
-  "hallucinated_features": [
-    {
-      "description": "New/changed global CSS motion and interaction system (section reveals, micro-interactions, reduced-motion overrides).",
-      "reason": "Request is copy-only and explicitly says not to introduce other UI behavior changes; CSS/motion system changes go beyond copy edits.",
-      "evidence": [
-        "frontend-file-summaries.txt (frontend/src/index.css entry)"
-      ]
-    },
-    {
-      "description": "Routing/application-shell changes: TanStack Router setup updated and a new “/agent-onboarding” route added; ThemeProvider forcing dark mode.",
-      "reason": "BuildRequest explicitly requires no routing/auth/non-copy UI behavior changes and is limited to Vision page copy + Homepage hero copy.",
-      "evidence": [
-        "frontend-file-summaries.txt (frontend/src/App.tsx entry)"
-      ]
-    },
-    {
-      "description": "Homepage-related component behavior/content changes beyond the hero copy (e.g., HeroSection CTAs routing changes, other marketing sections rewritten).",
-      "reason": "REQ-2 requires only changing the hero block copy in ForgeHomePage.tsx and leaving the rest of the homepage unchanged; additional component changes suggest broader homepage/marketing edits beyond the hero text.",
-      "evidence": [
-        "frontend-file-summaries.txt (frontend/src/components/HeroSection.tsx entry)",
-        "frontend-file-summaries.txt (frontend/src/components/AboutVisionSection.tsx entry)",
-        "frontend-file-summaries.txt (frontend/src/components/RoadmapTimeline.tsx entry)",
-        "frontend-file-summaries.txt (frontend/src/components/DevelopersSection.tsx entry)"
-      ]
-    },
-    {
-      "description": "Non-copy feature/behavior enhancements in multiple UI components (rotating placeholder input behavior, execution panel demo data enrichment, activity feed timing changes, result reveal deliverable section, rating control behavior).",
-      "reason": "BuildRequest is copy-only and lists non-goals including not fixing/altering application flows; these appear to be functional/UI behavior changes unrelated to requested copy rewrites.",
-      "evidence": [
-        "frontend-file-summaries.txt (frontend/src/components/RotatingPlaceholderInput.tsx entry)",
-        "frontend-file-summaries.txt (frontend/src/components/ExecutionPanel.tsx entry)",
-        "frontend-file-summaries.txt (frontend/src/components/ActivityFeed.tsx entry)",
-        "frontend-file-summaries.txt (frontend/src/components/ResultReveal.tsx entry)",
-        "frontend-file-summaries.txt (frontend/src/components/RatingStars.tsx entry)"
-      ]
-    }
-  ],
+  "hallucinated_features": [],
   "confidence": 0.62,
   "changed_files": [
     "frontend-file-summaries.txt",
+    "frontend/src/components/home/LiveMarketplacePreview.tsx",
     "frontend/src/pages/ForgeHomePage.tsx",
-    "frontend/src/pages/VisionPage.tsx",
     "project_state.json"
   ]
 }

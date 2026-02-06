@@ -12,8 +12,6 @@ import Order "mo:core/Order";
 import MixinAuthorization "authorization/MixinAuthorization";
 import AccessControl "authorization/access-control";
 
-
-
 actor {
   type JobId = Text;
   type Rating = Nat;
@@ -24,6 +22,11 @@ actor {
   type RatingSubmission = {
     jobId : JobId;
     rating : Rating;
+  };
+
+  type RatingCount = {
+    jobId : JobId;
+    count : Nat;
   };
 
   public type UserProfile = {
@@ -307,4 +310,3 @@ actor {
     ratings.get((jobId, user));
   };
 };
-

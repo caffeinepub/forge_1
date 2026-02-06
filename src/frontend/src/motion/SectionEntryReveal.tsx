@@ -8,11 +8,14 @@ interface SectionEntryRevealProps {
   className?: string;
   as?: ElementType;
   staggerChildren?: boolean;
+  threshold?: number;
+  rootMargin?: string;
 }
 
 /**
  * Reusable wrapper component for section-entry reveal animations.
  * Applies profile-driven timing and CSS-variable tuning while respecting prefers-reduced-motion.
+ * Includes failsafe mechanisms to prevent permanent invisibility.
  */
 export function SectionEntryReveal({
   children,
@@ -20,8 +23,13 @@ export function SectionEntryReveal({
   className = '',
   as: Component = 'div',
   staggerChildren = false,
+  threshold,
+  rootMargin,
 }: SectionEntryRevealProps) {
-  const { ref, hasEntered } = useSectionEntryMotion({ threshold: 0.15 });
+  const { ref, hasEntered } = useSectionEntryMotion({ 
+    threshold: threshold ?? 0.15,
+    rootMargin: rootMargin ?? '0px 0px -10% 0px'
+  });
   const motionProfile = motionProfiles[profile];
 
   const style: CSSProperties = {

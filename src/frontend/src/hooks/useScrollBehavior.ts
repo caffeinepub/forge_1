@@ -62,7 +62,7 @@ export function useSmoothScrollToTop(duration = 500) {
 }
 
 /**
- * Shared helper for smooth section-jump scrolling.
+ * Shared helper for smooth section-jump scrolling with sticky header offset.
  * Respects prefers-reduced-motion by using instant scroll when enabled.
  */
 export function useSmoothScrollToElement() {
@@ -72,11 +72,13 @@ export function useSmoothScrollToElement() {
     const element = document.getElementById(elementId);
     if (!element) return;
 
-    const scrollOptions: ScrollIntoViewOptions = prefersReducedMotion
-      ? { block: 'start' }
-      : { behavior: 'smooth', block: 'start' };
+    const yOffset = -80;
+    const y = element.getBoundingClientRect().top + window.pageYOffset + yOffset;
 
-    element.scrollIntoView(scrollOptions);
+    window.scrollTo({
+      top: y,
+      behavior: prefersReducedMotion ? 'auto' : 'smooth'
+    });
   }, [prefersReducedMotion]);
 
   return scrollToElement;

@@ -1,38 +1,143 @@
 {
   "kind": "implementation_plan",
   "version": "1.0",
-  "title": "Copy-only updates for Vision page and Homepage hero block",
+  "title": "Forge AI homepage: 3-section high-density conversion refactor with reduced motion observers",
   "requirements": [
     {
       "id": "REQ-1",
-      "summary": "Rewrite Vision page copy for clarity, consistent heading hierarchy, and reduced jargon while preserving sections and examples.",
+      "summary": "Refactor ForgeHomePage to render exactly 3 major sections (Hero, How Forge Works accordion, Live marketplace preview + final CTA) and remove all other homepage sections.",
       "acceptanceCriteria": [
-        "Vision page renders without layout regressions and remains fully readable/scannable with a consistent heading structure across sections and example steps.",
-        "All user-facing text on `/vision` is updated to the rewritten version; no placeholder/lorem text remains.",
-        "Rewrite keeps the same core sections and examples (Legal Action Orchestration, Supply Chain Verification, Market Research with Field Verification, AI as Infrastructure, Lifecycle, Why ICP is the Ideal Platform, Marketplace as Operating System) while improving clarity and reducing jargon.",
-        "No changes are made to routing, authentication, backend, or non-copy UI behavior."
-      ],
-      "file_operations": [
-        {
-          "path": "frontend/src/pages/VisionPage.tsx",
-          "operation": "modify",
-          "description": "Update all user-facing copy to match the provided “Vision” draft content (source-of-truth for meaning), refining for consistency/readability: enforce a clear heading hierarchy (H1 page title, H2 major sections, H3 example sub-steps), keep the same narrative structure and examples, and reduce unnecessary crypto/blockchain jargon (prefer plain-language phrasing unless essential). Keep layout/classes/structure unchanged aside from text-level edits needed to support the heading hierarchy."
-        }
-      ]
-    },
-    {
-      "id": "REQ-2",
-      "summary": "Rewrite only the Homepage hero block headline, supporting paragraph, and italic teaser line without changing any other Homepage content.",
-      "acceptanceCriteria": [
-        "Only hero text content changes on the Homepage; all other Homepage sections remain byte-for-byte unchanged except for any necessary formatting to support the new hero copy.",
-        "Homepage hero preserves the same intent: outcome-first positioning, agent orchestration, and the future human-hiring teaser line.",
-        "No CTA destinations or button labels are changed unless required solely to match the rewritten hero copy (prefer keeping existing labels)."
+        "Navigating to the homepage shows only 3 major sections (Hero, How it works accordion, Marketplace preview + final CTA).",
+        "All removed sections/components are no longer imported or rendered from `ForgeHomePage.tsx` (e.g., persona blocks, future vision/narrative sections, extra marketing blocks).",
+        "The homepage content fits within ~2–3 typical laptop/desktop screens at 100% zoom (no long narrative scroll)."
       ],
       "file_operations": [
         {
           "path": "frontend/src/pages/ForgeHomePage.tsx",
           "operation": "modify",
-          "description": "Rewrite ONLY the hero block copy (H1 headline text, supporting paragraph, and the italic “Later…” line) using the provided hero text as meaning source-of-truth. Do not change any other sections, CTAs, button labels, destinations, structure, ordering, or non-copy behavior on the Homepage; keep all non-hero content byte-for-byte unchanged."
+          "description": "Remove all non-required sections (What Is / Capabilities / Explore Workflows / Personas / AI→Human / old conversion), and recompose the page into exactly three <section> blocks in the required order: (1) Hero + value + primary CTA merged, (2) How Forge Works accordion, (3) Live marketplace preview + final CTA merged. Ensure all deleted section components are no longer imported or referenced."
+        },
+        {
+          "path": "frontend/src/components/home/LiveMarketplacePreview.tsx",
+          "operation": "create",
+          "description": "Create a compact, read-only marketplace preview component that renders contextual placeholder agent/capability items (no backend calls) and supports a dense grid/list presentation suitable for Section 3. Verify the component's usage instructions before implementing."
+        }
+      ]
+    },
+    {
+      "id": "REQ-2",
+      "summary": "Update the Hero section to match layout rules, include required brand/H1/copy/CTAs, and add a light trust signal without adding a new major section.",
+      "acceptanceCriteria": [
+        "Hero section does not use `min-h-screen` and uses `py-16 md:py-20`.",
+        "Hero content is constrained to `max-w-5xl` and CTAs are visible within the first screen on common viewport sizes.",
+        "There is exactly one H1 on the homepage and it includes a primary keyword concept (e.g., capability marketplace / agent marketplace / autonomous AI agents).",
+        "Hero includes: brand mark, one-line definition, outcome-driven message, 2 primary CTAs (Explore Agents, Enter Marketplace), and 2 secondary CTAs (Build Agent, Start Building).",
+        "A trust/credibility element is present in the hero (e.g., short compliance/trust bullets or metrics) without adding a new major homepage section."
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/pages/ForgeHomePage.tsx",
+          "operation": "modify",
+          "description": "Rewrite the Hero section: remove `min-h-screen`; use `py-16 md:py-20`; constrain hero content container to `max-w-5xl`; keep ForgeBrandMark; add exactly one H1 containing an agent/capability marketplace/autonomous AI agents keyword concept; include a one-line product definition + outcome-driven supporting copy; implement two primary CTAs (Explore Agents -> existing /explore, Enter Marketplace -> existing /marketplace) and two secondary CTAs (Build Agent -> an appropriate existing route like /agent-onboarding, Start Building -> existing /build); add a compact in-hero trust/credibility row (small bullets/metrics) without creating an additional major section."
+        }
+      ]
+    },
+    {
+      "id": "REQ-3",
+      "summary": "Implement Section 2 as a compact, accessible 'How Forge Works' accordion with exactly three capability pillars.",
+      "acceptanceCriteria": [
+        "Section 2 uses an accordion UI (preferred) and contains exactly three items: Agent Discovery, Workflow Orchestration, Trust + Settlement.",
+        "Section 2 container is `max-w-4xl` and spacing is `py-14 md:py-16`.",
+        "Accordion can be operated fully with keyboard (tab/focus + enter/space) and does not fail accessibility checks for basic ARIA semantics."
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/pages/ForgeHomePage.tsx",
+          "operation": "modify",
+          "description": "Replace the existing capabilities accordion usage with a dedicated Section 2 'How Forge Works' accordion (mobile-first) containing exactly three items: Agent Discovery, Workflow Orchestration, Trust + Settlement. Apply `py-14 md:py-16` and `max-w-4xl`. Ensure triggers/content use correct semantics and accessible names (ARIA labels where needed). Use the existing shadcn Accordion components (do not modify anything under frontend/src/components/ui). Verify the component's usage instructions before implementing."
+        }
+      ]
+    },
+    {
+      "id": "REQ-4",
+      "summary": "Implement Section 3 as a merged live marketplace preview (placeholder data only) plus a visually dominant final CTA with 'live ecosystem' framing.",
+      "acceptanceCriteria": [
+        "Section 3 includes a marketplace preview UI populated from in-file placeholder data (e.g., sample agents/capabilities/ratings/pricing/settlement readiness) and does not require any backend calls to render.",
+        "Section 3 uses `max-w-6xl` and `py-14 md:py-16`.",
+        "A visually dominant final CTA is present and uses one of the specified labels; clicking navigates to an appropriate existing route (e.g., `/marketplace`)."
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/components/home/LiveMarketplacePreview.tsx",
+          "operation": "modify",
+          "description": "Implement the marketplace preview UI using contextual placeholder data defined within this file (no backend). Include fields like agent/capability title, short description, rating, price/range, and settlement readiness indicators so the preview reads as 'live ecosystem' ready. Verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/pages/ForgeHomePage.tsx",
+          "operation": "modify",
+          "description": "Add Section 3 with `py-14 md:py-16` and `max-w-6xl`, render LiveMarketplacePreview, add 'live ecosystem' framing copy (production-ready autonomous capability economy tone), and include a visually dominant final CTA using an allowed label (e.g., 'Enter Marketplace') that navigates to the existing /marketplace route."
+        }
+      ]
+    },
+    {
+      "id": "REQ-5",
+      "summary": "Apply global spacing and container width rules across the refactored homepage sections.",
+      "acceptanceCriteria": [
+        "No homepage sections (other than hero) use `py-20 md:py-28`.",
+        "Hero uses `py-16 md:py-20` and `max-w-5xl` container; Section 2 uses `max-w-4xl`; Section 3 uses `max-w-6xl`."
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/pages/ForgeHomePage.tsx",
+          "operation": "modify",
+          "description": "Audit and normalize section spacing/containers: hero uses `py-16 md:py-20` with `max-w-5xl`; Section 2 uses `py-14 md:py-16` with `max-w-4xl`; Section 3 uses `py-14 md:py-16` with `max-w-6xl`. Ensure any previous `py-20 md:py-28` classes are removed from non-hero sections."
+        }
+      ]
+    },
+    {
+      "id": "REQ-6",
+      "summary": "Reduce motion/observer cost by keeping section-entry observers only for the 3 required sections and respecting prefers-reduced-motion.",
+      "acceptanceCriteria": [
+        "`ForgeHomePage.tsx` registers at most 3 `useSectionEntryMotion` observers (or equivalent section-entry observers).",
+        "Deleted narrative/persona/future-vision sections do not retain any motion hooks/observers.",
+        "When the OS/browser has reduced motion enabled, sections render without requiring intersection entry to become visible."
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/pages/ForgeHomePage.tsx",
+          "operation": "modify",
+          "description": "Remove `useSectionEntryMotion` hooks tied to deleted sections and ensure there are no more than 3 observers total (hero entrance, how-it-works reveal, final CTA/marketplace section emphasis). Keep motion classes only where needed, and ensure reduced-motion users see content immediately (relying on existing prefers-reduced-motion behavior in the hook)."
+        }
+      ]
+    },
+    {
+      "id": "REQ-7",
+      "summary": "Ensure semantic structure, accessibility, and SEO safety: main/section landmarks, single H1, heading hierarchy, ARIA labeling, and contrast-safe styling.",
+      "acceptanceCriteria": [
+        "Homepage has exactly one H1 and a logical heading hierarchy for subsequent sections.",
+        "Interactive elements (CTAs, accordion triggers) have accessible names and are keyboard reachable.",
+        "No structural accessibility regressions introduced by the refactor (landmarks and sections remain semantic)."
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/pages/ForgeHomePage.tsx",
+          "operation": "modify",
+          "description": "Ensure the page uses <main> with exactly three <section> landmarks; ensure only one H1 (in hero) and use H2/H3 for later section headings and card titles; add/verify accessible names (ARIA labels) for CTAs and accordion triggers as needed; confirm focusability/keyboard navigation for all interactive elements; keep color/opacity choices consistent with WCAG AA contrast expectations."
+        }
+      ]
+    },
+    {
+      "id": "REQ-8",
+      "summary": "Avoid non-guaranteed import aliases in ForgeHomePage; use relative imports (including for shadcn accordion) unless alias support is confirmed.",
+      "acceptanceCriteria": [
+        "`ForgeHomePage.tsx` builds without path resolution errors in Vite.",
+        "If aliases are not guaranteed, accordion and other imports are expressed with relative paths."
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/pages/ForgeHomePage.tsx",
+          "operation": "modify",
+          "description": "Replace the accordion import that currently uses a path alias with a relative import (e.g., from `../components/ui/accordion`) and ensure all imports in this file use relative paths unless an existing, confirmed Vite alias is in place. Do not modify anything under `frontend/src/components/ui`."
         }
       ]
     }

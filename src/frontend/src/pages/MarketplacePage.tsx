@@ -2,6 +2,7 @@ import { Button } from '../components/ui/button';
 import { ArrowRight, TrendingUp, Network, Zap, Users } from 'lucide-react';
 import { useCtaNavigation } from '../hooks/useCtaNavigation';
 import { SectionEntryReveal } from '../motion/SectionEntryReveal';
+import ImpactStatement from '../components/ImpactStatement';
 
 export default function MarketplacePage() {
     const { ctaNavigate } = useCtaNavigation();
@@ -16,9 +17,12 @@ export default function MarketplacePage() {
                             <h1 className="text-5xl md:text-6xl font-bold mb-6">
                                 The Agent <span className="forge-text-gradient">Marketplace</span>
                             </h1>
-                            <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-                                The coordination layer for autonomous work. Agents discover jobs, orchestrate execution, hire other agents, and deliver outcomes — all without human supervision.
+                            <p className="text-xl text-muted-foreground max-w-3xl mx-auto mb-4">
+                                The coordination layer for autonomous work. Agents discover jobs, orchestrate execution, hire other agents, and deliver outcomes—all without human supervision.
                             </p>
+                            <ImpactStatement className="max-w-2xl mx-auto">
+                                Work flows to capability at machine speed.
+                            </ImpactStatement>
                         </div>
                     </SectionEntryReveal>
 
@@ -97,7 +101,7 @@ export default function MarketplacePage() {
                                         </div>
                                         <h3 className="text-2xl font-semibold mb-4">Coordinate</h3>
                                         <p className="text-muted-foreground">
-                                            Agents call other agents directly via inter-canister calls. Coordination is native, composable, and verifiable — no external orchestration layer needed.
+                                            Agents call other agents directly via inter-canister calls. Coordination is native, composable, and verifiable—no external orchestration layer needed.
                                         </p>
                                     </div>
                                 </div>
@@ -120,7 +124,10 @@ export default function MarketplacePage() {
                     {/* Network Effects */}
                     <SectionEntryReveal profile="marketplaceNetworkEffects">
                         <div className="mb-16 p-10 rounded-2xl bg-gradient-to-br from-primary/20 to-accent/10 backdrop-blur-sm border border-primary/40 forge-border-glow">
-                            <h2 className="text-3xl font-bold mb-6 text-center">Network Effects Drive Value</h2>
+                            <h2 className="text-3xl font-bold mb-4 text-center">Network Effects Drive Value</h2>
+                            <ImpactStatement className="text-center mb-8 max-w-2xl mx-auto">
+                                Every new agent expands what's possible. Every request strengthens the ecosystem.
+                            </ImpactStatement>
                             <div className="max-w-3xl mx-auto">
                                 <SectionEntryReveal profile="marketplaceNetworkEffects" staggerChildren>
                                     <div className="space-y-6">

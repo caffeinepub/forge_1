@@ -1,430 +1,82 @@
 {
   "schemaVersion": "1.0.0",
   "projectStateVersion": 3,
-  "summary": "Forge AI is a React + Motoko (Internet Computer) web app positioned as an autonomous agent marketplace. The frontend is a multi-page marketing and product funnel (Explore → Demo Lab → simulated execution) with strong accessibility and motion/scroll polish, SEO artifacts (sitemap/robots + per-route titles/meta), and Internet Identity authentication. Authenticated users can persist a profile name, rate demo executions by jobId, store/resume their last “forged task”, and participate in a page-scoped community feedback system (comments + upvotes) backed by a single Motoko canister with role-based access control and admin bootstrap via a secret token.",
+  "summary": "Redesign the Forge AI homepage into a high-density, conversion-focused, top-tier production feel (Stripe/Vercel/Linear) with only 3 major sections, improved performance (fewer motion observers), strong accessibility/SEO, and contextual placeholder marketplace preview data; regenerate after prior build failure.",
+  "architectural_notes": [
+    "Homepage must be ~2–3 screens total; only 3 major sections: (1) Hero+Value+Primary CTAs, (2) How it works via accordion/tabs, (3) Marketplace preview + final dominant CTA.",
+    "Performance mandate: reduce motion observers 50–70%, minimize intersection observers; avoid min-h-screen/full viewport lock; keep motion only for hero entrance, capabilities reveal, final CTA emphasis.",
+    "Design system: replace py-20 md:py-28 with py-14 md:py-16; hero max-w-5xl, content max-w-4xl, marketplace max-w-6xl; hero padding py-16 md:py-20.",
+    "Accessibility: semantic landmarks (header/main/section/footer), ARIA labels for interactive components, accordion keyboard navigation, WCAG AA contrast.",
+    "SEO: single H1 in hero with primary keyword concept (Agent Marketplace / Autonomous AI Agents / Capability Marketplace / Agent Economy Platform); meaningful alt text; structured section hierarchy; no duplicate H1.",
+    "Technical safety: keep Next-compatible structure in mind but output should remain plain React/Vite compatible; use relative imports if alias config not guaranteed; avoid heavy parallax/autoplay/multiple stacked motion wrappers.",
+    "Marketplace preview should be placeholder/stub with contextual placeholder data (not real data integration yet)."
+  ],
+  "known_issues": [
+    "Homepage app generation/build failed during prior attempt; needs regeneration/retry."
+  ],
+  "isFixRequest": true,
   "existing_features": [
     {
-      "id": "IF-1",
-      "title": "Multi-page routed SPA (marketing + product funnel)",
-      "synonyms": [
-        "TanStack Router site",
-        "Client-side routing"
-      ],
-      "description": "Implements a routed single-page application with pages including Home, About, Vision, Roadmap, Developers, Login, Support, Playbooks, Explore, Demo Lab, Build, Marketplace, Docs, Agent Self-Onboarding, and multiple Marketplace capability sub-pages.",
-      "reqIds": [],
-      "version": 1
-    },
-    {
-      "id": "IF-2",
-      "title": "Root layout with global header/footer, ambient background, and CTA Back button",
-      "synonyms": [
-        "RootLayout",
-        "Global chrome"
-      ],
-      "description": "Provides a shared layout with sticky GlobalHeader, FooterNote, ambient background layers/texture, and a conditional Back button when navigation state indicates the user arrived via a CTA.",
-      "reqIds": [],
-      "version": 1
-    },
-    {
-      "id": "IF-3",
-      "title": "Accessible global header with hamburger navigation",
-      "synonyms": [
-        "GlobalHeader",
-        "Mobile menu trigger"
-      ],
-      "description": "Renders a scroll-aware header (transparent→solid on homepage) with brand link, hamburger control, focus-visible styling, and integration with the full-screen overlay menu.",
-      "reqIds": [],
-      "version": 1
-    },
-    {
-      "id": "IF-4",
-      "title": "Full-screen navigation overlay with focus trap and ESC-to-close",
-      "synonyms": [
-        "FullScreenNavOverlay",
-        "Hamburger overlay menu"
-      ],
-      "description": "Implements a modal-like full-screen navigation with focus trapping, Escape key handling, body scroll locking, and accessible dialog semantics.",
-      "reqIds": [],
-      "version": 1
-    },
-    {
-      "id": "IF-5",
-      "title": "Per-route document titles",
-      "synonyms": [
-        "useDocumentTitle",
-        "Route title mapping"
-      ],
-      "description": "Updates document.title based on the active route using a predefined mapping with sensible defaults.",
-      "reqIds": [],
-      "version": 1
-    },
-    {
-      "id": "IF-6",
-      "title": "Per-route SEO meta description + Open Graph/Twitter tags",
-      "synonyms": [
-        "useRouteMeta",
-        "Dynamic meta tags"
-      ],
-      "description": "Updates meta description and Open Graph/Twitter title+description tags on route changes via DOM mutation, complementing the base SEO tags in index.html.",
-      "reqIds": [],
-      "version": 1
-    },
-    {
-      "id": "IF-7",
-      "title": "Static crawl artifacts (robots.txt and sitemap.xml)",
-      "synonyms": [
-        "SEO artifacts",
-        "Crawlability"
-      ],
-      "description": "Serves robots.txt and sitemap.xml from /public using relative URLs suitable for Internet Computer canister hosting.",
-      "reqIds": [],
-      "version": 1
-    },
-    {
-      "id": "IF-8",
-      "title": "Scroll-to-top on navigation + back/forward scroll restoration",
-      "synonyms": [
-        "useSmoothScrollToTop",
-        "useScrollRestoration"
-      ],
-      "description": "Disables browser scrollRestoration, smoothly scrolls to top on forward navigations (instant when reduced motion is preferred), and restores saved scroll positions on back/forward navigations.",
-      "reqIds": [],
-      "version": 1
-    },
-    {
-      "id": "IF-9",
-      "title": "Reduced-motion compliant motion system",
-      "synonyms": [
-        "prefers-reduced-motion support",
-        "Motion profiles"
-      ],
-      "description": "Provides reduced-motion detection, IntersectionObserver-based section entry detection, CSS-variable-driven motion profiles, and global reduced-motion overrides to minimize animation when requested.",
-      "reqIds": [],
-      "version": 1
-    },
-    {
-      "id": "IF-10",
-      "title": "Reusable section entry reveal component",
-      "synonyms": [
-        "SectionEntryReveal",
-        "Viewport reveal"
-      ],
-      "description": "Wraps content with a reveal system that applies profile-defined duration/delay/stagger via CSS variables and triggers once when the element enters the viewport.",
-      "reqIds": [],
-      "version": 1
-    },
-    {
-      "id": "IF-11",
-      "title": "Homepage long-form marketing narrative with section jump index",
-      "synonyms": [
-        "ForgeHomePage",
-        "HomeSectionIndexFooter"
-      ],
-      "description": "Implements a multi-section, conversion-focused homepage with smooth section jumps, entry reveals, and a sticky section index footer for fast navigation between sections.",
-      "reqIds": [],
-      "version": 1
-    },
-    {
-      "id": "IF-12",
-      "title": "Explore page workflow discovery funnel",
-      "synonyms": [
-        "Explore workflows",
-        "Prompt entry + templates"
-      ],
-      "description": "Allows users to enter a free-form request or select quick-start/category templates, routing into Demo Lab with prefilled prompts; secondary browsing is demoted behind progressive disclosure.",
-      "reqIds": [],
-      "version": 1
-    },
-    {
-      "id": "IF-13",
-      "title": "Demo Lab request-to-execution experience",
-      "synonyms": [
-        "DemoLabPage",
-        "Request Work"
-      ],
-      "description": "Supports prompt input, recommended template selection, URL-driven prompt prefill, focus management between input and execution panel, and progressive disclosure for browsing templates.",
-      "reqIds": [],
-      "version": 1
-    },
-    {
-      "id": "IF-14",
-      "title": "Execution panel with staged phases and accessibility announcements",
-      "synonyms": [
-        "ExecutionPanel",
-        "Analyzing → Agent Found → Executing → Completed"
-      ],
-      "description": "Simulates an execution lifecycle with timed phases, system messages, agent card reveal, aria-live announcements, and a reset flow to start a new request.",
-      "reqIds": [],
-      "version": 1
-    },
-    {
-      "id": "IF-15",
-      "title": "Incremental activity feed with UTC timestamps and deterministic rare variants",
-      "synonyms": [
-        "ActivityFeed",
-        "Agency variants"
-      ],
-      "description": "Reveals feed items over time with UTC timestamps, reduced-motion-aware timing, and deterministic rare phrase variants seeded by jobId to provide low-frequency agency signals.",
-      "reqIds": [],
-      "version": 1
-    },
-    {
-      "id": "IF-16",
-      "title": "Template-driven demo execution generators with structured deliverables",
-      "synonyms": [
-        "executionTemplates",
-        "Research/Ops/Support/Watcher templates"
-      ],
-      "description": "Generates detailed activity feeds and polished, structured deliverables for multiple workflow archetypes and selects the generator by template type.",
-      "reqIds": [],
-      "version": 1
-    },
-    {
-      "id": "IF-17",
-      "title": "Prompt template catalog and template type detection",
-      "synonyms": [
-        "promptTemplates",
-        "Template matcher"
-      ],
-      "description": "Defines category/featured/survey/quick-start prompt templates and provides keyword-based detection to map user prompts to a demo template type.",
-      "reqIds": [],
-      "version": 1
-    },
-    {
-      "id": "IF-18",
-      "title": "Result reveal with optional deliverable rendering and rating prompt",
-      "synonyms": [
-        "ResultReveal",
-        "Deliverable panel"
-      ],
-      "description": "Shows a completion card with metadata, optionally renders the deliverable body, displays completion affirmations, and embeds the rating widget for feedback.",
-      "reqIds": [],
-      "version": 1
-    },
-    {
-      "id": "IF-19",
-      "title": "Job ID generation and validation utilities",
-      "synonyms": [
-        "generateJobId",
-        "Execution identifiers"
-      ],
-      "description": "Creates unique job IDs for demo executions and provides a regex validator for the expected format.",
-      "reqIds": [],
-      "version": 1
-    },
-    {
-      "id": "IF-20",
-      "title": "Internet Identity authentication provider",
-      "synonyms": [
-        "InternetIdentityProvider",
-        "AuthClient integration"
-      ],
-      "description": "Manages Internet Identity login/logout, identity restoration on reload, and a login status state machine; exposes identity and auth actions through a React context.",
-      "reqIds": [],
-      "version": 1
-    },
-    {
-      "id": "IF-21",
-      "title": "Auth guard helper for protected actions",
-      "synonyms": [
-        "useAuthGuard",
-        "Require sign-in"
-      ],
-      "description": "Provides a shared helper to request authentication before performing protected mutations (e.g., posting comments, upvoting, submitting ratings).",
-      "reqIds": [],
-      "version": 1
-    },
-    {
-      "id": "IF-22",
-      "title": "Identity-aware canister actor creation and query cache invalidation",
-      "synonyms": [
-        "useActor",
-        "Authenticated canister calls"
-      ],
-      "description": "Creates anonymous vs authenticated backend actors depending on Internet Identity, runs an authorization initialization call, and invalidates/refetches dependent React Query caches when the actor changes.",
-      "reqIds": [],
-      "version": 1
-    },
-    {
-      "id": "IF-23",
-      "title": "User profile persistence with first-login setup modal",
-      "synonyms": [
-        "ProfileSetupModal",
-        "Caller profile"
-      ],
-      "description": "Fetches the caller’s profile and, on first authenticated use, prompts for a display name and persists it to the canister backend.",
-      "reqIds": [],
-      "version": 1
-    },
-    {
-      "id": "IF-24",
-      "title": "Execution rating persistence per job and user",
-      "synonyms": [
-        "RatingStars",
-        "submitRating/getCallerRating"
-      ],
-      "description": "Allows authenticated users to submit a 1–5 rating for an execution jobId and reload it later; uses React Query invalidation to keep UI consistent.",
-      "reqIds": [],
-      "version": 1
-    },
-    {
-      "id": "IF-25",
-      "title": "Last forged task continuity and resume affordance",
-      "synonyms": [
-        "LastForgedTask",
-        "Resume last execution"
-      ],
-      "description": "Persists the last executed prompt per user in the backend and surfaces a resume CTA (e.g., on the hero) to reopen Demo Lab with the stored task description.",
-      "reqIds": [],
-      "version": 1
-    },
-    {
-      "id": "IF-26",
-      "title": "Page-scoped community comments and feedback",
-      "synonyms": [
-        "CommentsFeedback",
-        "Feedback forum"
-      ],
-      "description": "Implements comment listing by page context plus authenticated comment creation and upvote toggling via canister calls and query invalidation (used on Roadmap and Support pages).",
-      "reqIds": [],
-      "version": 1
-    },
-    {
-      "id": "IF-27",
-      "title": "Pseudonymous author alias generation",
-      "synonyms": [
-        "Principal aliases",
-        "Friendly commenter names"
-      ],
-      "description": "Backend assigns a stable, friendly alias per principal (prefix/suffix combination) and records it as the comment author name.",
-      "reqIds": [],
-      "version": 1
-    },
-    {
-      "id": "IF-28",
-      "title": "Motoko backend canister for profiles, ratings, tasks, and comments",
-      "synonyms": [
-        "ICP backend canister",
-        "Motoko actor"
-      ],
-      "description": "Implements storage and APIs for user profiles, ratings keyed by (jobId, principal), last-forged tasks, comments by page context, and comment upvote toggling.",
-      "reqIds": [],
-      "version": 1
-    },
-    {
-      "id": "IF-29",
-      "title": "Role-based access control with admin bootstrap token",
-      "synonyms": [
-        "AccessControl",
-        "MixinAuthorization",
-        "CAFFEINE_ADMIN_TOKEN"
-      ],
-      "description": "Provides admin/user/guest roles, permission checks on protected methods, and an initialization path using a server-provided admin token to assign the first admin (plus admin role assignment helpers).",
-      "reqIds": [],
-      "version": 1
-    },
-    {
-      "id": "IF-30",
-      "title": "Secret token extraction from URL hash with session persistence",
-      "synonyms": [
-        "getSecretParameter",
-        "Admin token handling"
-      ],
-      "description": "Utilities for reading sensitive parameters from the URL hash (not query string), persisting them in sessionStorage, and clearing them from the address bar to reduce leakage.",
-      "reqIds": [],
-      "version": 1
-    },
-    {
-      "id": "IF-31",
-      "title": "Agent Self-Onboarding protocol page with machine-parseable contract schemas",
-      "synonyms": [
-        "AgentSelfOnboardingPage",
-        "AgentSelfOnboardingContract"
-      ],
-      "description": "Publishes a dedicated onboarding page and embedded contract component containing deterministic, versioned JSON schema blocks for capability declaration, escrow expectations, execution guarantees, and settlement semantics.",
-      "reqIds": [],
-      "version": 1
-    },
-    {
-      "id": "IF-32",
-      "title": "Playbooks documentation with paired human guidance and machine specs",
-      "synonyms": [
-        "PlaybooksPage",
-        "Schemas and examples"
-      ],
-      "description": "Provides documentation-style sections that pair human-readable guidance with machine-parseable JSON-like specifications for job requests, structured outputs, payments/escrow, authentication, and agent collaboration.",
-      "reqIds": [],
-      "version": 1
-    },
-    {
-      "id": "IF-33",
-      "title": "Marketplace overview page plus capability sub-pages",
-      "synonyms": [
-        "MarketplacePage",
-        "Capability pages"
-      ],
-      "description": "Implements a marketplace overview narrative and dedicated sub-pages for task-driven agents, multi-agent collaboration, hiring/sourcing, long-running workflows, and human-in-the-loop controls.",
-      "reqIds": [],
-      "version": 1
-    },
-    {
-      "id": "IF-34",
-      "title": "Support page with donation address and embedded feedback",
-      "synonyms": [
-        "SupportPage",
-        "Copy-to-clipboard donations"
-      ],
-      "description": "Explains support channels and donation options (ICP/ckBTC), provides a copy-to-clipboard donation address UI, and includes a page-scoped comments/feedback section.",
-      "reqIds": [],
-      "version": 1
-    },
-    {
-      "id": "IF-35",
-      "title": "Simulated platform performance metrics",
-      "synonyms": [
-        "TrustedMetricsBar",
-        "usePlatformPerformanceMetrics"
-      ],
-      "description": "Generates deterministic, time-varying marketplace metrics (active agents, jobs completed, success rate, response time) that update periodically without backend calls.",
-      "reqIds": [],
-      "version": 1
-    },
-    {
-      "id": "IF-36",
-      "title": "Session-persisted agent-first mode toggle",
-      "synonyms": [
-        "Agent mode",
-        "useAgentFirstMode"
-      ],
-      "description": "Provides a sessionStorage-backed toggle used to switch some discovery/marketing framing between human and agent perspectives.",
-      "reqIds": [],
-      "version": 1
-    },
-    {
-      "id": "IF-37",
-      "title": "Reusable marketing components and centralized copy/terminology",
-      "synonyms": [
-        "MarketingSectionHeader",
-        "EXPLORE_DEMO_LAB_COPY",
-        "LEXICON"
-      ],
-      "description": "Includes reusable marketing section headers, centralized copy maps for Explore/Demo Lab, and a shared terminology lexicon (terms, preferred verbs, micro-statements) to keep narrative language consistent across pages.",
-      "reqIds": [],
-      "version": 1
-    },
-    {
-      "id": "feature-rewrite-the-vision-page-copy-in-frontend-src-pages-visionpage-tsx-to-match-the-provided-vision-draft-content-and-improve-it-for-consistency-and-readability-use-a-clear-modern-heading-hierarchy-h1-page-title-h2-major-sections-h3-sub-steps-in-examples-maintain-the-same-overall-narrative-and-examples-keep-the-tone-outcome-first-and-reduce-unnecessary-crypto-blockchain-jargon-e-g-prefer-plain-language-explanations-over-terms-like-on-chain-unless-essential",
-      "title": "Rewrite the Vision page copy in `frontend/src/pages/VisionPage.tsx` to match the provided “Vision” draft content and improve it for consistency and readability: use a clear, modern heading hierarchy (H1 page title, H2 major sections, H3 sub-steps in examples), maintain the same overall narrative and examples, keep the tone outcome-first, and reduce unnecessary crypto/blockchain jargon (e.g., prefer plain-language explanations over terms like “on-chain” unless essential).",
+      "id": "feature-refactor-frontend-src-pages-forgehomepage-tsx-to-render-exactly-3-major-homepage-sections-in-this-order-and-remove-all-other-current-homepage-sections-1-hero-value-primary-cta-merged-2-how-forge-works-accordion-preferred-3-live-marketplace-preview-final-cta-merged",
+      "title": "Refactor `frontend/src/pages/ForgeHomePage.tsx` to render exactly 3 major homepage sections in this order (and remove all other current homepage sections): (1) Hero + value + primary CTA (merged), (2) How Forge works (Accordion preferred), (3) Live marketplace preview + final CTA (merged).",
       "reqIds": [
         "REQ-1"
       ],
       "version": 1
     },
     {
-      "id": "feature-rewrite-only-the-homepage-hero-block-copy-in-frontend-src-pages-forgehomepage-tsx-headline-supporting-paragraph-and-the-italic-later-line-using-the-provided-hero-text-as-the-source-of-truth-for-meaning-do-not-modify-any-other-homepage-sections-ctas-or-structure-beyond-the-hero-copy-text",
-      "title": "Rewrite only the Homepage hero block copy in `frontend/src/pages/ForgeHomePage.tsx` (headline, supporting paragraph, and the italic “Later…” line) using the provided hero text as the source-of-truth for meaning; do not modify any other Homepage sections, CTAs, or structure beyond the hero copy text.",
+      "id": "feature-update-the-hero-section-in-frontend-src-pages-forgehomepage-tsx-to-follow-the-required-hero-rules-remove-min-h-screen-use-py-16-md-py-20-set-hero-container-width-to-max-w-5xl-include-forge-brand-mark-a-single-h1-that-contains-an-agent-marketplace-capability-marketplace-autonomous-ai-agents-keyword-concept-a-one-line-product-definition-outcome-driven-supporting-copy-two-primary-ctas-explore-agents-and-enter-marketplace-and-secondary-ctas-build-agent-and-start-building-add-a-light-trust-credibility-signal-within-the-hero-not-as-an-extra-large-section",
+      "title": "Update the Hero section in `frontend/src/pages/ForgeHomePage.tsx` to follow the required hero rules: remove `min-h-screen`; use `py-16 md:py-20`; set hero container width to `max-w-5xl`; include Forge brand mark, a single H1 that contains an \"agent marketplace / capability marketplace / autonomous AI agents\" keyword concept, a one-line product definition, outcome-driven supporting copy, two primary CTAs (\"Explore Agents\" and \"Enter Marketplace\"), and secondary CTAs (\"Build Agent\" and \"Start Building\"); add a light trust/credibility signal within the hero (not as an extra large section).",
       "reqIds": [
         "REQ-2"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-implement-section-2-as-a-compact-how-forge-works-accordion-mobile-first-with-exactly-the-three-required-capability-pillars-1-agent-discovery-2-workflow-orchestration-3-trust-settlement-apply-layout-rules-max-w-4xl-and-py-14-md-py-16-ensure-keyboard-navigation-and-aria-attributes-are-correct-for-the-accordion-triggers-content",
+      "title": "Implement Section 2 as a compact \"How Forge Works\" accordion (mobile-first) with exactly the three required capability pillars: (1) Agent Discovery, (2) Workflow Orchestration, (3) Trust + Settlement. Apply layout rules: `max-w-4xl` and `py-14 md:py-16`. Ensure keyboard navigation and ARIA attributes are correct for the accordion triggers/content.",
+      "reqIds": [
+        "REQ-3"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-implement-section-3-as-a-merged-live-marketplace-preview-with-contextual-placeholder-data-no-backend-dependency-plus-a-visually-dominant-final-cta-apply-layout-rules-marketplace-container-max-w-6xl-and-spacing-py-14-md-py-16-include-live-ecosystem-framing-copy-production-ready-autonomous-capability-economy-tone-and-a-final-dominant-cta-with-one-of-the-required-labels-enter-marketplace-start-using-forge-or-launch-your-agent",
+      "title": "Implement Section 3 as a merged \"Live marketplace\" preview with contextual placeholder data (no backend dependency) plus a visually dominant final CTA. Apply layout rules: marketplace container `max-w-6xl` and spacing `py-14 md:py-16`. Include \"live ecosystem\" framing copy (production-ready autonomous capability economy tone) and a final dominant CTA with one of the required labels (\"Enter Marketplace\", \"Start Using Forge\", or \"Launch Your Agent\").",
+      "reqIds": [
+        "REQ-4"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-apply-global-spacing-container-rules-across-the-homepage-refactor-replace-any-py-20-md-py-28-with-py-14-md-py-16-for-non-hero-sections-ensure-hero-uses-py-16-md-py-20-use-max-w-5xl-for-hero-max-w-4xl-for-the-accordion-content-section-and-max-w-6xl-for-the-marketplace-preview-section",
+      "title": "Apply global spacing/container rules across the homepage refactor: replace any `py-20 md:py-28` with `py-14 md:py-16` for non-hero sections; ensure hero uses `py-16 md:py-20`; use `max-w-5xl` for hero, `max-w-4xl` for the accordion content section, and `max-w-6xl` for the marketplace preview section.",
+      "reqIds": [
+        "REQ-5"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-reduce-homepage-motion-observer-cost-by-removing-unnecessary-usesectionentrymotion-usages-and-intersection-triggered-animations-for-deleted-sections-keep-motion-only-for-hero-entrance-capabilities-how-it-works-reveal-and-final-cta-emphasis-ensure-the-refactored-homepage-uses-no-more-than-3-section-entry-observers-total-and-respects-prefers-reduced-motion",
+      "title": "Reduce homepage motion/observer cost by removing unnecessary `useSectionEntryMotion` usages and intersection-triggered animations for deleted sections; keep motion only for: hero entrance, capabilities/how-it-works reveal, and final CTA emphasis. Ensure the refactored homepage uses no more than 3 section-entry observers total and respects `prefers-reduced-motion`.",
+      "reqIds": [
+        "REQ-6"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-ensure-semantic-structure-accessibility-and-seo-safety-on-the-refactored-homepage-use-main-containing-section-elements-no-duplicate-h1-use-meaningful-headings-h2-h3-per-section-add-aria-labels-where-needed-on-interactive-ctas-controls-maintain-wcag-aa-contrast-for-text-and-interactive-elements",
+      "title": "Ensure semantic structure, accessibility, and SEO safety on the refactored homepage: use `<main>` containing `<section>` elements; no duplicate H1; use meaningful headings (H2/H3) per section; add ARIA labels where needed on interactive CTAs/controls; maintain WCAG AA contrast for text and interactive elements.",
+      "reqIds": [
+        "REQ-7"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-follow-technical-safety-rule-for-imports-in-the-homepage-refactor-avoid-non-guaranteed-path-aliases-use-relative-imports-in-frontend-src-pages-forgehomepage-tsx-including-for-shadcn-accordion-components-unless-the-project-s-alias-configuration-is-already-confirmed-working-for-vite-builds",
+      "title": "Follow technical safety rule for imports in the homepage refactor: avoid non-guaranteed path aliases; use relative imports in `frontend/src/pages/ForgeHomePage.tsx` (including for shadcn accordion components) unless the project’s alias configuration is already confirmed working for Vite builds.",
+      "reqIds": [
+        "REQ-8"
       ],
       "version": 1
     }
@@ -432,37 +84,11 @@
   "new_feature_requests": [
     {
       "id": "AR-1",
-      "summary": "Rewrite/design review of the Vision page copy and Homepage hero block (end-to-end for Vision; hero-only for Homepage) to align with overall narrative, maintain balanced tone, use consistent modern heading hierarchy/subheadings, and avoid crypto jargon.",
+      "summary": "Refactor Forge AI homepage into 3-section layout (Hero+Value+CTAs, Capabilities accordion/tabs, Marketplace preview+final CTA) with optimized spacing, reduced scroll depth, performance-optimized motion/observers, accessibility + SEO-safe heading hierarchy; Next-compatible structure kept in mind while remaining Vite-ready React; marketplace uses contextual placeholder data.",
       "reqIds": [],
       "status": "in_progress"
     }
   ],
-  "architectural_notes": [
-    "Frontend is a SPA using TanStack Router with a RootLayout that centralizes global chrome, scroll behavior, and SEO/title updates.",
-    "Server state is managed with TanStack React Query (queries/mutations + targeted invalidation) over an identity-aware canister actor.",
-    "Authentication uses Internet Identity via @dfinity/auth-client, exposed through a React context/provider that restores identity on reload.",
-    "The frontend creates anonymous vs authenticated ICP actors depending on identity and performs an authorization bootstrap call after login.",
-    "Backend is a single Motoko canister that composes an authorization mixin over an AccessControl state (admin/user/guest) and exposes query/shared methods for app features.",
-    "Demo Lab “executions” are intentionally simulated in the frontend using template generators that emit an activity feed and structured deliverable payloads.",
-    "UX motion is organized around prefers-reduced-motion compliance plus IntersectionObserver-driven section entry reveals with configurable motion profiles.",
-    "SEO is handled via both static public artifacts (robots.txt, sitemap.xml) and runtime DOM meta tag updates (title/description/OG/Twitter).",
-    "CTA navigation adds a history state marker to conditionally show an in-app Back button while global scroll-to-top/restoration remains centralized.",
-    "Tailwind + shadcn/Radix primitives are used for UI composition, with a custom “Forge” design token system and reusable marketing components."
-  ],
-  "known_issues": [
-    "Comment upvoting is likely incorrect: the backend expects a numeric commentId (Nat) but getCommentsByPageContext returns comments without IDs; the frontend fabricates a BigInt ID from content+timestamp, which will not map to backend comment IDs.",
-    "Auth guard logic is flawed: useAuthGuard awaits login(), but the Internet Identity login function is void/callback-based; protected mutations may proceed before authentication completes.",
-    "Several React Query hooks (e.g., getCallerUserProfile, getLastForgedTask) are enabled whenever an actor exists, including anonymous actors; backend methods trap for unauthenticated callers, causing query errors/console noise unless gated by identity.",
-    "Motoko canister uses non-stable vars for counters and maps; without stable storage/migration, state can be lost or inconsistent across upgrades/reinstalls.",
-    "Backend authorization bootstrap traps if CAFFEINE_ADMIN_TOKEN is not configured in the canister environment, breaking initialization in misconfigured deployments.",
-    "AccessControl.getUserRole traps for principals not yet registered; callers must be initialized via _initializeAccessControlWithSecret before any permissioned method calls.",
-    "Support page copy-to-clipboard uses navigator.clipboard without a fallback; this may fail in some browser/security contexts.",
-    "Prompt template detection is keyword-based and includes overlapping terms (e.g., “sentiment” appears in both research/support heuristics), which can misclassify demo templates.",
-    "Developers-oriented pages include REST-like endpoint examples (POST /api/...) that are illustrative only; no HTTP API implementation exists in this codebase.",
-    "There are two Tailwind CSS entry files (frontend/src/index.css and frontend/index.css); the non-src file appears legacy and may confuse maintenance/build configuration."
-  ],
-  "isFixRequest": false,
-  "gameProjectType": "none",
   "projectName": "Forge AI",
   "clarification_mode": "instant",
   "clarification_rounds": 0

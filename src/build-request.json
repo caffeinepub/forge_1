@@ -1,60 +1,176 @@
 {
   "kind": "build_request",
-  "title": "Rewrite Vision page copy and Homepage hero block (leave rest of Homepage unchanged)",
+  "title": "Refactor Forge AI homepage into 3-section, high-density conversion layout with optimized motion/performance",
   "priority": "normal",
   "requirements": [
     {
       "id": "REQ-1",
-      "text": "Rewrite the Vision page copy in `frontend/src/pages/VisionPage.tsx` to match the provided “Vision” draft content and improve it for consistency and readability: use a clear, modern heading hierarchy (H1 page title, H2 major sections, H3 sub-steps in examples), maintain the same overall narrative and examples, keep the tone outcome-first, and reduce unnecessary crypto/blockchain jargon (e.g., prefer plain-language explanations over terms like “on-chain” unless essential).",
+      "text": "Refactor `frontend/src/pages/ForgeHomePage.tsx` to render exactly 3 major homepage sections in this order (and remove all other current homepage sections): (1) Hero + value + primary CTA (merged), (2) How Forge works (Accordion preferred), (3) Live marketplace preview + final CTA (merged).",
       "target": "frontend",
       "source": {
         "messageIds": [
-          "msg-vision-paste",
-          "msg-yes-confirm"
+          "msg-1",
+          "msg-2"
         ],
         "quotes": [
-          "This the vision section: Vision ... (full Vision copy pasted)",
-          "Yes"
+          "Final sections should be: Hero + Value + CTA / Capabilities (Accordion) / Marketplace + Final CTA",
+          "Entire homepage = 2–3 screens total… Create more than 3 major homepage sections"
         ]
       },
       "acceptanceCriteria": [
-        "Vision page renders without layout regressions and remains fully readable/scannable with a consistent heading structure across sections and example steps.",
-        "All user-facing text on `/vision` is updated to the rewritten version; no placeholder/lorem text remains.",
-        "Rewrite keeps the same core sections and examples (Legal Action Orchestration, Supply Chain Verification, Market Research with Field Verification, AI as Infrastructure, Lifecycle, Why ICP is the Ideal Platform, Marketplace as Operating System) while improving clarity and reducing jargon.",
-        "No changes are made to routing, authentication, backend, or non-copy UI behavior."
+        "Navigating to the homepage shows only 3 major sections (Hero, How it works accordion, Marketplace preview + final CTA).",
+        "All removed sections/components are no longer imported or rendered from `ForgeHomePage.tsx` (e.g., persona blocks, future vision/narrative sections, extra marketing blocks).",
+        "The homepage content fits within ~2–3 typical laptop/desktop screens at 100% zoom (no long narrative scroll)."
       ]
     },
     {
       "id": "REQ-2",
-      "text": "Rewrite only the Homepage hero block copy in `frontend/src/pages/ForgeHomePage.tsx` (headline, supporting paragraph, and the italic “Later…” line) using the provided hero text as the source-of-truth for meaning; do not modify any other Homepage sections, CTAs, or structure beyond the hero copy text.",
+      "text": "Update the Hero section in `frontend/src/pages/ForgeHomePage.tsx` to follow the required hero rules: remove `min-h-screen`; use `py-16 md:py-20`; set hero container width to `max-w-5xl`; include Forge brand mark, a single H1 that contains an \"agent marketplace / capability marketplace / autonomous AI agents\" keyword concept, a one-line product definition, outcome-driven supporting copy, two primary CTAs (\"Explore Agents\" and \"Enter Marketplace\"), and secondary CTAs (\"Build Agent\" and \"Start Building\"); add a light trust/credibility signal within the hero (not as an extra large section).",
       "target": "frontend",
       "source": {
         "messageIds": [
-          "msg-hero-paste",
-          "msg-yes-confirm"
+          "msg-1",
+          "msg-2"
         ],
         "quotes": [
-          "Home page: Hero: Forge AI Humans Ask. AI Delivers. Request an outcome... Later: when physical constraints arise, agents may hire humans to complete real-world steps.",
-          "Yes"
+          "SECTION 1 — HERO + VALUE + PRIMARY CTA (MERGED)… Must Include… One-line Product Definition… Two primary CTAs… Light trust or credibility signal",
+          "Layout Rules DO NOT USE: min-h-screen; USE: py-16 md:py-20",
+          "Hero Must Contain H1 with primary keyword concept… No duplicate H1 usage"
         ]
       },
       "acceptanceCriteria": [
-        "Only hero text content changes on the Homepage; all other Homepage sections remain byte-for-byte unchanged except for any necessary formatting to support the new hero copy.",
-        "Homepage hero preserves the same intent: outcome-first positioning, agent orchestration, and the future human-hiring teaser line.",
-        "No CTA destinations or button labels are changed unless required solely to match the rewritten hero copy (prefer keeping existing labels)."
+        "Hero section does not use `min-h-screen` and uses `py-16 md:py-20`.",
+        "Hero content is constrained to `max-w-5xl` and CTAs are visible within the first screen on common viewport sizes.",
+        "There is exactly one H1 on the homepage and it includes a primary keyword concept (e.g., capability marketplace / agent marketplace / autonomous AI agents).",
+        "Hero includes: brand mark, one-line definition, outcome-driven message, 2 primary CTAs (Explore Agents, Enter Marketplace), and 2 secondary CTAs (Build Agent, Start Building).",
+        "A trust/credibility element is present in the hero (e.g., short compliance/trust bullets or metrics) without adding a new major homepage section."
+      ]
+    },
+    {
+      "id": "REQ-3",
+      "text": "Implement Section 2 as a compact \"How Forge Works\" accordion (mobile-first) with exactly the three required capability pillars: (1) Agent Discovery, (2) Workflow Orchestration, (3) Trust + Settlement. Apply layout rules: `max-w-4xl` and `py-14 md:py-16`. Ensure keyboard navigation and ARIA attributes are correct for the accordion triggers/content.",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-1"
+        ],
+        "quotes": [
+          "SECTION 2 — HOW FORGE WORKS (ACCORDION OR TABS)… Accordion preferred for mobile… Required Capability Pillars…",
+          "Layout Rules Max width: max-w-4xl; Padding: py-14 md:py-16",
+          "ARIA labels on interactive components; Accordion keyboard navigation"
+        ]
+      },
+      "acceptanceCriteria": [
+        "Section 2 uses an accordion UI (preferred) and contains exactly three items: Agent Discovery, Workflow Orchestration, Trust + Settlement.",
+        "Section 2 container is `max-w-4xl` and spacing is `py-14 md:py-16`.",
+        "Accordion can be operated fully with keyboard (tab/focus + enter/space) and does not fail accessibility checks for basic ARIA semantics."
+      ]
+    },
+    {
+      "id": "REQ-4",
+      "text": "Implement Section 3 as a merged \"Live marketplace\" preview with contextual placeholder data (no backend dependency) plus a visually dominant final CTA. Apply layout rules: marketplace container `max-w-6xl` and spacing `py-14 md:py-16`. Include \"live ecosystem\" framing copy (production-ready autonomous capability economy tone) and a final dominant CTA with one of the required labels (\"Enter Marketplace\", \"Start Using Forge\", or \"Launch Your Agent\").",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-1",
+          "msg-2"
+        ],
+        "quotes": [
+          "SECTION 3 — LIVE MARKETPLACE + FINAL CTA (MERGED)… Must Include Marketplace preview component… “Live ecosystem” framing… Final CTA Must be visually dominant",
+          "Place holder with contextual placeholder data"
+        ]
+      },
+      "acceptanceCriteria": [
+        "Section 3 includes a marketplace preview UI populated from in-file placeholder data (e.g., sample agents/capabilities/ratings/pricing/settlement readiness) and does not require any backend calls to render.",
+        "Section 3 uses `max-w-6xl` and `py-14 md:py-16`.",
+        "A visually dominant final CTA is present and uses one of the specified labels; clicking navigates to an appropriate existing route (e.g., `/marketplace`)."
+      ]
+    },
+    {
+      "id": "REQ-5",
+      "text": "Apply global spacing/container rules across the homepage refactor: replace any `py-20 md:py-28` with `py-14 md:py-16` for non-hero sections; ensure hero uses `py-16 md:py-20`; use `max-w-5xl` for hero, `max-w-4xl` for the accordion content section, and `max-w-6xl` for the marketplace preview section.",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-1"
+        ],
+        "quotes": [
+          "Replace Everywhere py-20 md:py-28 With py-14 md:py-16",
+          "Container Rules Hero: max-w-5xl; Content: max-w-4xl; Marketplace: max-w-6xl"
+        ]
+      },
+      "acceptanceCriteria": [
+        "No homepage sections (other than hero) use `py-20 md:py-28`.",
+        "Hero uses `py-16 md:py-20` and `max-w-5xl` container; Section 2 uses `max-w-4xl`; Section 3 uses `max-w-6xl`."
+      ]
+    },
+    {
+      "id": "REQ-6",
+      "text": "Reduce homepage motion/observer cost by removing unnecessary `useSectionEntryMotion` usages and intersection-triggered animations for deleted sections; keep motion only for: hero entrance, capabilities/how-it-works reveal, and final CTA emphasis. Ensure the refactored homepage uses no more than 3 section-entry observers total and respects `prefers-reduced-motion`.",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-1"
+        ],
+        "quotes": [
+          "Reduce motion observers by 50–70%… Remove unnecessary intersection triggers",
+          "KEEP Motion On Hero entrance… Capabilities section reveal… Final CTA emphasis",
+          "REMOVE Motion From Narrative storytelling sections… Long feature marketing blocks"
+        ]
+      },
+      "acceptanceCriteria": [
+        "`ForgeHomePage.tsx` registers at most 3 `useSectionEntryMotion` observers (or equivalent section-entry observers).",
+        "Deleted narrative/persona/future-vision sections do not retain any motion hooks/observers.",
+        "When the OS/browser has reduced motion enabled, sections render without requiring intersection entry to become visible."
+      ]
+    },
+    {
+      "id": "REQ-7",
+      "text": "Ensure semantic structure, accessibility, and SEO safety on the refactored homepage: use `<main>` containing `<section>` elements; no duplicate H1; use meaningful headings (H2/H3) per section; add ARIA labels where needed on interactive CTAs/controls; maintain WCAG AA contrast for text and interactive elements.",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-1"
+        ],
+        "quotes": [
+          "Must Include: Semantic landmarks: <header> <main> <section> <footer>",
+          "Hero Must Contain H1… No duplicate H1 usage",
+          "Minimum contrast ratio WCAG AA",
+          "ARIA labels on interactive components"
+        ]
+      },
+      "acceptanceCriteria": [
+        "Homepage has exactly one H1 and a logical heading hierarchy for subsequent sections.",
+        "Interactive elements (CTAs, accordion triggers) have accessible names and are keyboard reachable.",
+        "No structural accessibility regressions introduced by the refactor (landmarks and sections remain semantic)."
+      ]
+    },
+    {
+      "id": "REQ-8",
+      "text": "Follow technical safety rule for imports in the homepage refactor: avoid non-guaranteed path aliases; use relative imports in `frontend/src/pages/ForgeHomePage.tsx` (including for shadcn accordion components) unless the project’s alias configuration is already confirmed working for Vite builds.",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-1"
+        ],
+        "quotes": [
+          "If using aliases… ensure config exists… If not guaranteed → use relative imports only."
+        ]
+      },
+      "acceptanceCriteria": [
+        "`ForgeHomePage.tsx` builds without path resolution errors in Vite.",
+        "If aliases are not guaranteed, accordion and other imports are expressed with relative paths."
       ]
     }
   ],
   "constraints": [
-    "Use English for all user-facing text.",
-    "Do not change any other Homepage content outside the hero block in `frontend/src/pages/ForgeHomePage.tsx`.",
-    "Frontend immutable paths must not be edited: `frontend/src/hooks/useInternetIdentity.ts`, `frontend/src/hooks/useInternetIdentity.tsx`, `frontend/src/hooks/useActor.ts`, `frontend/src/main.tsx`, `frontend/src/components/ui`.",
-    "Do not introduce new backend features; this request is copy-only."
+    "Frontend immutable paths must not be edited: `frontend/src/hooks/useInternetIdentity.ts`, `frontend/src/hooks/useInternetIdentity.tsx`, `frontend/src/hooks/useActor.ts`, `frontend/src/main.tsx`, and anything under `frontend/src/components/ui`.",
+    "Backend must remain single-actor; no new backend services."
   ],
   "nonGoals": [
-    "Fixing known issues in comments upvoting, auth guard flow, or React Query anonymous-actor gating.",
-    "Changing SEO route maps, sitemap, or robots.txt beyond what is strictly needed for the copy rewrite.",
-    "Redesigning page layouts, navigation, or adding new sections to the Homepage."
+    "Implementing real marketplace data fetching or integrating new backend endpoints for the marketplace preview (placeholder data only).",
+    "Adding additional homepage sections beyond the required 3 major sections.",
+    "Introducing heavy parallax, full-viewport lock sections, autoplay-heavy animation, or multiple stacked motion wrappers."
   ],
   "imageRequirements": {
     "required": [],

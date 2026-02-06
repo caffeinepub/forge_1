@@ -202,6 +202,20 @@
         box-shadow: 0 0 16px oklch(var(--forge-glow) / 0.18);
         transition: box-shadow var(--motion-duration-normal) var(--motion-easing-standard);
     }
+
+    /* Impact statement styling - ghost purple with accessible emphasis */
+    .forge-impact-statement {
+        color: oklch(var(--primary));
+        text-decoration: underline;
+        text-decoration-color: oklch(var(--primary) / 0.3);
+        text-decoration-thickness: 2px;
+        text-underline-offset: 4px;
+        transition: all var(--motion-duration-normal) var(--motion-easing-standard);
+    }
+
+    .forge-impact-statement:hover {
+        text-decoration-color: oklch(var(--primary) / 0.6);
+    }
     
     /* Ultra-slow ambient background gradient drift */
     .forge-ambient-drift {
@@ -811,6 +825,11 @@
 
         /* Disable dependency path animation */
         .forge-dependency-path::before {
+            transition: none !important;
+        }
+
+        /* Disable impact statement transitions */
+        .forge-impact-statement {
             transition: none !important;
         }
     }
